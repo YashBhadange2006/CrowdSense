@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -57,9 +58,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    implementation(platform("com.google.firebase:firebase-bom:34.10.0"))
+    implementation("com.google.firebase:firebase-database")
     // Map dependency
     implementation("org.osmdroid:osmdroid-android:6.1.20")
 
+    implementation("ch.hsr:geohash:1.4.0")
+
+    implementation("ch.hsr:geohash:1.4.0")
     // Location dependency
     implementation("com.google.android.gms:play-services-location:21.3.0")
 
