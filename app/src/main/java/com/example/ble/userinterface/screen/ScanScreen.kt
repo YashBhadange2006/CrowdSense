@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateColorAsState
@@ -32,6 +33,8 @@ import com.example.ble.bluetooth.BleDevice
 import com.example.ble.bluetooth.BleScanner
 import com.example.ble.bluetooth.CrowdScore
 import com.example.ble.bluetooth.DensityLevel
+import com.example.ble.util.LocationHelper
+import org.osmdroid.util.GeoPoint
 
 // ── Colour tokens ─────────────────────────────────────────────────────────────
 private val BgDeep      = Color(0xFF0A0E14)
@@ -74,7 +77,8 @@ fun ScanScreen(onPermissionsGranted: () -> Unit = {}) {
         arrayOf(
             Manifest.permission.BLUETOOTH_SCAN,
             Manifest.permission.BLUETOOTH_CONNECT,
-            Manifest.permission.BLUETOOTH_ADVERTISE
+            Manifest.permission.BLUETOOTH_ADVERTISE,
+            Manifest.permission.ACCESS_FINE_LOCATION
         )
     } else {
         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -97,6 +101,15 @@ fun ScanScreen(onPermissionsGranted: () -> Unit = {}) {
             onCrowdScoreUpdated = { crowdScore = it }
         )
     }
+
+
+    LaunchedEffect(Unit) {
+        LocationHelper.getLastLocation(context) { lat, lon ->
+            Log.d("Location", "Got fix: $lat, $lon")
+            scanner.currentLocation = GeoPoint(lat, lon)
+        }
+    }
+
 
     // Pulse animation for scanning dot
     val pulseAnim = rememberInfiniteTransition(label = "pulse")

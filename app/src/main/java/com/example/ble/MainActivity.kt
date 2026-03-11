@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.ble.bluetooth.BleAdvertiser
 import com.example.ble.userinterface.screen.ScanScreen
+import com.google.firebase.FirebaseApp
 
 private val BgDeep = Color(0xFF0A0E14)
 

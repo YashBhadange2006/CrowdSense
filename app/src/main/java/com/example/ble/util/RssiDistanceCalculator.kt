@@ -10,7 +10,9 @@ object RssiDistanceCalculator {
     fun calculateDistance(rssi: Int, txPower: Int = DEFAULT_TX_POWER): Double {
         if (rssi == 0) return -1.0
         //Log-Distance Path Loss Model - Calculate the dist btw transmitter and receiver
-        return 10.0.pow((txPower - rssi) / (10.0 * N))
+        val distance =  10.0.pow((txPower - rssi) / (10.0 * N))
+
+        return distance.coerceAtMost(100.0)
 
     }
 
