@@ -10,9 +10,11 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.example.ble.FirebaseUploader
 import com.example.ble.util.CellularSignalData
 import com.example.ble.util.CellularSignalMonitor
 import com.example.ble.util.RssiDistanceCalculator
+import org.osmdroid.util.GeoPoint
 
 
 data class CrowdScore(
@@ -31,9 +33,11 @@ enum class DensityLevel { LOW, MEDIUM, HIGH, DANGER }
 class BleScanner(
     context: Context,
     private val onDeviceFound: (List<BleDevice>) -> Unit,
-    private val onCrowdScoreUpdated: (CrowdScore) -> Unit
+    private val onCrowdScoreUpdated: (CrowdScore) -> Unit,
+    private val userId: String = "anon_${System.currentTimeMillis()}"
 ) {
 
+    var currentLocation: GeoPoint? = null
     private val bluetoothManager =
         context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
 
@@ -86,6 +90,11 @@ class BleScanner(
      * Combines BLE device data + cellular signal data into one CrowdScore.
      * This is the central aggregation point for all signals.
      */
+
+
+    private var lastUploadTime = 0L
+    private val UPLOAD_INTERVAL = 30 * 1000L // 5 * 60 * 1000L  // 5 minutes
+
     @RequiresApi(Build.VERSION_CODES.P)
     private fun computeAndEmitCrowdScore(devices: List<BleDevice>) {
 
@@ -130,6 +139,19 @@ class BleScanner(
         )
 
         onCrowdScoreUpdated(crowdScore)
+        val now = System.currentTimeMillis()
+        if (now - lastUploadTime >= UPLOAD_INTERVAL) {
+            lastUploadTime = now
+            currentLocation?.let { location ->
+                FirebaseUploader.uploadReading(
+                    crowdScore = crowdScore,
+                    location = location,
+                    userId = userId
+                )
+            }
+        }
+
+        Log.d("Firebase", "Location: $currentLocation, lastUpload: $lastUploadTime")
     }
     @SuppressLint("MissingPermission")
     fun startContinuousScan(reportInterval: Long = 30_000) {
