@@ -1,5 +1,9 @@
 package com.example.ble
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,27 +15,22 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.ble.bluetooth.BleAdvertiser
-import com.example.ble.bluetooth.BleScanner
+import com.example.ble.bluetooth.BleDevice
 import com.example.ble.bluetooth.CrowdScore
-import com.example.ble.bluetooth.DensityLevel
 import com.example.ble.userinterface.screen.*
 import org.osmdroid.util.GeoPoint
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.BarChart
-import androidx.compose.material.icons.filled.BugReport
-import androidx.compose.ui.unit.dp
+import androidx.compose.material.icons.filled.*
 
 private val BgDeep = Color(0xFF0A0E14)
 private val NavBg  = Color(0xFF0D1520)
-private val NavBorder = Color(0xFF1E2D3D)
 
 sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
     object Home     : Screen("home",     "Home",     Icons.Filled.Home)
@@ -42,35 +41,53 @@ sealed class Screen(val route: String, val label: String, val icon: ImageVector)
 
 class MainActivity : ComponentActivity() {
 
-    private lateinit var bleAdvertiser: BleAdvertiser
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        bleAdvertiser = BleAdvertiser(this)
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermissions(
+                    arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION),
+                    1001
+                )
+            }
+        }
 
         setContent {
-            // Shared state across all screens
-            var devices    by remember { mutableStateOf(listOf<com.example.ble.bluetooth.BleDevice>()) }
-            var crowdScore by remember { mutableStateOf<CrowdScore?>(null) }
-            var location   by remember { mutableStateOf<GeoPoint?>(null) }
-            var isScanning by remember { mutableStateOf(false) }
+            var devices      by remember { mutableStateOf(CrowdSenseService.latestDevices) }
+            var crowdScore   by remember { mutableStateOf(CrowdSenseService.latestScore) }
+            var location     by remember { mutableStateOf<GeoPoint?>(null) }
+            var remotePoints by remember { mutableStateOf<List<RemoteCrowdPoint>>(emptyList()) }
 
-            val scanner = remember {
-                BleScanner(
-                    context             = this,
-                    onDeviceFound       = { devices = it },
-                    onCrowdScoreUpdated = { crowdScore = it }
-                )
+            // Wire service callbacks to UI state
+            DisposableEffect(Unit) {
+                CrowdSenseService.onDeviceUpdate = { devices = it }
+                CrowdSenseService.onScoreUpdate  = { crowdScore = it }
+                onDispose {
+                    CrowdSenseService.onDeviceUpdate = null
+                    CrowdSenseService.onScoreUpdate  = null
+                }
+            }
+
+            // Firebase listener at app level — never interrupted by navigation
+            LaunchedEffect(Unit) {
+                FirebaseReader.listenToLatest { points ->
+                    remotePoints = points
+                }
+            }
+            DisposableEffect(Unit) {
+                onDispose { FirebaseReader.stopListening() }
             }
 
             val navController = rememberNavController()
-            val items = listOf(
-                Screen.Home,
-                Screen.Search,
-                Screen.Insights,
-                Screen.Dev
-            )
+            val items = listOf(Screen.Home, Screen.Search, Screen.Insights, Screen.Dev)
+
+            // Read isRunning as state so Compose reacts to changes
+            val isRunning = CrowdSenseService.isRunning
 
             Box(
                 modifier = Modifier
@@ -82,8 +99,7 @@ class MainActivity : ComponentActivity() {
                     bottomBar = {
                         NavigationBar(
                             containerColor = NavBg,
-                            tonalElevation = 0.dp,
-                            modifier = Modifier.background(NavBg)
+                            tonalElevation = 0.dp
                         ) {
                             val navBackStackEntry by navController.currentBackStackEntryAsState()
                             val currentRoute = navBackStackEntry?.destination?.route
@@ -135,12 +151,10 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable(Screen.Home.route) {
                             HomeScreen(
-                                crowdScore   = crowdScore,
-                                devices      = devices,
-                                isScanning   = isScanning,
-                                onPermissionsGranted = {
-                                    bleAdvertiser.startAdvertising()
-                                },
+                                crowdScore           = crowdScore,
+                                devices              = devices,
+                                isScanning           = isRunning,
+                                onPermissionsGranted = { }
                             )
                         }
                         composable(Screen.Search.route) {
@@ -153,13 +167,10 @@ class MainActivity : ComponentActivity() {
                             DevScreen(
                                 devices      = devices,
                                 crowdScore   = crowdScore,
-                                isScanning   = isScanning,
-                                scanner      = scanner,
-                                location     = location,
-                                onPermissionsGranted = {
-                                    bleAdvertiser.startAdvertising()
-                                },
-                                onScanningChanged = { isScanning = it }
+                                isScanning   = isRunning,
+                                remotePoints = remotePoints,
+                                onStopScan   = { stopCrowdService() },
+                                onStartScan  = { startCrowdService() }
                             )
                         }
                     }
@@ -168,8 +179,18 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    private fun startCrowdService() {
+        if (CrowdSenseService.isRunning) return
+        val intent = Intent(this, CrowdSenseService::class.java)
+        ContextCompat.startForegroundService(this, intent)
+    }
+
+    private fun stopCrowdService() {
+        stopService(Intent(this, CrowdSenseService::class.java))
+    }
+
+    // Nothing in onDestroy — service manages its own lifecycle
     override fun onDestroy() {
         super.onDestroy()
-        bleAdvertiser.stopAdvertising()
     }
 }
