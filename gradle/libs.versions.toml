@@ -14,6 +14,7 @@ material3 = "1.4.0"
 ui = "1.10.3"
 uiTooling = "1.10.3"
 uiToolingPreview = "1.10.3"
+navigationComposeAndroid = "2.9.7"
 
 [libraries]
 androidx-activity-compose-v1124 = { module = "androidx.activity:activity-compose", version.ref = "activityComposeVersion" }
@@ -36,6 +37,7 @@ material3 = { module = "androidx.compose.material3:material3", version.ref = "ma
 ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
+androidx-navigation-compose-android = { group = "androidx.navigation", name = "navigation-compose-android", version.ref = "navigationComposeAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

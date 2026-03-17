@@ -93,7 +93,7 @@ class BleScanner(
 
 
     private var lastUploadTime = 0L
-    private val UPLOAD_INTERVAL = 30 * 1000L // 5 * 60 * 1000L  // 5 minutes
+    private val UPLOAD_INTERVAL = 5 * 60 * 1000L  // 5 minutes
 
     @RequiresApi(Build.VERSION_CODES.P)
     private fun computeAndEmitCrowdScore(devices: List<BleDevice>) {
