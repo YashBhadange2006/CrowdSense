@@ -66,12 +66,23 @@ private fun DensityLevel.label() = when (this) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 @Composable
-fun ScanScreen(onPermissionsGranted: () -> Unit = {}) {
+fun ScanScreen(
+    onPermissionsGranted : () -> Unit = {},
+    externalIsScanning   : Boolean? = null,        // ← add
+    onStartScan          : () -> Unit = {},         // ← add
+    onStopScan           : () -> Unit = {},         // ← add
+    externalDevices      : List<BleDevice>? = null, // ← add
+    externalCrowdScore   : CrowdScore? = null       // ← add
+){
     val context = LocalContext.current
 
-    var devices    by remember { mutableStateOf(listOf<BleDevice>()) }
-    var crowdScore by remember { mutableStateOf<CrowdScore?>(null) }
-    var isScanning by remember { mutableStateOf(false) }
+    var localDevices    by remember { mutableStateOf(listOf<BleDevice>()) }
+    var localCrowdScore by remember { mutableStateOf<CrowdScore?>(null) }
+    var localIsScanning by remember { mutableStateOf(false) }
+
+    var devices    = externalDevices    ?: localDevices
+    var crowdScore = externalCrowdScore ?: localCrowdScore
+    var isScanning = externalIsScanning ?: localIsScanning
 
     val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         arrayOf(
@@ -87,7 +98,10 @@ fun ScanScreen(onPermissionsGranted: () -> Unit = {}) {
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { results ->
-        if (results.values.all { it }) onPermissionsGranted()
+        if (results.values.all { it }) {
+            onPermissionsGranted()
+            onStartScan()
+        }
     }
 
     LaunchedEffect(Unit) {
@@ -95,18 +109,20 @@ fun ScanScreen(onPermissionsGranted: () -> Unit = {}) {
     }
 
     val scanner = remember {
-        BleScanner(
-            context             = context,
-            onDeviceFound       = { devices = it },
-            onCrowdScoreUpdated = { crowdScore = it }
-        )
+        if (externalDevices == null) {
+            BleScanner(
+                context             = context,
+                onDeviceFound       = { localDevices = it },
+                onCrowdScoreUpdated = { localCrowdScore = it }
+            )
+        } else null
     }
 
 
     LaunchedEffect(Unit) {
         LocationHelper.getLastLocation(context) { lat, lon ->
             Log.d("Location", "Got fix: $lat, $lon")
-            scanner.currentLocation = GeoPoint(lat, lon)
+            scanner?.currentLocation = GeoPoint(lat, lon)
         }
     }
 
@@ -191,13 +207,23 @@ fun ScanScreen(onPermissionsGranted: () -> Unit = {}) {
                     onClick = {
                         if (hasPermissions(context, permissions)) {
                             if (isScanning) {
-                                scanner.stopScan()
-                                isScanning = false
+                                // Use service stop if available, else local scanner
+                                if (externalIsScanning != null) {
+                                    onStopScan()
+                                } else {
+                                    scanner?.stopScan()
+                                    localIsScanning = false
+                                }
                             } else {
-                                devices    = emptyList()
-                                crowdScore = null
-                                scanner.startContinuousScan()
-                                isScanning = true
+                                // Use service start if available, else local scanner
+                                if (externalIsScanning != null) {
+                                    onStartScan()
+                                } else {
+                                    localDevices    = emptyList()
+                                    localCrowdScore = null
+                                    scanner?.startContinuousScan()
+                                    localIsScanning = true
+                                }
                             }
                         } else {
                             permissionLauncher.launch(permissions)
