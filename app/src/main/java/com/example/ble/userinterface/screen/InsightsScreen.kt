@@ -43,9 +43,9 @@ private val AccentCyan = Color(0xFF00E5FF)
 
 private fun scoreColor(score: Float) = when {
     score == 0f  -> Color(0xFF2A3A4A)   // no data — dim blue
-    score < 3f   -> Color(0xFF00FF9C)
-    score < 7f   -> Color(0xFFFFB800)
-    score < 12f  -> Color(0xFFFF7A00)
+    score < 10f  -> Color(0xFF00FF9C)
+    score < 25f  -> Color(0xFFFFB800)
+    score < 45f  -> Color(0xFFFF7A00)
     else         -> Color(0xFFFF3B3B)
 }
 

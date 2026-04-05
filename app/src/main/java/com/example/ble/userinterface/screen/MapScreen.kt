@@ -214,10 +214,10 @@ private fun drawSpreadingBlob(
     level   : DensityLevel?
 ) {
     val radius = when (level) {
-        DensityLevel.LOW    -> 18.0
-        DensityLevel.MEDIUM -> 28.0
-        DensityLevel.HIGH   -> 38.0
-        DensityLevel.DANGER -> 50.0
+        DensityLevel.LOW    -> 8.0
+        DensityLevel.MEDIUM -> 15.0
+        DensityLevel.HIGH   -> 30.0
+        DensityLevel.DANGER -> 45.0
         null                -> 20.0
     }
 

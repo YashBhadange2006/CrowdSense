@@ -97,7 +97,7 @@ class BleScanner(
 
 
     private var lastUploadTime = 0L
-    private val UPLOAD_INTERVAL = 15 * 60 * 1000L  // 15 minutes
+    private val UPLOAD_INTERVAL = 1 * 60 * 1000L  // 15 minutes
 
     @RequiresApi(Build.VERSION_CODES.P)
     private fun computeAndEmitCrowdScore(devices: List<BleDevice>) {
@@ -135,9 +135,9 @@ class BleScanner(
             avgRssi = avgRssi,
             cellularPressure = cellularData?.crowdPressureScore ?: 0f,
             level = when {
-                finalScore < 3f  -> DensityLevel.LOW
-                finalScore < 7f  -> DensityLevel.MEDIUM
-                finalScore < 12f -> DensityLevel.HIGH
+                finalScore < 10f -> DensityLevel.LOW
+                finalScore < 25f -> DensityLevel.MEDIUM
+                finalScore < 45f -> DensityLevel.HIGH
                 else             -> DensityLevel.DANGER
             }
         )
