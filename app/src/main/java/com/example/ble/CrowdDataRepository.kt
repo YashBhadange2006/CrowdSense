@@ -2,6 +2,10 @@ package com.example.ble
 
 import android.util.Log
 import com.google.firebase.database.*
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import kotlin.math.*
 
 
@@ -14,6 +18,89 @@ data class PredictionResult(
 )
 
 object CrowdDataRepository {
+
+    private val fmtTime = SimpleDateFormat("HH:mm", Locale.ENGLISH)
+    private val fmtDateTime = SimpleDateFormat("d MMM yyyy, HH:mm", Locale.ENGLISH)
+    private val fmtDayMonth = SimpleDateFormat("d MMM", Locale.ENGLISH)
+
+    private val fmtDateOnly = SimpleDateFormat("d MMM yyyy", Locale.ENGLISH)
+
+    /** First → last reading time span for chart headers. */
+    fun readingsTimeWindowLabel(readings: List<CrowdReading>): String {
+        if (readings.isEmpty()) return ""
+        val sorted = readings.sortedBy { it.timestamp }
+        val a = sorted.first().timestamp
+        val b = sorted.last().timestamp
+        return if (a == b) fmtDateTime.format(Date(a))
+        else "${fmtDateTime.format(Date(a))} → ${fmtDateTime.format(Date(b))}"
+    }
+
+    /** Short chart mode label for UI (user-facing). */
+    fun chartModeShortLabel(view: TimeView): String = when (view) {
+        TimeView.HOUR  -> "5-minute slots"
+        TimeView.DAY   -> "Local hour"
+        TimeView.MONTH -> "Calendar days"
+    }
+
+    /** How old the latest sample is — helps users judge trust. */
+    fun dataFreshnessUserLine(readings: List<CrowdReading>, nowMs: Long = System.currentTimeMillis()): String {
+        if (readings.isEmpty()) return "No data yet"
+        val latest = readings.maxOf { it.timestamp }
+        val ageMin = ((nowMs - latest) / 60_000L).toInt().coerceAtLeast(0)
+        return when {
+            ageMin <= 1  -> "Live — updated moments ago"
+            ageMin < 10  -> "Updated ~${ageMin} min ago"
+            ageMin < 60  -> "Updated ~${ageMin} min ago"
+            ageMin < 180 -> "Getting older (~${ageMin / 60} h) — use as a guide only"
+            else         -> "Stale (~${ageMin / 60} h+) — check again before you travel"
+        }
+    }
+
+    /** Station charts: pull readings near the stop (GPS vs OSM geohash often differ). */
+    const val STATION_NEARBY_RADIUS_M = 700.0
+
+    /** Merge Firebase pulls (e.g. exact geohash + radius) without duplicate points. */
+    fun mergeReadingsDeduped(vararg batches: List<CrowdReading>, limit: Int = 500): List<CrowdReading> {
+        val cap = limit.coerceAtLeast(1)
+        return batches.asSequence()
+            .flatMap { it.asSequence() }
+            .distinctBy { Triple(it.timestamp, it.lat, it.lng) }
+            .sortedBy { it.timestamp }
+            .toList()
+            .takeLast(cap)
+    }
+
+    private fun startOfDayUtcMillis(ts: Long): Long {
+        val c = Calendar.getInstance()
+        c.timeInMillis = ts
+        c.set(Calendar.HOUR_OF_DAY, 0)
+        c.set(Calendar.MINUTE, 0)
+        c.set(Calendar.SECOND, 0)
+        c.set(Calendar.MILLISECOND, 0)
+        return c.timeInMillis
+    }
+
+    private fun addDaysMillis(dayStart: Long, days: Int): Long {
+        val c = Calendar.getInstance()
+        c.timeInMillis = dayStart
+        c.add(Calendar.DAY_OF_MONTH, days)
+        return c.timeInMillis
+    }
+
+    private fun sameCalendarDay(a: Long, b: Long): Boolean {
+        val ca = java.util.Calendar.getInstance().apply { timeInMillis = a }
+        val cb = java.util.Calendar.getInstance().apply { timeInMillis = b }
+        return ca.get(java.util.Calendar.YEAR) == cb.get(java.util.Calendar.YEAR) &&
+            ca.get(java.util.Calendar.DAY_OF_YEAR) == cb.get(java.util.Calendar.DAY_OF_YEAR)
+    }
+
+    private fun bucketSamplesLabel(minTs: Long, maxTs: Long): String {
+        if (!sameCalendarDay(minTs, maxTs)) {
+            return "${fmtDateTime.format(Date(minTs))} → ${fmtDateTime.format(Date(maxTs))}"
+        }
+        return if (minTs == maxTs) fmtDateTime.format(Date(minTs))
+        else "${fmtTime.format(Date(minTs))}–${fmtTime.format(Date(maxTs))}"
+    }
 
     private val db = FirebaseDatabase
         .getInstance("https://crowdsense-4c6d9-default-rtdb.asia-southeast1.firebasedatabase.app")
@@ -90,6 +177,52 @@ object CrowdDataRepository {
 
         }.addOnFailureListener { e ->
             Log.e("CrowdRepo", "Firebase read failed: ${e.message}")
+            onResult(emptyList())
+        }
+    }
+
+    /**
+     * Reads historical readings for a single geohash bucket under /readings/{geohash}.
+     * Prefer this for station-scoped charts (matches how uploads are stored).
+     */
+    fun fetchReadingsForGeohash(
+        geohash: String,
+        limit: Int = 500,
+        onResult: (List<CrowdReading>) -> Unit
+    ) {
+        if (geohash.isBlank()) {
+            onResult(emptyList())
+            return
+        }
+        db.child("readings").child(geohash).get().addOnSuccessListener { snapshot ->
+            val list = mutableListOf<CrowdReading>()
+            for (pushSnap in snapshot.children) {
+                try {
+                    val lat = pushSnap.child("lat").getValue(Double::class.java) ?: continue
+                    val lng = pushSnap.child("lng").getValue(Double::class.java) ?: continue
+                    val score = pushSnap.child("score").getValue(Float::class.java) ?: 0f
+                    val level = pushSnap.child("level").getValue(String::class.java) ?: "LOW"
+                    val timestamp = pushSnap.child("timestamp").getValue(Long::class.java) ?: 0L
+                    val gh = pushSnap.child("geohash").getValue(String::class.java) ?: geohash
+                    list.add(
+                        CrowdReading(
+                            timestamp = timestamp,
+                            lat = lat,
+                            lng = lng,
+                            geohash = gh,
+                            score = score,
+                            level = level,
+                        )
+                    )
+                } catch (e: Exception) {
+                    Log.e("CrowdRepo", "Parse error (geohash): ${e.message}")
+                }
+            }
+            val sorted = list.sortedBy { it.timestamp }.takeLast(limit.coerceAtLeast(1))
+            Log.d("CrowdRepo", "Geohash $geohash → ${sorted.size} readings (cap $limit)")
+            onResult(sorted)
+        }.addOnFailureListener { e ->
+            Log.e("CrowdRepo", "Geohash read failed: ${e.message}")
             onResult(emptyList())
         }
     }
@@ -173,10 +306,14 @@ object CrowdDataRepository {
     enum class TimeView { HOUR, DAY, MONTH }
 
     data class ChartPoint(
-        val label    : String,
-        val avgScore : Float,
-        val count    : Int,
-        val isEmpty  : Boolean = false
+        val label             : String,
+        val avgScore          : Float,
+        val count             : Int,
+        val isEmpty           : Boolean = false,
+        /** Tap / detail: what time window this bucket represents */
+        val bucketDescription : String = "",
+        /** Chronological ordering & stable list keys (start of bucket in timeline). */
+        val bucketStartMillis : Long = 0L,
     )
 
     fun groupReadingsForChart(
@@ -188,87 +325,152 @@ object CrowdDataRepository {
         return when (view) {
 
             TimeView.HOUR -> {
-                // Group by 5-minute buckets within the data's time range
+                // Group by 5-minute buckets; sort by real time, not "HH:mm" string (fixes midnight / multi-day).
                 val buckets = readings
                     .groupBy { r ->
-                        val cal = java.util.Calendar.getInstance()
+                        val cal = Calendar.getInstance()
                         cal.timeInMillis = r.timestamp
-                        val h = cal.get(java.util.Calendar.HOUR_OF_DAY)
-                        val m = (cal.get(java.util.Calendar.MINUTE) / 5) * 5
+                        val h = cal.get(Calendar.HOUR_OF_DAY)
+                        val m = (cal.get(Calendar.MINUTE) / 5) * 5
                         "%02d:%02d".format(h, m)
                     }
+                    .entries
+                    .sortedBy { (_, group) -> group.minOf { it.timestamp } }
                     .map { (label, group) ->
+                        val minTs = group.minOf { it.timestamp }
+                        val maxTs = group.maxOf { it.timestamp }
+                        val desc = buildString {
+                            append(bucketSamplesLabel(minTs, maxTs))
+                            append(" · ")
+                            append(group.size)
+                            append(if (group.size == 1) " reading" else " readings")
+                            append(" · avg ")
+                            append("%.1f".format(group.map { it.score }.average()))
+                        }
                         ChartPoint(
-                            label    = label,
+                            label = label,
                             avgScore = group.map { it.score }.average().toFloat(),
-                            count    = group.size
+                            count = group.size,
+                            bucketDescription = desc,
+                            bucketStartMillis = minTs
                         )
                     }
-                    .sortedBy { it.label }
                 buckets
             }
 
             TimeView.DAY -> {
-                // Group by hour of day (0-23)
-                val allHours = (0..23).map { it }
-                val byHour   = readings.groupBy { r ->
-                    val cal = java.util.Calendar.getInstance()
+                // Group by hour of day (0–23); order is already chronological 00 → 23.
+                val anchorDay = startOfDayUtcMillis(readings.minOf { it.timestamp })
+                val byHour = readings.groupBy { r ->
+                    val cal = Calendar.getInstance()
                     cal.timeInMillis = r.timestamp
-                    cal.get(java.util.Calendar.HOUR_OF_DAY)
+                    cal.get(Calendar.HOUR_OF_DAY)
                 }
 
-                allHours.map { hour ->
+                (0..23).map { hour ->
+                    val cal = Calendar.getInstance()
+                    cal.timeInMillis = anchorDay
+                    cal.set(Calendar.HOUR_OF_DAY, hour)
+                    cal.set(Calendar.MINUTE, 0)
+                    cal.set(Calendar.SECOND, 0)
+                    cal.set(Calendar.MILLISECOND, 0)
+                    val bucketStart = cal.timeInMillis
+
                     val group = byHour[hour]
                     if (group != null) {
+                        val minTs = group.minOf { it.timestamp }
+                        val maxTs = group.maxOf { it.timestamp }
+                        val desc = buildString {
+                            append("Local hour ")
+                            append(String.format(Locale.ENGLISH, "%02d", hour))
+                            append(":00–")
+                            append(String.format(Locale.ENGLISH, "%02d", hour))
+                            append(":59 · ")
+                            append(group.size)
+                            append(" samples · dates ")
+                            append(fmtDayMonth.format(Date(minTs)))
+                            append(" → ")
+                            append(fmtDayMonth.format(Date(maxTs)))
+                        }
                         ChartPoint(
-                            label    = "${hour}h",
+                            label = "${String.format(Locale.ENGLISH, "%02d", hour)}h",
                             avgScore = group.map { it.score }.average().toFloat(),
-                            count    = group.size
+                            count = group.size,
+                            bucketDescription = desc,
+                            bucketStartMillis = bucketStart
                         )
                     } else {
                         ChartPoint(
-                            label    = "${hour}h",
+                            label = "${String.format(Locale.ENGLISH, "%02d", hour)}h",
                             avgScore = 0f,
-                            count    = 0,
-                            isEmpty  = true
+                            count = 0,
+                            isEmpty = true,
+                            bucketDescription = "Local hour ${String.format(Locale.ENGLISH, "%02d", hour)}:00–${String.format(Locale.ENGLISH, "%02d", hour)}:59 · no samples in loaded window",
+                            bucketStartMillis = bucketStart
                         )
                     }
                 }
             }
 
             TimeView.MONTH -> {
-                // Group by day of month
-                val byDay = readings.groupBy { r ->
-                    val cal = java.util.Calendar.getInstance()
-                    cal.timeInMillis = r.timestamp
-                    val d = cal.get(java.util.Calendar.DAY_OF_MONTH)
-                    val m = cal.get(java.util.Calendar.MONTH) + 1
-                    "%02d/%02d".format(d, m)
-                }
+                // One bar per calendar day from first reading → last reading (not device "current month").
+                val sorted = readings.sortedBy { it.timestamp }
+                val minTs = sorted.first().timestamp
+                val maxTs = sorted.last().timestamp
+                val byDayStart = readings.groupBy { startOfDayUtcMillis(it.timestamp) }
 
-                // Get full month range
-                val cal = java.util.Calendar.getInstance()
-                val daysInMonth = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH)
-                val currentMonth = cal.get(java.util.Calendar.MONTH) + 1
+                val labelSameYear = SimpleDateFormat("d MMM", Locale.ENGLISH)
+                val labelWithYear = SimpleDateFormat("d MMM yy", Locale.ENGLISH)
+                val calMin = Calendar.getInstance().apply { timeInMillis = minTs }
+                val calMax = Calendar.getInstance().apply { timeInMillis = maxTs }
+                val sameYear = calMin.get(Calendar.YEAR) == calMax.get(Calendar.YEAR)
+                val fmtLabel = if (sameYear) labelSameYear else labelWithYear
 
-                (1..daysInMonth).map { day ->
-                    val key   = "%02d/%02d".format(day, currentMonth)
-                    val group = byDay[key]
-                    if (group != null) {
-                        ChartPoint(
-                            label    = key,
-                            avgScore = group.map { it.score }.average().toFloat(),
-                            count    = group.size
+                val result = mutableListOf<ChartPoint>()
+                var dayStart = startOfDayUtcMillis(minTs)
+                val endDay = startOfDayUtcMillis(maxTs)
+                while (dayStart <= endDay) {
+                    val group = byDayStart[dayStart].orEmpty()
+                    val label = fmtLabel.format(Date(dayStart))
+                    if (group.isNotEmpty()) {
+                        val gMin = group.minOf { it.timestamp }
+                        val gMax = group.maxOf { it.timestamp }
+                        val desc = buildString {
+                            append(fmtDateTime.format(Date(gMin)))
+                            if (gMin != gMax) {
+                                append(" → ")
+                                append(fmtDateTime.format(Date(gMax)))
+                            }
+                            append(" · ")
+                            append(group.size)
+                            append(if (group.size == 1) " reading" else " readings")
+                            append(" · avg ")
+                            append("%.1f".format(group.map { it.score }.average()))
+                        }
+                        result.add(
+                            ChartPoint(
+                                label = label,
+                                avgScore = group.map { it.score }.average().toFloat(),
+                                count = group.size,
+                                bucketDescription = desc,
+                                bucketStartMillis = dayStart
+                            )
                         )
                     } else {
-                        ChartPoint(
-                            label    = key,
-                            avgScore = 0f,
-                            count    = 0,
-                            isEmpty  = true   // shown as "no data" bar
+                        result.add(
+                            ChartPoint(
+                                label = label,
+                                avgScore = 0f,
+                                count = 0,
+                                isEmpty = true,
+                                bucketDescription = "${fmtDateOnly.format(Date(dayStart))} · no readings",
+                                bucketStartMillis = dayStart
+                            )
                         )
                     }
+                    dayStart = addDaysMillis(dayStart, 1)
                 }
+                result
             }
         }
     }

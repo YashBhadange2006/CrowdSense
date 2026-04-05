@@ -15,16 +15,22 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.ble.bluetooth.BleDevice
 import com.example.ble.bluetooth.CrowdScore
+import com.example.ble.stations.Station
+import com.example.ble.stations.StationCatalog
 import com.example.ble.userinterface.screen.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.osmdroid.util.GeoPoint
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -58,10 +64,19 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
+            val context = LocalContext.current
+
             var devices      by remember { mutableStateOf(CrowdSenseService.latestDevices) }
             var crowdScore   by remember { mutableStateOf(CrowdSenseService.latestScore) }
             var location     by remember { mutableStateOf<GeoPoint?>(null) }
             var remotePoints by remember { mutableStateOf<List<RemoteCrowdPoint>>(emptyList()) }
+            var stations     by remember { mutableStateOf<List<Station>>(emptyList()) }
+
+            LaunchedEffect(Unit) {
+                stations = withContext(Dispatchers.IO) {
+                    StationCatalog.load(context.applicationContext)
+                }
+            }
 
             // Wire service callbacks to UI state
             DisposableEffect(Unit) {
@@ -105,12 +120,18 @@ class MainActivity : ComponentActivity() {
                             val currentRoute = navBackStackEntry?.destination?.route
 
                             items.forEach { screen ->
-                                val selected = currentRoute == screen.route
+                                val selected = when {
+                                    currentRoute == screen.route -> true
+                                    screen.route == Screen.Insights.route &&
+                                        currentRoute?.startsWith("${Screen.Insights.route}/") == true -> true
+                                    else -> false
+                                }
                                 NavigationBarItem(
                                     selected = selected,
                                     onClick  = {
+                                        // Pop stacked routes (e.g. insights/station/…) so tab taps always switch.
                                         navController.navigate(screen.route) {
-                                            popUpTo(navController.graph.findStartDestination().id) {
+                                            popUpTo(Screen.Home.route) {
                                                 saveState = true
                                             }
                                             launchSingleTop = true
@@ -158,10 +179,27 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Screen.Search.route) {
-                            SearchScreen(crowdScore = crowdScore)
+                            SearchScreen(
+                                stations = stations,
+                                remotePoints = remotePoints,
+                                onStationClick = { station ->
+                                    navController.navigate("insights/station/${station.geohash}") {
+                                        launchSingleTop = false
+                                    }
+                                }
+                            )
                         }
                         composable(Screen.Insights.route) {
-                            InsightsScreen(location = location)
+                            InsightsScreen(location = location, stationGeohash = null)
+                        }
+                        composable(
+                            route = "insights/station/{geohash}",
+                            arguments = listOf(
+                                navArgument("geohash") { type = NavType.StringType }
+                            )
+                        ) { entry ->
+                            val gh = entry.arguments?.getString("geohash")
+                            InsightsScreen(location = location, stationGeohash = gh)
                         }
                         composable(Screen.Dev.route) {
                             DevScreen(
