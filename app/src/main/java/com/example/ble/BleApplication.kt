@@ -1,12 +1,25 @@
 package com.example.ble
 
+
 import android.app.Application
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 
 class BleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        // This is called BEFORE any Activity or Service starts
         FirebaseApp.initializeApp(this)
+
+        // Sign in anonymously before any Firebase read/write
+        val auth = FirebaseAuth.getInstance()
+        if (auth.currentUser == null) {
+            auth.signInAnonymously()
+                .addOnSuccessListener {
+                    android.util.Log.d("Auth", "✅ Signed in anonymously: ${it.user?.uid}")
+                }
+                .addOnFailureListener { e ->
+                    android.util.Log.e("Auth", "❌ Auth failed: ${e.message}")
+                }
+        }
     }
 }

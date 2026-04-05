@@ -26,22 +26,25 @@ class CrowdSenseService : Service() {
         const val CHANNEL_ID = "crowdsense_channel"
         const val NOTIF_ID   = 1
 
-        // Shared state — MainActivity reads these
-        var latestScore    : CrowdScore? = null
-        var latestDevices  : List<BleDevice> = emptyList()
+        var latestScore   : CrowdScore?     = null
+        var latestDevices : List<BleDevice> = emptyList()
         var isRunning by mutableStateOf(false)
             private set
 
-        // Callbacks registered by MainActivity
-        var onScoreUpdate  : ((CrowdScore) -> Unit)? = null
+        var onScoreUpdate  : ((CrowdScore) -> Unit)?      = null
         var onDeviceUpdate : ((List<BleDevice>) -> Unit)? = null
     }
 
     override fun onCreate() {
         super.onCreate()
+        // Auth runs in BleApplication; init here synchronously so onStartCommand never touches
+        // lateinit scanner/advertiser before they exist.
+        initScanner()
+    }
 
+    private fun initScanner() {
         advertiser = BleAdvertiser(this)
-        scanner    = BleScanner(
+        scanner = BleScanner(
             context             = this,
             onDeviceFound       = { devices ->
                 latestDevices = devices
@@ -52,6 +55,10 @@ class CrowdSenseService : Service() {
                 onScoreUpdate?.invoke(score)
             }
         )
+        LocationHelper.getLastLocation(this) { lat, lon ->
+            scanner.currentLocation = GeoPoint(lat, lon)
+            Log.d("CrowdSenseService", "Location set: $lat, $lon")
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -66,7 +73,7 @@ class CrowdSenseService : Service() {
 
         createNotificationChannel()
 
-        val notifIntent = Intent(this, MainActivity::class.java)
+        val notifIntent   = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             this, 0, notifIntent,
             PendingIntent.FLAG_IMMUTABLE
@@ -83,18 +90,12 @@ class CrowdSenseService : Service() {
 
         startForeground(NOTIF_ID, notification)
 
-        // Get location then start scanning
-        LocationHelper.getLastLocation(this) { lat, lon ->
-            scanner.currentLocation = GeoPoint(lat, lon)
-            Log.d("CrowdSenseService", "Location set: $lat, $lon")
-        }
-
         scanner.startContinuousScan()
         advertiser.startAdvertising()
         isRunning = true
 
         Log.d("CrowdSenseService", "Service started")
-        return START_STICKY  // restart if killed by Android
+        return START_NOT_STICKY  // ← changed from START_STICKY
     }
 
     override fun onDestroy() {

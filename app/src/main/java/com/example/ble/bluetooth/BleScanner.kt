@@ -11,6 +11,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.ble.FirebaseUploader
+import com.google.firebase.auth.FirebaseAuth
 import com.example.ble.util.CellularSignalData
 import com.example.ble.util.CellularSignalMonitor
 import com.example.ble.util.RssiDistanceCalculator
@@ -34,8 +35,11 @@ class BleScanner(
     context: Context,
     private val onDeviceFound: (List<BleDevice>) -> Unit,
     private val onCrowdScoreUpdated: (CrowdScore) -> Unit,
-    private val userId: String = "anon_${System.currentTimeMillis()}"
 ) {
+
+    private val userId: String
+        get() = FirebaseAuth.getInstance().currentUser?.uid
+                ?: "anon_${System.currentTimeMillis()}"
 
     var currentLocation: GeoPoint? = null
     private val bluetoothManager =
@@ -88,12 +92,12 @@ class BleScanner(
 
     /**
      * Combines BLE device data + cellular signal data into one CrowdScore.
-     * This is the central aggregation point for all signals.
+     * This is the central aegregation point for all signals.
      */
 
 
     private var lastUploadTime = 0L
-    private val UPLOAD_INTERVAL = 0.5 * 60 * 1000L  // 5 minutes
+    private val UPLOAD_INTERVAL = 15 * 60 * 1000L  // 15 minutes
 
     @RequiresApi(Build.VERSION_CODES.P)
     private fun computeAndEmitCrowdScore(devices: List<BleDevice>) {
