@@ -283,9 +283,9 @@ object CrowdDataRepository {
         }
 
         val predictedLevel = when {
-            predictedScore < 3f  -> "LOW"
-            predictedScore < 7f  -> "MEDIUM"
-            predictedScore < 12f -> "HIGH"
+            predictedScore < 10f -> "LOW"
+            predictedScore < 25f -> "MEDIUM"
+            predictedScore < 45f -> "HIGH"
             else                 -> "DANGER"
         }
 
