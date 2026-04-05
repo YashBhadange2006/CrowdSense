@@ -1,0 +1,5617 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2026-04-05T10:56:40Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/30518283",
+        "internet_access": "no",
+        "name": "Vasai Road",
+        "name:hi": "वसई रोड",
+        "name:ja": "ヴァサイー",
+        "name:mr": "वसई रोड",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "BSR",
+        "train": "yes",
+        "wikidata": "Q7916309",
+        "wikipedia": "en:Vasai Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8320245,
+          19.3826676
+        ]
+      },
+      "id": "node/30518283"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/30518292",
+        "internet_access": "no",
+        "name": "Naigaon",
+        "name:hi": "नायगाव",
+        "name:mr": "नायगाव",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "NIG",
+        "train": "yes",
+        "wikidata": "Q6959544"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8465229,
+          19.3510925
+        ]
+      },
+      "id": "node/30518292"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/30518297",
+        "internet_access": "wlan",
+        "name": "Bhayandar",
+        "name:hi": "भायंदर",
+        "name:mr": "भाईंदर",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "BYR",
+        "train": "yes",
+        "wikidata": "Q4901614",
+        "wikipedia": "en:Bhayandar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8526988,
+          19.3101847
+        ]
+      },
+      "id": "node/30518297"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/30518361",
+        "internet_access": "no",
+        "name": "Kharbhav",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KHBV",
+        "train": "yes",
+        "wikidata": "Q6400596",
+        "wikipedia": "en:Kharbao railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9844677,
+          19.298321
+        ]
+      },
+      "id": "node/30518361"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/30520640",
+        "internet_access": "no",
+        "name": "Palghar",
+        "name:hi": "पालघर",
+        "name:mr": "पालघर",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "PLG",
+        "train": "yes",
+        "wikidata": "Q7127480",
+        "wikipedia": "en:Palghar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.7718888,
+          19.6978882
+        ]
+      },
+      "id": "node/30520640"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/213017960",
+        "internet_access": "no",
+        "name": "Bhivandi Road",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "BIRD",
+        "train": "yes",
+        "wikidata": "Q4901854",
+        "wikipedia": "en:Bhiwandi Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0463121,
+          19.2688735
+        ]
+      },
+      "id": "node/213017960"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/213030669",
+        "internet_access": "no",
+        "name": "Dahisar",
+        "name:hi": "दहीसर",
+        "name:mr": "दहिसर",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "DIC",
+        "train": "yes",
+        "wikidata": "Q5208848",
+        "wikipedia": "en:Dahisar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8596302,
+          19.2493572
+        ]
+      },
+      "id": "node/213030669"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/213030714",
+        "internet_access": "no",
+        "name": "Santa Cruz",
+        "name:hi": "सांताक्रुज़",
+        "name:mr": "सांताक्रूझ",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "STC",
+        "train": "yes",
+        "wikidata": "Q7420001",
+        "wikipedia": "en:Santacruz railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8417565,
+          19.0815223
+        ]
+      },
+      "id": "node/213030714"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/246582717",
+        "alt_name:ar": "ثين",
+        "internet_access": "wlan",
+        "name": "Thane",
+        "name:ar": "تاني",
+        "name:fa": "تانه",
+        "name:hi": "ठाणे",
+        "name:ml": "താനെ",
+        "name:mr": "ठाणे",
+        "name:pnb": "تہانہ",
+        "name:ps": "تانی",
+        "name:ur": "تھانے",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "TNA",
+        "train": "yes",
+        "wikidata": "Q7710247",
+        "wikipedia": "en:Thane railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9757664,
+          19.186483
+        ]
+      },
+      "id": "node/246582717"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/276561422",
+        "name": "Ambivli",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "ABY",
+        "train": "yes",
+        "wikidata": "Q4741518",
+        "wikipedia": "en:Ambivli railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1718625,
+          19.267645
+        ]
+      },
+      "id": "node/276561422"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/276561622",
+        "internet_access": "no",
+        "name": "Titwala",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "TLA",
+        "train": "yes",
+        "wikidata": "Q7810360"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.2032791,
+          19.2963414
+        ]
+      },
+      "id": "node/276561622"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/276561755",
+        "internet_access": "no",
+        "name": "Khadavli",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KDV",
+        "train": "yes",
+        "wikidata": "Q6398850",
+        "wikipedia": "en:Khadavli railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.2190375,
+          19.356724
+        ]
+      },
+      "id": "node/276561755"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/276562459",
+        "internet_access": "no",
+        "name": "Vithalwadi",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "VLDI",
+        "train": "yes",
+        "wikidata": "Q7937069",
+        "wikipedia": "en:Vithalwadi railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1495166,
+          19.228396
+        ]
+      },
+      "id": "node/276562459"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/276562803",
+        "addr:postcode": "421501",
+        "alt_name:hi": "अंबरनाथ",
+        "internet_access": "no",
+        "name": "Ambarnath",
+        "name:en": "Ambarnath",
+        "name:hi": "अम्बरनाथ",
+        "name:pa": "ਅੰਬਰਨਾਥ",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "ABH",
+        "train": "yes",
+        "wikidata": "Q4741032"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1851962,
+          19.2094131
+        ]
+      },
+      "id": "node/276562803"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/276563224",
+        "internet_access": "no",
+        "name": "Badlapur",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "BUD",
+        "train": "yes",
+        "wikidata": "Q4841008",
+        "wikipedia": "en:Badlapur railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.2389064,
+          19.1666237
+        ]
+      },
+      "id": "node/276563224"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/276569986",
+        "internet_access": "no",
+        "name": "Lonavala",
+        "name:ja": "ローナーヴァラー",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "LNL",
+        "train": "yes",
+        "wikidata": "Q6669650",
+        "wikipedia": "en:Lonavala railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.4069436,
+          18.7503694
+        ]
+      },
+      "id": "node/276569986"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/347138797",
+        "internet_access": "no",
+        "name": "Khar Road",
+        "name:en": "Khar Road",
+        "name:hi": "खार रोड",
+        "name:mr": "खार रोड",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KHAR",
+        "start_date": "1924-07-01",
+        "train": "yes",
+        "wikidata": "Q372596",
+        "wikipedia": "en:Khar Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8400412,
+          19.0682411
+        ]
+      },
+      "id": "node/347138797"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/386483233",
+        "internet_access": "no",
+        "name": "Chikhale",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "CKHS",
+        "train": "yes",
+        "wikidata": "Q63361144"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.151941,
+          18.9737547
+        ]
+      },
+      "id": "node/386483233"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/506280911",
+        "internet_access": "no",
+        "name": "Malavli",
+        "name:en": "Malavli",
+        "name:mr": "मळवली",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MVL",
+        "train": "yes",
+        "wikidata": "Q15244125",
+        "wikipedia": "en:Malavli railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.4801637,
+          18.7442145
+        ]
+      },
+      "id": "node/506280911"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/506820481",
+        "internet_access": "no",
+        "name": "Apta",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "APTA",
+        "train": "yes",
+        "wikidata": "Q15183967",
+        "wikipedia": "en:Apta railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1532989,
+          18.8637081
+        ]
+      },
+      "id": "node/506820481"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/529961817",
+        "internet_access": "no",
+        "name": "Vaitarna",
+        "name:hi": "वैतरना",
+        "name:mr": "वैतरणा",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "VTN",
+        "train": "yes",
+        "wikidata": "Q7908888",
+        "wikipedia": "en:Vaitarna railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8499772,
+          19.5186517
+        ]
+      },
+      "id": "node/529961817"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/529961821",
+        "internet_access": "no",
+        "name": "Saphale",
+        "name:hi": "सफाले",
+        "name:mr": "सफाळे",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "SAH",
+        "train": "yes",
+        "wikidata": "Q7420951",
+        "wikipedia": "en:Saphale Railway Station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8218812,
+          19.5771316
+        ]
+      },
+      "id": "node/529961821"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/533754608",
+        "internet_access": "no",
+        "name": "Khandala",
+        "name:hi": "खंडाला",
+        "name:mr": "खंडाळा बोगदा",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KAD",
+        "train": "yes",
+        "wikidata": "Q17064864",
+        "wikipedia": "en:Khandala railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3767092,
+          18.7548469
+        ]
+      },
+      "id": "node/533754608"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/619119023",
+        "internet_access": "no",
+        "name": "Kalva",
+        "name:hi": "कलवा",
+        "name:mr": "कळवा",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KLVA",
+        "wikidata": "Q6354779",
+        "wikipedia": "en:Kalwa railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9963331,
+          19.1952243
+        ]
+      },
+      "id": "node/619119023"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/619992025",
+        "internet_access": "no",
+        "name": "Kanjur Marg",
+        "name:hi": "कांजुर मार्ग",
+        "name:ml": "കാഞ്ജൂർമാർഗ്",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KJRD",
+        "wikidata": "Q6363526",
+        "wikipedia": "en:Kanjurmarg railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9283701,
+          19.1296868
+        ]
+      },
+      "id": "node/619992025"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/620013256",
+        "addr:city": "mumbai",
+        "addr:postcode": "400086",
+        "addr:street": "Station Road",
+        "internet_access": "no",
+        "name": "Vidyavihar",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "VVH",
+        "wikidata": "Q7928232",
+        "wikipedia": "en:Vidyavihar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8971169,
+          19.0795422
+        ]
+      },
+      "id": "node/620013256"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/621911847",
+        "ele": "5",
+        "internet_access": "no",
+        "name": "Lower Parel",
+        "name:hi": "लोअर परेल",
+        "name:ml": "ലോവർ പരൾ",
+        "name:mr": "लोअर परळ",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "PL",
+        "start_date": "1867",
+        "train": "yes",
+        "wikidata": "Q6693696",
+        "wikipedia": "en:Lower Parel railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8302756,
+          18.99568
+        ]
+      },
+      "id": "node/621911847"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/630743879",
+        "internet_access": "no",
+        "name": "Diva Junction",
+        "name:hi": "दिवा जंक्शन",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "DIVA",
+        "train": "yes",
+        "wikidata": "Q2826520",
+        "wikipedia": "en:Diva Junction railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0414169,
+          19.1887564
+        ]
+      },
+      "id": "node/630743879"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/631579580",
+        "internet_access": "no",
+        "name": "Grant Road",
+        "name:hi": "ग्रांट रोड",
+        "name:ml": "ഗ്രാന്റ് റോഡ്",
+        "name:mr": "ग्रँट रोड",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "GTR",
+        "train": "yes",
+        "wikidata": "Q5226483",
+        "wikipedia": "en:Grant Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8158261,
+          18.9633549
+        ]
+      },
+      "id": "node/631579580"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/632337506",
+        "monorail": "yes",
+        "name": "Chembur",
+        "name:hi": "चेम्बुर",
+        "name:mr": "चेंबूर",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail",
+        "toilets:wheelchair": "yes",
+        "wheelchair": "limited",
+        "wikidata": "Q17050476",
+        "wikipedia": "en:Chembur monorail station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8975909,
+          19.0612128
+        ]
+      },
+      "id": "node/632337506"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/632340589",
+        "monorail": "yes",
+        "name": "Bhakti Park",
+        "name:mr": "भक्ती पार्क",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail",
+        "wikidata": "Q17065178",
+        "wikipedia": "en:Bhakti Park monorail station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8775722,
+          19.028972
+        ]
+      },
+      "id": "node/632340589"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/632342238",
+        "name": "Wadala Depot",
+        "name:mr": "वडाळा डेपो",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail",
+        "wikidata": "Q17100205",
+        "wikipedia": "en:Wadala Depot monorail station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8740249,
+          19.0388244
+        ]
+      },
+      "id": "node/632342238"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/632358105",
+        "internet_access": "no",
+        "name": "Karjat",
+        "name:hi": "कर्जत",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KJT",
+        "train": "yes",
+        "wikidata": "Q6371235"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3209629,
+          18.9099653
+        ]
+      },
+      "id": "node/632358105"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/658495933",
+        "internet_access": "no",
+        "name": "Neral",
+        "name:hi": "नेरल जंक्शन",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "NRL",
+        "train": "yes",
+        "wikidata": "Q15261689",
+        "wikipedia": "en:Neral railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3184369,
+          19.0274308
+        ]
+      },
+      "id": "node/658495933"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/678727741",
+        "internet_access": "no",
+        "name": "Palasdhari",
+        "name:hi": "पलसदरी",
+        "name:mr": "पळसधरी",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "PDI",
+        "train": "yes",
+        "wikidata": "Q7126749",
+        "wikipedia": "en:Palasdari railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3208133,
+          18.884354
+        ]
+      },
+      "id": "node/678727741"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/700886180",
+        "internet_access": "no",
+        "name": "Sewri",
+        "name:hi": "शिवड़ी",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "SVE",
+        "train": "yes",
+        "wikidata": "Q7458298",
+        "wikipedia": "en:Sewri railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8544218,
+          18.9987796
+        ]
+      },
+      "id": "node/700886180"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/700886403",
+        "name": "Cotton Green",
+        "name:hi": "कॉटन ग्रीन",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "CTGN",
+        "wikidata": "Q5175691",
+        "wikipedia": "en:Cotton Green railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8438965,
+          18.9871866
+        ]
+      },
+      "id": "node/700886403"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/823469291",
+        "internet_access": "no",
+        "name": "Kasara",
+        "name:hi": "कसारा",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KSRA",
+        "train": "yes",
+        "wikidata": "Q6374023",
+        "wikipedia": "en:Kasara railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.4735887,
+          19.6482325
+        ]
+      },
+      "id": "node/823469291"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/823469588",
+        "internet_access": "no",
+        "name": "Asangaon",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "ASO",
+        "train": "yes",
+        "wikidata": "Q4803517",
+        "wikipedia": "en:Asangaon railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3081462,
+          19.4399615
+        ]
+      },
+      "id": "node/823469588"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/823469603",
+        "internet_access": "no",
+        "name": "Atgaon",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "ATG",
+        "train": "yes",
+        "wikidata": "Q4813149",
+        "wikipedia": "en:Atgaon railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3287332,
+          19.5028985
+        ]
+      },
+      "id": "node/823469603"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/823469674",
+        "internet_access": "no",
+        "name": "Khardi",
+        "name:hi": "खर्डी",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KE",
+        "train": "yes",
+        "wikidata": "Q6400617",
+        "wikipedia": "en:Khardi railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3938248,
+          19.5802161
+        ]
+      },
+      "id": "node/823469674"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/823469932",
+        "internet_access": "no",
+        "name": "Vasind",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "VSD",
+        "train": "yes",
+        "wikidata": "Q7916822",
+        "wikipedia": "en:Vasind railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.2674683,
+          19.4065089
+        ]
+      },
+      "id": "node/823469932"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/960296024",
+        "internet_access": "no",
+        "name": "Dolavli",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "DLV",
+        "train": "yes",
+        "wikidata": "Q5288872",
+        "wikipedia": "en:Dolavli railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3203444,
+          18.8331631
+        ]
+      },
+      "id": "node/960296024"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/960296252",
+        "internet_access": "no",
+        "name": "Chowk",
+        "name:hi": "चौक",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "CHOK",
+        "train": "yes",
+        "wikidata": "Q63357609"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.24025,
+          18.9025964
+        ]
+      },
+      "id": "node/960296252"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/968816750",
+        "internet_access": "no",
+        "name": "Khopoli",
+        "name:en": "Khopoli",
+        "name:mr": "खोपोली",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KHPI",
+        "train": "yes",
+        "wikidata": "Q6402296",
+        "wikipedia": "en:Khopoli railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3460712,
+          18.788473
+        ]
+      },
+      "id": "node/968816750"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1078211630",
+        "internet_access": "no",
+        "name": "Bhivpuri Road",
+        "name:hi": "भिवपुरी रोड",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "BVS",
+        "train": "yes",
+        "wikidata": "Q4901853",
+        "wikipedia": "en:Bhivpuri Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3314374,
+          18.9705491
+        ]
+      },
+      "id": "node/1078211630"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1078212032",
+        "internet_access": "no",
+        "name": "Shelu",
+        "name:hi": "शेलुू",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "SHLU",
+        "train": "yes",
+        "wikidata": "Q7494039",
+        "wikipedia": "en:Shelu railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3179261,
+          19.063516
+        ]
+      },
+      "id": "node/1078212032"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1149274390",
+        "internet_access": "no",
+        "name": "Umroli",
+        "name:mr": "उमरोळी",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "UOI",
+        "train": "yes",
+        "wikidata": "Q7881811",
+        "wikipedia": "en:Umroli railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.7604506,
+          19.7557614
+        ]
+      },
+      "id": "node/1149274390"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1149274608",
+        "internet_access": "no",
+        "name": "Boisar",
+        "name:hi": "बोईसर",
+        "name:mr": "बोईसर",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "operator:type": "private",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "BOR",
+        "train": "yes",
+        "wikidata": "Q4938432",
+        "wikipedia": "en:Boisar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.761452,
+          19.7984865
+        ]
+      },
+      "id": "node/1149274608"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1149274800",
+        "internet_access": "no",
+        "name": "Kelve Road",
+        "name:hi": "केलवे रोड",
+        "name:mr": "केळवे रोड",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KLV",
+        "train": "yes",
+        "wikidata": "Q6386620",
+        "wikipedia": "en:Kelve Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.7911751,
+          19.6240526
+        ]
+      },
+      "id": "node/1149274800"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1316209330",
+        "internet_access": "no",
+        "name": "Dahanu Road",
+        "name:mr": "डहाणू रोड",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "DRD",
+        "train": "yes",
+        "wikidata": "Q5208777",
+        "wikipedia": "en:Dahanu Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.7434083,
+          19.9915236
+        ]
+      },
+      "id": "node/1316209330"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1369351423",
+        "internet_access": "no",
+        "name": "Mumbra",
+        "name:hi": "मुंब्रा",
+        "name:mr": "मुंब्रा",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MBQ",
+        "wikidata": "Q6935372",
+        "wikipedia": "en:Mumbra railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0230752,
+          19.1899425
+        ]
+      },
+      "id": "node/1369351423"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1369352793",
+        "internet_access": "no",
+        "name": "Dativali",
+        "name:hi": "दातिवली",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "DTVL",
+        "train": "yes",
+        "wikidata": "Q5227678"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0591806,
+          19.1871047
+        ]
+      },
+      "id": "node/1369352793"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1435294693",
+        "addr:city": "Navi Mumbai",
+        "addr:postcode": "410209",
+        "addr:street": "Mansarovar Station Road",
+        "alt_name": "Kamothe",
+        "internet_access": "yes",
+        "name": "Mansarovar",
+        "network": "Mumbai Suburban Railway Network",
+        "operator": "CR",
+        "platforms": "2",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MANR",
+        "station": "light_rail",
+        "train": "yes",
+        "wheelchair": "limited",
+        "wikidata": "Q6751559",
+        "wikipedia": "en:Mansarovar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0806552,
+          19.0164338
+        ]
+      },
+      "id": "node/1435294693"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1643263977",
+        "monorail": "yes",
+        "name": "Mysore Colony",
+        "name:mr": "मैसुर कॉलनी",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail",
+        "wikidata": "Q17076201",
+        "wikipedia": "en:Mysore Colony monorail station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8914397,
+          19.0277168
+        ]
+      },
+      "id": "node/1643263977"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1643351703",
+        "internet_access": "wlan",
+        "name": "Mulund",
+        "name:hi": "मुलुंड",
+        "name:ml": "മുളുണ്ട്",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MLND",
+        "wikidata": "Q6935218",
+        "wikipedia": "en:Mulund railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9562383,
+          19.1721762
+        ]
+      },
+      "id": "node/1643351703"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1645802025",
+        "addr:city": "Navi Mumbai",
+        "addr:postcode": "410206",
+        "addr:street": "Khandeshwar Station Road",
+        "internet_access": "yes",
+        "layer": "1",
+        "name": "Khandeshwar",
+        "network": "Mumbai Suburban Railway Network",
+        "operator": "CR",
+        "platforms": "2",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KNDS",
+        "station": "light_rail",
+        "train": "yes",
+        "wheelchair": "limited",
+        "wikidata": "Q6400242",
+        "wikipedia": "en:Khandeshwar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0952827,
+          19.0073498
+        ]
+      },
+      "id": "node/1645802025"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1650694464",
+        "internet_access": "no",
+        "name": "King's Circle",
+        "name:hi": "किंग्ज सर्कल",
+        "name:mr": "किंग्ज सर्कल",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KCE",
+        "wikidata": "Q6410874",
+        "wikipedia": "en:King's Circle railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8577375,
+          19.0316822
+        ]
+      },
+      "id": "node/1650694464"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2095901533",
+        "internet_access": "no",
+        "name": "Matheran",
+        "name:hi": "माथेरान",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MAE",
+        "train": "yes",
+        "wikidata": "Q31739504"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.270959,
+          18.990225
+        ]
+      },
+      "id": "node/2095901533"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2095914625",
+        "internet_access": "no",
+        "name": "Jumma Patti",
+        "name:hi": "जुम्‍मा पट्टी",
+        "network": "IR",
+        "operator": "CR",
+        "platforms": "2",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "JTT",
+        "train": "yes",
+        "wikidata": "Q16988435"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3026246,
+          19.0017458
+        ]
+      },
+      "id": "node/2095914625"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2095985538",
+        "internet_access": "no",
+        "name": "Water Pipe",
+        "name:hi": "वॉटर पाईप",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "WTP",
+        "train": "yes",
+        "wikidata": "Q17088664",
+        "wikipedia": "en:Water Pipe railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.2897487,
+          19.0089325
+        ]
+      },
+      "id": "node/2095985538"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2143751910",
+        "internet_access": "no",
+        "name": "Shahad",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "SHAD",
+        "train": "yes",
+        "wikidata": "Q7461421",
+        "wikipedia": "en:Shahad railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1580817,
+          19.2435448
+        ]
+      },
+      "id": "node/2143751910"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2178163576",
+        "internet_access": "no",
+        "name": "Sandhurst Road",
+        "name:hi": "सँडहर्स्ट रोड",
+        "name:ml": "സാൻഡ്ഹർസ്റ്റ് റോഡ്",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "SNRD",
+        "wikidata": "Q5226365",
+        "wikipedia": "en:Sandhurst Road"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8393719,
+          18.9609243
+        ]
+      },
+      "id": "node/2178163576"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2441333898",
+        "internet_access": "no",
+        "name": "Thakurli",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "THK",
+        "wikidata": "Q7709438",
+        "wikipedia": "en:Thakurli railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0968165,
+          19.2255622
+        ]
+      },
+      "id": "node/2441333898"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2443092123",
+        "internet_access": "no",
+        "name": "Dockyard Road",
+        "name:hi": "डॉकयार्ड रोड",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "DKRD",
+        "wikidata": "Q5121871",
+        "wikipedia": "en:Dockyard Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8445477,
+          18.9674767
+        ]
+      },
+      "id": "node/2443092123"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2443096202",
+        "internet_access": "no",
+        "name": "Reay Road",
+        "name:hi": "रे रोड",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "RRD",
+        "wikidata": "Q5121780",
+        "wikipedia": "en:Reay Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8441011,
+          18.9775506
+        ]
+      },
+      "id": "node/2443096202"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2444001671",
+        "internet_access": "no",
+        "name": "Currey Road",
+        "name:ml": "കറി റോഡ്",
+        "name:mr": "करी रोड",
+        "network": "IR",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "CRD",
+        "wikidata": "Q5121321",
+        "wikipedia": "en:Currey Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8328707,
+          18.9945514
+        ]
+      },
+      "id": "node/2444001671"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2454571178",
+        "internet_access": "wlan",
+        "name": "Chembur",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "CMBR",
+        "wikidata": "Q5090350",
+        "wikipedia": "en:Chembur railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9011399,
+          19.0626319
+        ]
+      },
+      "id": "node/2454571178"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2494695350",
+        "internet_access": "no",
+        "name": "Aman Lodge",
+        "name:hi": "अमन लॉज",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "AMNA",
+        "train": "yes",
+        "wikidata": "Q16238643",
+        "wikipedia": "en:Aman Lodge railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.2817138,
+          19.0013788
+        ]
+      },
+      "id": "node/2494695350"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2629004879",
+        "internet_access": "no",
+        "name": "Lowjee",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "LWJ",
+        "train": "yes",
+        "wikidata": "Q6694057",
+        "wikipedia": "en:Lowjee railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3353859,
+          18.809181
+        ]
+      },
+      "id": "node/2629004879"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2629720841",
+        "internet_access": "no",
+        "name": "Mankhurd",
+        "network": "IR",
+        "operator": "CR",
+        "railway": "station",
+        "ref": "MNKD",
+        "wheelchair": "yes",
+        "wikidata": "Q6750519",
+        "wikipedia": "en:Mankhurd railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9323356,
+          19.0485178
+        ]
+      },
+      "id": "node/2629720841"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2629791007",
+        "internet_access": "no",
+        "name": "Nahur",
+        "name:hi": "नाहूर",
+        "name:ml": "നാഹൂർ",
+        "name:mr": "नाहूर",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "NHU",
+        "wikidata": "Q6959458",
+        "wikipedia": "en:Nahur railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9469187,
+          19.1550738
+        ]
+      },
+      "id": "node/2629791007"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2630075000",
+        "addr:city": "Bandra, Mumbai",
+        "internet_access": "wlan",
+        "name": "Bandra",
+        "name:en": "Bandra",
+        "name:hi": "बांद्रा",
+        "name:ml": "ബാന്ദ്ര",
+        "name:mr": "वांद्रे",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "BA",
+        "ref:suburban": "B",
+        "start_date": "1869",
+        "train": "yes",
+        "wheelchair": "no",
+        "wikidata": "Q4854695",
+        "wikipedia": "en:Bandra railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8402203,
+          19.0549792
+        ]
+      },
+      "id": "node/2630075000"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2630075001",
+        "internet_access": "no",
+        "name": "Byculla",
+        "name:hi": "भायखला",
+        "name:ml": "ബൈകുല്ല",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "BY",
+        "wikidata": "Q5003980",
+        "wikipedia": "en:Byculla railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8327936,
+          18.9766219
+        ]
+      },
+      "id": "node/2630075001"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2630075002",
+        "IR:zone": "WR:CCG",
+        "ele": "9",
+        "internet_access": "no",
+        "name": "Charni Road",
+        "name:hi": "चर्नी रोड",
+        "name:ml": "ചർണി റോഡ്",
+        "name:mr": "चर्नी रोड",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "CYR",
+        "start_date": "1867",
+        "train": "yes",
+        "wikidata": "Q5121186",
+        "wikipedia": "en:Charni Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8182401,
+          18.9518437
+        ]
+      },
+      "id": "node/2630075002"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2630075003",
+        "internet_access": "wlan",
+        "name": "Dadar",
+        "name:hi": "दादर",
+        "name:ml": "ദാദർ",
+        "name:mr": "दादर",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "DR",
+        "start_date": "1868",
+        "wikidata": "Q5207922",
+        "wikipedia": "en:Dadar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8437523,
+          19.0177342
+        ]
+      },
+      "id": "node/2630075003"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2630075004",
+        "internet_access": "wlan",
+        "name": "Dadar",
+        "name:hi": "दादर",
+        "name:ml": "ദാദർ",
+        "name:mr": "दादर",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "DDR",
+        "start_date": "1868",
+        "train": "yes",
+        "wikidata": "Q5207922",
+        "wikipedia": "en:Dadar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8428479,
+          19.0192269
+        ]
+      },
+      "id": "node/2630075004"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2630075005",
+        "IR:zone": "WR:CCG",
+        "internet_access": "no",
+        "name": "Mahim Junction",
+        "name:hi": "माहिम जंक्शन",
+        "name:ml": "മാഹിം ജംഗ്ഷൻ",
+        "name:mr": "माहिम जंक्शन",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MM",
+        "train": "yes",
+        "wikidata": "Q6734003",
+        "wikipedia": "en:Mahim Junction railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8466038,
+          19.0406634
+        ]
+      },
+      "id": "node/2630075005"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2630075006",
+        "IR:zone": "WR:CCG",
+        "ele": "7",
+        "internet_access": "no",
+        "name": "Marine Lines",
+        "name:hi": "मरीन लाइन्स",
+        "name:ml": "മറൈൻ ലൈൻസ്",
+        "name:mr": "मरीन लाइन्स",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MEL",
+        "start_date": "1867",
+        "train": "yes",
+        "wikidata": "Q6764160",
+        "wikipedia": "en:Marine Lines railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8237193,
+          18.945764
+        ]
+      },
+      "id": "node/2630075006"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2630075008",
+        "IR:zone": "WR:CCG",
+        "ele": "6.62",
+        "historic:name": "Bombay Central Terminal",
+        "historic:ref": "BCT",
+        "internet_access": "yes",
+        "name": "Mumbai Central",
+        "name:en": "Mumbai Central",
+        "name:hi": "मुंबई सेंट्रल",
+        "name:ml": "മുംബൈ സെൻട്രൽ",
+        "name:mr": "मुंबई सेंट्रल",
+        "network": "IR",
+        "old_name": "Bellasis Road",
+        "old_ref": "BCT",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MMCT",
+        "start_date": "1930-12-18",
+        "station": "terminal",
+        "train": "yes",
+        "wikidata": "Q3539796",
+        "wikipedia": "en:Mumbai Central railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8193152,
+          18.9695855
+        ]
+      },
+      "id": "node/2630075008"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2630075009",
+        "gauge": "1676",
+        "internet_access": "wlan",
+        "name": "Panvel",
+        "name:hi": "पनवेल",
+        "name:mr": "पनवेल",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "PNVL",
+        "train": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q7131981",
+        "wikipedia": "en:Panvel railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.122695,
+          18.9894239
+        ]
+      },
+      "id": "node/2630075009"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2630075010",
+        "ele": "10",
+        "internet_access": "no",
+        "name": "Vile Parle",
+        "name:hi": "विले पार्ले",
+        "name:mr": "विले पार्ले",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "VLP",
+        "train": "yes",
+        "wikidata": "Q7930143",
+        "wikipedia": "en:Vile Parle railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8440038,
+          19.0999098
+        ]
+      },
+      "id": "node/2630075010"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2630768140",
+        "internet_access": "no",
+        "name": "Virar",
+        "name:ar": "ويرار",
+        "name:hi": "विरार",
+        "name:ja": "ヴィラール",
+        "name:ks": "ویرار",
+        "name:mr": "विरार",
+        "name:ru": "Вирар",
+        "name:sr": "Вирар",
+        "name:uk": "Вірар",
+        "name:ur": "ویرار",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "VR",
+        "train": "yes",
+        "wikidata": "Q7933645"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.811816,
+          19.4553059
+        ]
+      },
+      "id": "node/2630768140"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2647295137",
+        "monorail": "yes",
+        "name": "Bharat Petroleum",
+        "name:mr": "भारत पेट्रोलियम",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail",
+        "wikidata": "Q15733864",
+        "wikipedia": "en:Bharat Petroleum monorail station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8955553,
+          19.0352839
+        ]
+      },
+      "id": "node/2647295137"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2647295140",
+        "monorail": "yes",
+        "name": "VNP & RC Marg Junction",
+        "name:mr": "व्हि एन पी आणि आर सी मार्ग जंक्शन",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail",
+        "wikidata": "Q18357722",
+        "wikipedia": "en:VNP and RC Marg Junction monorail station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8942789,
+          19.0526419
+        ]
+      },
+      "id": "node/2647295140"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2663219988",
+        "internet_access": "no",
+        "name": "Chuna Bhatti",
+        "name:hi": "चुना भट्टी",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "CHF",
+        "train": "yes",
+        "wikidata": "Q5116212"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8690974,
+          19.0517703
+        ]
+      },
+      "id": "node/2663219988"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2663263713",
+        "internet_access": "no",
+        "name": "Sion",
+        "name:hi": "सायन",
+        "name:ml": "സിയോൺ",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "SIN",
+        "wikidata": "Q7525368",
+        "wikipedia": "en:Sion railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8632834,
+          19.0465213
+        ]
+      },
+      "id": "node/2663263713"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2986295912",
+        "monorail": "yes",
+        "name": "Fertilizer Township",
+        "name:mr": "फर्टीलाईझर टाऊनशिप",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail",
+        "wikidata": "Q15733865"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.893456,
+          19.0438776
+        ]
+      },
+      "id": "node/2986295912"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3205733664",
+        "internet_access": "no",
+        "name": "Govandi",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "GV",
+        "wheelchair": "limited",
+        "wikidata": "Q5588575",
+        "wikipedia": "en:Govandi railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9150702,
+          19.0553688
+        ]
+      },
+      "id": "node/3205733664"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3248305759",
+        "internet_access": "no",
+        "name": "Bhandup",
+        "name:hi": "भांडुप",
+        "name:ml": "ഭാണ്ഡുപ്പ്",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "BND",
+        "toilets:wheelchair": "no",
+        "wheelchair": "limited",
+        "wikidata": "Q4900992",
+        "wikipedia": "en:Bhandup railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9384327,
+          19.1438684
+        ]
+      },
+      "id": "node/3248305759"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3347009325",
+        "internet_access": "no",
+        "name": "Borivali",
+        "name:hi": "बोरिवली",
+        "name:mr": "बोरिवली",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "BVI",
+        "train": "yes",
+        "wikidata": "Q4945508",
+        "wikipedia": "en:Borivali railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8573628,
+          19.229068
+        ]
+      },
+      "id": "node/3347009325"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3347023609",
+        "internet_access": "no",
+        "name": "Kandivali",
+        "name:hi": "कांदिवली",
+        "name:mr": "कांदिवली",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KILE",
+        "train": "yes",
+        "wikidata": "Q6361555",
+        "wikipedia": "en:Kandivali railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8517376,
+          19.2041136
+        ]
+      },
+      "id": "node/3347023609"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3347034598",
+        "internet_access": "no",
+        "name": "Malad",
+        "name:hi": "मालाड",
+        "name:mr": "मालाड",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MDD",
+        "train": "yes",
+        "wikidata": "Q6740940",
+        "wikipedia": "en:Malad railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8485884,
+          19.1867193
+        ]
+      },
+      "id": "node/3347034598"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3347034961",
+        "internet_access": "no",
+        "name": "Goregaon",
+        "name:hi": "गोरेगाँव",
+        "name:mr": "गोरेगाव",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "GMN",
+        "train": "yes",
+        "wikidata": "Q5586150",
+        "wikipedia": "en:Goregaon railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8495492,
+          19.1648688
+        ]
+      },
+      "id": "node/3347034961"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3462327239",
+        "IR:zone": "WR:CCG",
+        "historic:ref": "EPR",
+        "internet_access": "no",
+        "name": "Prabhadevi",
+        "name:hi": "प्रभादेवी",
+        "name:ml": "പ്രഭാദേവി",
+        "name:mr": "प्रभादेवी",
+        "name:mr:--2018-07-19": "एलफिन्सटन रोड",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "official_name": "Prabhadevi",
+        "old_name": "Elphinstone Road",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "PBHD",
+        "start_date": "1867",
+        "train": "yes",
+        "wikidata": "Q5367292",
+        "wikipedia": "en:Parel-Prabhadevi railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8358965,
+          19.0074717
+        ]
+      },
+      "id": "node/3462327239"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3501418211",
+        "internet_access": "no",
+        "name": "Chinchpokli",
+        "name:hi": "चिंचपोकली",
+        "name:ml": "ചിഞ്ച്പൊക്ലി",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "CHG",
+        "wikidata": "Q5100314",
+        "wikipedia": "en:Chinchpokli railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8326716,
+          18.9871984
+        ]
+      },
+      "id": "node/3501418211"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3501418212",
+        "IR:zone": "CR:CSMT",
+        "alt_name": "Parel Terminus",
+        "ele": "5.9",
+        "internet_access": "no",
+        "name": "Parel",
+        "name:hi": "परेल",
+        "name:ml": "പരൾ",
+        "name:mr": "परळ",
+        "network": "IR",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "PR",
+        "start_date": "1877",
+        "train": "yes",
+        "wikidata": "Q5367292",
+        "wikipedia": "en:Parel-Prabhadevi railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8376614,
+          19.0094817
+        ]
+      },
+      "id": "node/3501418212"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3530903066",
+        "IR:zone": "CR",
+        "internet_access": "no",
+        "is_in": "Mumbai",
+        "name": "Tilak Nagar",
+        "name:hi": "तिलक नगर",
+        "name:mr": "टिळक नगर",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "TKNG",
+        "wheelchair": "limited",
+        "wikidata": "Q7802036",
+        "wikipedia": "en:Tilak Nagar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8904702,
+          19.0657855
+        ]
+      },
+      "id": "node/3530903066"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3732540593",
+        "monorail": "yes",
+        "name": "Wadala Bridge",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8593168,
+          19.0174849
+        ]
+      },
+      "id": "node/3732540593"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3806743187",
+        "monorail": "yes",
+        "name": "Acharya Atre Nagar",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail",
+        "wikidata": "Q63346707"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8637994,
+          19.0236472
+        ]
+      },
+      "id": "node/3806743187"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3806743188",
+        "monorail": "yes",
+        "name": "Ambedkar Nagar",
+        "name:hi": "अम्बेडकर नगर",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail",
+        "wikidata": "Q23926706"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8442272,
+          19.0015921
+        ]
+      },
+      "id": "node/3806743188"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3806743192",
+        "monorail": "yes",
+        "name": "Dadar East",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail",
+        "wikidata": "Q63346705"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8522274,
+          19.0162531
+        ]
+      },
+      "id": "node/3806743192"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3806743193",
+        "monorail": "yes",
+        "name": "Guru Tegh Bahadur Nagar",
+        "name:mr": "गुरु तेग़ बहादुर नगर",
+        "public_transport": "station",
+        "railway": "station",
+        "short_name": "GTB Nagar",
+        "station": "monorail",
+        "wikidata": "Q63346710"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8707858,
+          19.0366871
+        ]
+      },
+      "id": "node/3806743193"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3806743194",
+        "alt_name": "Jacob Circle",
+        "alt_name:en": "Jacob Circle",
+        "monorail": "yes",
+        "name": "Sant Gadge Maharaj Chowk",
+        "name:en": "Sant Gadge Maharaj Chowk",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8285867,
+          18.9830921
+        ]
+      },
+      "id": "node/3806743194"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3806743195",
+        "monorail": "yes",
+        "name": "Mint Colony",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail",
+        "wikidata": "Q63592634"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8433086,
+          18.9945142
+        ]
+      },
+      "id": "node/3806743195"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3806743196",
+        "monorail": "yes",
+        "name": "Naigaon",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail",
+        "wikidata": "Q63346704"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8478709,
+          19.0095393
+        ]
+      },
+      "id": "node/3806743196"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3956215626",
+        "internet_access": "no",
+        "name": "Umbermali Cabin",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "OMB",
+        "train": "yes",
+        "wikidata": "Q30628739"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.4229527,
+          19.6283669
+        ]
+      },
+      "id": "node/3956215626"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3956337841",
+        "internet_access": "no",
+        "name": "Thansit Cabin",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "THS",
+        "train": "yes",
+        "wikidata": "Q30625834"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.352282,
+          19.5502698
+        ]
+      },
+      "id": "node/3956337841"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4258411797",
+        "internet_access": "no",
+        "name": "Vikhroli",
+        "name:hi": "विक्रोली",
+        "name:ml": "വിക്രോളി",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "VK",
+        "wikidata": "Q7929425",
+        "wikipedia": "en:Vikhroli railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.928021,
+          19.1114795
+        ]
+      },
+      "id": "node/4258411797"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4260136290",
+        "IR:zone": "WR:CCG",
+        "internet_access": "wlan",
+        "name": "Churchgate",
+        "name:hi": "चर्चगेट",
+        "name:ml": "ചർച്ച്ഗേറ്റ്",
+        "name:mr": "चर्चगेट",
+        "name:zh": "教堂门总站",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "old_ref": "C",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "CCG",
+        "start_date": "1867-04-12",
+        "train": "yes",
+        "wikidata": "Q5118143",
+        "wikipedia": "en:Churchgate railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8271741,
+          18.9354797
+        ]
+      },
+      "id": "node/4260136290"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4264457295",
+        "addr:postcode": "400019",
+        "internet_access": "no",
+        "name": "Matunga",
+        "name:hi": "माटुंगा",
+        "name:ml": "മാട്ടുംഗ",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MTN",
+        "wikidata": "Q6791975",
+        "wikipedia": "en:Matunga railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8501467,
+          19.0274356
+        ]
+      },
+      "id": "node/4264457295"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4264462833",
+        "IR:zone": "WR:CCG",
+        "ele": "4",
+        "internet_access": "no",
+        "name": "Matunga Road",
+        "name:hi": "माटुंगा रोड",
+        "name:ml": "മാട്ടുംഗ റോഡ്",
+        "name:mr": "माटुंगा रोड",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MRU",
+        "start_date": "1867",
+        "train": "yes",
+        "wheelchair": "limited",
+        "wikidata": "Q6791976",
+        "wikipedia": "en:Matunga Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8466813,
+          19.0278149
+        ]
+      },
+      "id": "node/4264462833"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4264478427",
+        "IR:zone": "WR:CCG",
+        "alt_name": "Mahalakshmi Railway Station",
+        "internet_access": "no",
+        "name": "Mahalaxmi",
+        "name:hi": "महालक्ष्मी",
+        "name:ml": "മഹാലക്ഷ്മി",
+        "name:mr": "महालक्ष्मी",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MX",
+        "start_date": "1867",
+        "train": "yes",
+        "wikidata": "Q6732924",
+        "wikipedia": "en:Mahalaxmi railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8242196,
+          18.9825203
+        ]
+      },
+      "id": "node/4264478427"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4264539430",
+        "internet_access": "wlan",
+        "name": "Ghatkopar",
+        "name:hi": "घाटकोपर",
+        "name:ml": "ഘാട്കോപ്പർ",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "GC",
+        "wikidata": "Q5555923",
+        "wikipedia": "en:Ghatkopar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9083668,
+          19.0856928
+        ]
+      },
+      "id": "node/4264539430"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4264841906",
+        "internet_access": "no",
+        "name": "Guru Tegh Bahadur Nagar",
+        "name:hi": "गुरु तेज बहादुर नगर",
+        "network": "Mumbai Suburban Railway",
+        "old_name": "Agarwada",
+        "operator": "Central Railway",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "GTBN",
+        "short_name": "GTB Nagar",
+        "wikidata": "Q5620449",
+        "wikipedia": "en:Guru Tegh Bahadur Nagar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8643455,
+          19.0380048
+        ]
+      },
+      "id": "node/4264841906"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4306437059",
+        "internet_access": "no",
+        "name": "Nalla Sopara",
+        "name:hi": "नाला सोपारा",
+        "name:mr": "नाला सोपारा",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "NSP",
+        "train": "yes",
+        "wikidata": "Q6960775",
+        "wikipedia": "en:Nala Sopara railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8185693,
+          19.4178997
+        ]
+      },
+      "id": "node/4306437059"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4548420708",
+        "internet_access": "no",
+        "name": "Dombivli",
+        "name:ja": "ドーンビヴリー",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "DI",
+        "wikidata": "Q5289983",
+        "wikipedia": "en:Dombivli railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0861355,
+          19.2180493
+        ]
+      },
+      "id": "node/4548420708"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4548421106",
+        "internet_access": "no",
+        "name": "Kopar",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KOPR",
+        "wikidata": "Q6431000",
+        "wikipedia": "en:Kopar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.078865,
+          19.212423
+        ]
+      },
+      "id": "node/4548421106"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4548442653",
+        "internet_access": "wlan",
+        "name": "Kalyan Junction",
+        "name:hi": "कल्याण जंक्शन",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KYN",
+        "wikidata": "Q6354881",
+        "wikipedia": "en:Kalyan Junction railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1308101,
+          19.2358216
+        ]
+      },
+      "id": "node/4548442653"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4769538488",
+        "internet_access": "no",
+        "name": "Neral NG",
+        "name:hi": "नेरल जंक्शन (नैरो गेज)",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "NRLN",
+        "train": "yes",
+        "wikidata": "Q15261689",
+        "wikipedia": "en:Neral railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3184141,
+          19.0267961
+        ]
+      },
+      "id": "node/4769538488"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4769702080",
+        "internet_access": "no",
+        "name": "Mohope",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MHPE",
+        "train": "yes",
+        "wikidata": "Q63361180"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1949958,
+          18.9437607
+        ]
+      },
+      "id": "node/4769702080"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5122858908",
+        "internet_access": "no",
+        "name": "Mira Road",
+        "name:hi": "मीरा रोड",
+        "name:mr": "मीरा रोड",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MIRA",
+        "train": "yes",
+        "wikidata": "Q6872241",
+        "wikipedia": "en:Mira Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8560676,
+          19.2816975
+        ]
+      },
+      "id": "node/5122858908"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5219622321",
+        "name": "Chembur",
+        "network": "Mumbai Metro Line 2",
+        "opening_date": "2026-04",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8928064,
+          19.0541298
+        ]
+      },
+      "id": "node/5219622321"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5219622342",
+        "name": "Dahanukarwadi",
+        "name:mr": "डहाणूकरवाडी",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q116266997"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8348068,
+          19.2062315
+        ]
+      },
+      "id": "node/5219622342"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5219622343",
+        "name": "Kandivali (West)",
+        "name:mr": "कांदिवली (पश्चिम)",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8373054,
+          19.2140036
+        ]
+      },
+      "id": "node/5219622343"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5219622344",
+        "name": "Borivali (West)",
+        "name:mr": "बोरिवली (पश्चिम)",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wikidata": "Q116266994"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8408607,
+          19.2313925
+        ]
+      },
+      "id": "node/5219622344"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5219622345",
+        "alt_name": "Mandapeshwar",
+        "name": "Mandapeshwar - I.C. Colony",
+        "name:mr": "मंडपेश्वर - आय.सी. कॉलनी",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8458001,
+          19.2495856
+        ]
+      },
+      "id": "node/5219622345"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5219622346",
+        "alt_name": "Kandarpada",
+        "name": "Kandarpada",
+        "name:mr": "कांदरपाडा",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.850504,
+          19.2566337
+        ]
+      },
+      "id": "node/5219622346"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5219622347",
+        "name": "Anand Nagar",
+        "name:mr": "आनंद नगर",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8663486,
+          19.2572087
+        ]
+      },
+      "id": "node/5219622347"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5219622393",
+        "name": "Diamond Garden",
+        "name:mr": "डायमंड गार्डन",
+        "network": "Mumbai Metro Line 2",
+        "opening_date": "2026-04",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9018378,
+          19.0517191
+        ]
+      },
+      "id": "node/5219622393"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5219623032",
+        "alt_name": "Shimpawali",
+        "name": "Shimpoli",
+        "name:mr": "शिंपोली",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8409432,
+          19.2228332
+        ]
+      },
+      "id": "node/5219623032"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5219623047",
+        "name": "Eksar",
+        "name:mr": "एकसर",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wikidata": "Q116266993"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8434456,
+          19.2403773
+        ]
+      },
+      "id": "node/5219623047"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5221297132",
+        "name": "CSMI Airport International T2",
+        "name:hi": "सीएसएमआई हवाई अड्डा अंतर्राष्ट्रीय टर्मिनल 2",
+        "name:mr": "छ.शि.म.आं.वि. ट-२",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2024-10-05",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8744692,
+          19.1023335
+        ]
+      },
+      "id": "node/5221297132"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5221297179",
+        "name": "Bandra Kurla Complex (BKC)",
+        "name:hi": "बांद्रा कुर्ला कॉम्प्लेक्स (बीकेसी)",
+        "name:mr": "वांद्रे कुर्ला कॉम्प्लेक्स (बीकेसी)",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2024-10-05",
+        "station": "subway",
+        "subway": "yes",
+        "wikidata": "Q130461527"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8546797,
+          19.0606629
+        ]
+      },
+      "id": "node/5221297179"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5442005137",
+        "construction": "yes",
+        "internet_access": "no",
+        "name": "Uran City",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "UNCT",
+        "start_date": "2024-01-12",
+        "wikidata": "Q24949619",
+        "wikipedia": "en:Uran City railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9525001,
+          18.8784186
+        ]
+      },
+      "id": "node/5442005137"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5498811103",
+        "internet_access": "no",
+        "name": "Vangaon",
+        "name:hi": "वानगांव",
+        "name:mr": "वाणगांव",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "VGN",
+        "train": "yes",
+        "wikidata": "Q7914757"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.7631658,
+          19.8829908
+        ]
+      },
+      "id": "node/5498811103"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5580577005",
+        "internet_access": "no",
+        "name": "Juichandra",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "JCNR",
+        "train": "yes",
+        "wikidata": "Q6301980"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8723218,
+          19.3604641
+        ]
+      },
+      "id": "node/5580577005"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5580577254",
+        "internet_access": "no",
+        "name": "Kaman Road",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KARD",
+        "train": "yes",
+        "wikidata": "Q15233139",
+        "wikipedia": "en:Kaman Road railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9190837,
+          19.3366555
+        ]
+      },
+      "id": "node/5580577254"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5696928866",
+        "date:rebuilt": "2015",
+        "date:renamed": "1934",
+        "historic:name": "Salsette–Trombay",
+        "internet_access": "no",
+        "name": "Andheri",
+        "name:1928-1934": "Salsette–Trombay",
+        "name:hi": "अन्धेरी",
+        "name:mr": "अंधेरी",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "Western Railway",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "ADH",
+        "start_date": "1928",
+        "train": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q4754334",
+        "wikipedia": "en:Andheri railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8464205,
+          19.1196976
+        ]
+      },
+      "id": "node/5696928866"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5764017129",
+        "internet_access": "no",
+        "name": "Rasayani",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "halt",
+        "railway": "halt",
+        "ref": "RSYI",
+        "train": "yes",
+        "wikidata": "Q15271875"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1516427,
+          18.8940449
+        ]
+      },
+      "id": "node/5764017129"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5764392819",
+        "internet_access": "no",
+        "name": "Vangani",
+        "name:hi": "वांगनी",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "VGI",
+        "train": "yes",
+        "wikidata": "Q7914755",
+        "wikipedia": "en:Vangani railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3008946,
+          19.0943323
+        ]
+      },
+      "id": "node/5764392819"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5764394234",
+        "internet_access": "no",
+        "name": "Ulhasnagar",
+        "name:ja": "ウルハースナガル",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "ULNR",
+        "train": "yes",
+        "wikidata": "Q7878931",
+        "wikipedia": "en:Ulhasnagar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1630778,
+          19.2178804
+        ]
+      },
+      "id": "node/5764394234"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5787704195",
+        "name": "SEEPZ",
+        "name:mr": "सीप्झ",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2024-10-05",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8737266,
+          19.1259985
+        ]
+      },
+      "id": "node/5787704195"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5787704196",
+        "name": "MIDC - Andheri",
+        "name:mr": "एम.आय.डी.सी. - अंधेरी",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "AND",
+        "start_date": "2024-10-05",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8735966,
+          19.1173537
+        ]
+      },
+      "id": "node/5787704196"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5787704197",
+        "name": "Marol Naka (Line 3)",
+        "name:en": "Marol Naka (Line 3)",
+        "name:mr": "मरोळ नाका",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2024-10-05",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.878578,
+          19.1085041
+        ]
+      },
+      "id": "node/5787704197"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5909533857",
+        "internet_access": "no",
+        "name": "Ram Mandir",
+        "name:hi": "राम मंदिर",
+        "name:mr": "राम मंदिर",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "WR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "RMAR",
+        "train": "yes",
+        "wikidata": "Q18129030",
+        "wikipedia": "en:Ram Mandir railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8501467,
+          19.151023
+        ]
+      },
+      "id": "node/5909533857"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5936230491",
+        "internet_access": "no",
+        "name": "Kalamboli",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KLMC",
+        "train": "yes",
+        "wikidata": "Q15232881",
+        "wikipedia": "en:Kalamboli railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1149672,
+          19.0344708
+        ]
+      },
+      "id": "node/5936230491"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6020955334",
+        "building": "transportation",
+        "description": "Andheri Metro Station",
+        "name": "Andheri L1",
+        "name:hi": "अंधेरी",
+        "name:mr": "अंधेरी",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wikidata": "Q17512034",
+        "wikipedia": "en:Andheri metro station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8488433,
+          19.1205638
+        ]
+      },
+      "id": "node/6020955334"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6164590560",
+        "internet_access": "no",
+        "name": "Jite",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "JITE",
+        "train": "yes",
+        "wikidata": "Q15229611"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0868155,
+          18.8200931
+        ]
+      },
+      "id": "node/6164590560"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6166805005",
+        "internet_access": "no",
+        "name": "Hamarapur",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "HMRR",
+        "train": "yes",
+        "wikidata": "Q15222689",
+        "wikipedia": "en:Hamrapur railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0792002,
+          18.7839356
+        ]
+      },
+      "id": "node/6166805005"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6166805034",
+        "internet_access": "no",
+        "name": "Pen",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "PEN",
+        "train": "yes",
+        "wikidata": "Q15265857",
+        "wikipedia": "en:Pen railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0868161,
+          18.735385
+        ]
+      },
+      "id": "node/6166805034"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6175360983",
+        "internet_access": "wlan",
+        "name": "Lokmanya Tilak Terminus",
+        "name:hi": "लोकमान्य तिलक टर्मिनस",
+        "name:ml": "ലോകമാന്യ തിലക് ടെർമിനസ്",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "LTT",
+        "train": "yes",
+        "wikidata": "Q4520739",
+        "wikipedia": "en:Lokmanya Tilak Terminus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8919779,
+          19.0694658
+        ]
+      },
+      "id": "node/6175360983"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6498408219",
+        "monorail": "yes",
+        "name": "Lower Parel",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "monorail",
+        "wikidata": "Q63346703"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8314698,
+          18.9931201
+        ]
+      },
+      "id": "node/6498408219"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6568083089",
+        "internet_access": "no",
+        "name": "Nilaje",
+        "name:hi": "निलजे",
+        "name:mr": "निळजे",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "NIIJ",
+        "train": "yes",
+        "wikidata": "Q15262340",
+        "wikipedia": "en:Nilaje railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0803599,
+          19.1544274
+        ]
+      },
+      "id": "node/6568083089"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6568083144",
+        "internet_access": "no",
+        "name": "Taloje Panchanand",
+        "name:hi": "तलोजे पंचानन्द",
+        "name:mr": "तळोजे पंचानंद",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "TPND",
+        "train": "yes",
+        "wikidata": "Q7680276",
+        "wikipedia": "en:Taloja Panchnand railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0878581,
+          19.079148
+        ]
+      },
+      "id": "node/6568083144"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6568083299",
+        "internet_access": "no",
+        "name": "Somatne",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "SMNE",
+        "train": "yes",
+        "wikidata": "Q15278515",
+        "wikipedia": "en:Somtane railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.14548,
+          18.950646
+        ]
+      },
+      "id": "node/6568083299"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6577361084",
+        "internet_access": "no",
+        "name": "Navade Road",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "halt",
+        "railway": "halt",
+        "ref": "NVRD",
+        "train": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1030296,
+          19.053846
+        ]
+      },
+      "id": "node/6577361084"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6589829332",
+        "internet_access": "no",
+        "name": "Kelavli",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KLY",
+        "train": "yes",
+        "wikidata": "Q6385504",
+        "wikipedia": "en:Kelavli railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3189117,
+          18.8445449
+        ]
+      },
+      "id": "node/6589829332"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7555912827",
+        "name": "Dronagiri",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "DRNGR",
+        "train": "yes",
+        "wikidata": "Q29026150"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9647315,
+          18.8813327
+        ]
+      },
+      "id": "node/7555912827"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7555912828",
+        "name": "Nhava Sheva",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "NHVSV",
+        "train": "yes",
+        "wikidata": "Q29026152"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9877967,
+          18.898061
+        ]
+      },
+      "id": "node/7555912828"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7555912829",
+        "name": "Ranjanpada",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "RJNPD",
+        "train": "yes",
+        "wikidata": "Q29026156"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0158486,
+          18.9092584
+        ]
+      },
+      "id": "node/7555912829"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8342841400",
+        "construction": "station",
+        "construction:railway": "station",
+        "name": "Kapurbawdi Station",
+        "opening_date": "2027-11",
+        "public_transport": "station",
+        "public_transport:version": "2",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9774245,
+          19.2241429
+        ]
+      },
+      "id": "node/8342841400"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8462729069",
+        "construction": "stop",
+        "name": "Gaimukh Station",
+        "network": "Mumbai Metro Green Line",
+        "public_transport": "station",
+        "public_transport:version": "2",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9468083,
+          19.2844346
+        ]
+      },
+      "id": "node/8462729069"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8462729070",
+        "construction": "station",
+        "construction:railway": "station",
+        "name": "Gowniwada Station",
+        "network": "Mumbai Metro Line 4",
+        "opening_date": "2026-04",
+        "public_transport": "station",
+        "public_transport:version": "2",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9582272,
+          19.2767469
+        ]
+      },
+      "id": "node/8462729070"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8462838145",
+        "name": "Azad Nagar Bus Stop",
+        "network": "Thane Ring Metro",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9809993,
+          19.2410366
+        ]
+      },
+      "id": "node/8462838145"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9126268647",
+        "construction": "stop",
+        "name": "Teen Hath Naka Station",
+        "network": "Mumbai Metro",
+        "network:wikidata": "Q30599218",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9615868,
+          19.1870457
+        ]
+      },
+      "id": "node/9126268647"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9130240851",
+        "construction": "station",
+        "name": "Subhash Chandra Bose Ground",
+        "network": "Mumbai Metro Red Line",
+        "opening_date": "2026-12",
+        "public_transport": "station",
+        "public_transport:version": "2",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8431291,
+          19.294238
+        ]
+      },
+      "id": "node/9130240851"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9131712733",
+        "construction": "station",
+        "construction:railway": "station",
+        "name": "Airport Colony Station",
+        "network": "Mumbai Metro Line 7A",
+        "opening_date": "2026-12",
+        "public_transport": "station",
+        "public_transport:version": "2",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.854017,
+          19.1058178
+        ]
+      },
+      "id": "node/9131712733"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9132436368",
+        "construction": "station",
+        "name": "Anik Nagar Bus Depot Station",
+        "network": "Mumbai Metro Line 4",
+        "opening_date": "2027-11",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8786341,
+          19.0458265
+        ]
+      },
+      "id": "node/9132436368"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9627118208",
+        "name": "Dahisar (East) [Line 7]",
+        "name:mr": "दहिसर (पूर्व)",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8666664,
+          19.2506981
+        ]
+      },
+      "id": "node/9627118208"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9627118209",
+        "name": "Dahisar (East) [Line 2]",
+        "name:mr": "दहिसर (पूर्व)",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8673322,
+          19.2517331
+        ]
+      },
+      "id": "node/9627118209"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9629564097",
+        "name": "Aarey",
+        "name:hi": "आरे रोड जंक्शन",
+        "name:mr": "आरे रोड जंक्शन",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wheelchair": "limited",
+        "wikidata": "Q116271881"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8587918,
+          19.1693242
+        ]
+      },
+      "id": "node/9629564097"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9629564098",
+        "name": "Dindoshi",
+        "name:hi": "दिंडोशी",
+        "name:mr": "दिंडोशी",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8582976,
+          19.1797579
+        ]
+      },
+      "id": "node/9629564098"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9629564099",
+        "alt_name": "Pushpa Park",
+        "name": "Kurar",
+        "name:hi": "कुरार",
+        "name:mr": "कुरार",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8584547,
+          19.1872999
+        ]
+      },
+      "id": "node/9629564099"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9629564100",
+        "alt_name": "Akurli",
+        "name": "Akurli",
+        "name:mr": "आकुर्ली",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8604905,
+          19.1981585
+        ]
+      },
+      "id": "node/9629564100"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9629564101",
+        "alt_name": "Poisar",
+        "name": "Poisar",
+        "name:mr": "पोइसर",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8631041,
+          19.2035171
+        ]
+      },
+      "id": "node/9629564101"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9629564102",
+        "name": "Magathane",
+        "name:mr": "मगाठाणे",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "toilets:wheelchair": "yes",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8668012,
+          19.2167968
+        ]
+      },
+      "id": "node/9629564102"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9629564103",
+        "name": "Devipada",
+        "name:mr": "देवीपाडा",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8643251,
+          19.2240357
+        ]
+      },
+      "id": "node/9629564103"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9629564104",
+        "name": "Rashtriya Udyan",
+        "name:hi": "राष्ट्रीय उद्यान",
+        "name:mr": "राष्ट्रीय उद्यान",
+        "network": "Mumbai Metro",
+        "operator": "MMRDA",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8630608,
+          19.2348129
+        ]
+      },
+      "id": "node/9629564104"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9629564105",
+        "name": "Ovaripada",
+        "name:mr": "ओवरीपाडा",
+        "network": "Mumbai Metro",
+        "operator": "MMRDA",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "701",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8641377,
+          19.2431487
+        ]
+      },
+      "id": "node/9629564105"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10299481539",
+        "construction": "station",
+        "name": "Shahid Bhagat Singh Garden",
+        "network": "Mumbai Metro Red Line",
+        "opening_date": "2026-12",
+        "public_transport": "station",
+        "public_transport:version": "2",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.849362,
+          19.2948117
+        ]
+      },
+      "id": "node/10299481539"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10576622687",
+        "name": "Gundavali",
+        "name:hi": "गुंदावली",
+        "name:mr": "गुंदवली",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8551556,
+          19.1145125
+        ]
+      },
+      "id": "node/10576622687"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10576622712",
+        "name": "Mogra",
+        "name:mr": "मोगरा",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8554558,
+          19.1284364
+        ]
+      },
+      "id": "node/10576622712"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10576622721",
+        "name": "Jogeshwari (East)",
+        "name:mr": "जोगेश्वरी (पूर्व)",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.855185,
+          19.1429455
+        ]
+      },
+      "id": "node/10576622721"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10576622722",
+        "name": "Goregaon (East)",
+        "name:mr": "गोरेगाव (पूर्व)",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8565966,
+          19.1524492
+        ]
+      },
+      "id": "node/10576622722"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10576726748",
+        "name": "Andheri (West)",
+        "name:mr": "अंधेरी (पश्चिम)",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wheelchair": "limited"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8314307,
+          19.1291337
+        ]
+      },
+      "id": "node/10576726748"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10576726751",
+        "name": "Lower Oshiwara",
+        "name:hi": "लोअर ओशिवरा",
+        "name:mr": "लोअर ओशिवरा",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8317139,
+          19.1406979
+        ]
+      },
+      "id": "node/10576726751"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10576726756",
+        "name": "Oshiwara",
+        "name:hi": "ओशिवारा",
+        "name:mr": "ओशिवारा",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "215",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.833952,
+          19.1460351
+        ]
+      },
+      "id": "node/10576726756"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10576726757",
+        "name": "Goregaon (West)",
+        "name:hi": "गोरेगाँव (पश्चिम)",
+        "name:mr": "गोरेगाँव (पश्चिम)",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8356664,
+          19.1530241
+        ]
+      },
+      "id": "node/10576726757"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10576726761",
+        "name": "Lower Malad",
+        "name:mr": "लोअर मालाड",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wikidata": "Q116188743"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8364801,
+          19.1730984
+        ]
+      },
+      "id": "node/10576726761"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10576726762",
+        "name": "Malad (West)",
+        "name:mr": "मालाड (पश्चिम)",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wikidata": "Q116188743"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8358611,
+          19.1852851
+        ]
+      },
+      "id": "node/10576726762"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10576726763",
+        "name": "Valnai-Meeth Chowky",
+        "name:mr": "वळनई-मीठ चौकी",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wikidata": "Q116188743"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8337752,
+          19.1968293
+        ]
+      },
+      "id": "node/10576726763"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11335491946",
+        "addr:city": "Navi Mumbai",
+        "addr:postcode": "400614",
+        "name": "CBD Belapur",
+        "name:mr": "सी बी डी बेलापूर",
+        "network": "Mumbai Suburban Railway Network",
+        "operator": "Central Railways",
+        "platforms": "4",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "BEPR",
+        "train": "yes",
+        "wheelchair": "limited",
+        "wikidata": "Q5009065",
+        "wikipedia": "en:CBD Belapur railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0391304,
+          19.0190075
+        ]
+      },
+      "id": "node/11335491946"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11335491947",
+        "name": "CBD Belapur",
+        "name:mr": "सी बी डी बेलापूर",
+        "network": "Navi Mumbai Metro",
+        "operator": "CIDCO",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0402663,
+          19.0205999
+        ]
+      },
+      "id": "node/11335491947"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11335491948",
+        "name": "RBI Colony",
+        "name:mr": "आर.बी.आय. कॉलनी",
+        "network": "Navi Mumbai Metro",
+        "operator": "CIDCO",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0479433,
+          19.0229846
+        ]
+      },
+      "id": "node/11335491948"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12074909129",
+        "name": "Bandra Colony",
+        "name:hi": "बांद्रा कॉलोनी",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "VIDN",
+        "start_date": "2024-10-05",
+        "station": "subway",
+        "subway": "yes",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8493601,
+          19.0699627
+        ]
+      },
+      "id": "node/12074909129"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12074909130",
+        "name": "Santacruz",
+        "name:hi": "सांताक्रूज़",
+        "name:mr": "सांताक्रूझ",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2024-10-05",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8471185,
+          19.0792887
+        ]
+      },
+      "id": "node/12074909130"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12074909131",
+        "name": "CSMI Airport Domestic T1",
+        "name:hi": "सीएसएमआई घरेलू हवाई अड्डा टर्मिनल 1",
+        "name:mr": "छ.शि.म.आं.वि. ट-१",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2024-10-05",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8535765,
+          19.093899
+        ]
+      },
+      "id": "node/12074909131"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12074909132",
+        "name": "Sahar Road",
+        "name:hi": "सहार रोड",
+        "name:mr": "सहार रोड",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2024-10-05",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8652361,
+          19.102196
+        ]
+      },
+      "id": "node/12074909132"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12171122260",
+        "internet_access": "no",
+        "name": "Masjid",
+        "name:hi": "मस्जिद",
+        "name:ml": "മസ്ജിദ്",
+        "name:mr": "मस्जिद",
+        "name:ur": "مسجد",
+        "network": "IR",
+        "operator": "CR",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MSD",
+        "train": "yes",
+        "wikidata": "Q12445809",
+        "wikipedia": "en:Masjid railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8381771,
+          18.9522949
+        ]
+      },
+      "id": "node/12171122260"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12176277888",
+        "addr:city": "Mumbai",
+        "addr:postcode": "400001",
+        "addr:street": "Dr Dadabhai Naoroji Road",
+        "internet_access": "wlan",
+        "internet_access:ssid": "RailWire Wi-Fi",
+        "name": "Mumbai CSMT",
+        "name:hi": "मुंबई सीएसएमटी",
+        "name:ur": "ممبئی سی ایس ایم ٹی ٹرمینل",
+        "network": "CR",
+        "operator": "Central Railway",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "CSMT",
+        "train": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q235884",
+        "wikipedia": "en:Chhatrapati Shivaji Terminus railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8357856,
+          18.9404925
+        ]
+      },
+      "id": "node/12176277888"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12189351682",
+        "addr:city": "Navi Mumbai",
+        "addr:postcode": "410210",
+        "addr:street": "Kharghar Station Road",
+        "internet_access": "yes",
+        "name": "Kharghar",
+        "network": "Indian Railways",
+        "operator": "Central Railway",
+        "platforms": "4",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "KHAG",
+        "train": "yes",
+        "wheelchair": "limited",
+        "wikidata": "Q6400640",
+        "wikipedia": "en:Kharghar railway station"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0593001,
+          19.0258415
+        ]
+      },
+      "id": "node/12189351682"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12189351683",
+        "name": "Seawoods",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "Central Railway",
+        "platforms": "4",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "SWDV",
+        "train": "yes",
+        "wikidata": "Q3632540"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0191588,
+          19.0218192
+        ]
+      },
+      "id": "node/12189351683"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12189351698",
+        "name": "Jogeshwari (Harbour Line)",
+        "name:mr": "जोगेश्‍वरी",
+        "network": "Indian Railways",
+        "operator": "Western Railway",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "JOS",
+        "train": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8494209,
+          19.1411537
+        ]
+      },
+      "id": "node/12189351698"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12189363305",
+        "name": "Jogeshwari (Western Line)",
+        "name:mr": "जोगेश्‍वरी",
+        "network": "Mumbai Suburban Railway",
+        "network:wikidata": "Q3273422",
+        "operator": "Western Railway",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "JOS",
+        "train": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.848936,
+          19.1361144
+        ]
+      },
+      "id": "node/12189363305"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12196197980",
+        "alt_name": "Pahadi Goregaon",
+        "alt_name:mr": "पहाडी गोरेगाव",
+        "name": "Bangur Nagar",
+        "name:hi": "बांगुर नगर",
+        "name:mr": "बांगुर नगर",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8348708,
+          19.1624723
+        ]
+      },
+      "id": "node/12196197980"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12238602889",
+        "construction": "stop",
+        "name": "Teen Hath Naka Station",
+        "network": "Line 4",
+        "network:wikidata": "Q30599218",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9615683,
+          19.1870891
+        ]
+      },
+      "id": "node/12238602889"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12560876347",
+        "name": "Palasdhari Station",
+        "public_transport": "station",
+        "railway": "station",
+        "train": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3508084,
+          18.8531771
+        ]
+      },
+      "id": "node/12560876347"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12855459845",
+        "name": "Dadar",
+        "name:hi": "दादर",
+        "name:mr": "दादर",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8392214,
+          19.0236238
+        ]
+      },
+      "id": "node/12855459845"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12855459846",
+        "name": "Shitala Devi Mandir",
+        "name:hi": "शीतला देवी मंदिर",
+        "name:mr": "शितला देवी मंदिर",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wikidata": "Q134454499"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8419646,
+          19.0384641
+        ]
+      },
+      "id": "node/12855459846"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12855459847",
+        "name": "Dharavi",
+        "name:en": "Dharavi",
+        "name:hi": "धारावी",
+        "name:mr": "धारावी",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wikidata": "Q134454499"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.849741,
+          19.0462612
+        ]
+      },
+      "id": "node/12855459847"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12857565154",
+        "name": "Acharya Atre Chowk",
+        "name:en": "Acharya Atre Chowk",
+        "name:hi": "आचार्य अत्रे चौक",
+        "name:mr": "आचार्य अत्रे चौक",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8177201,
+          18.9978202
+        ]
+      },
+      "id": "node/12857565154"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12857565155",
+        "name": "Worli",
+        "name:en": "Worli",
+        "name:hi": "वर्ली",
+        "name:mr": "वरळी",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "WOR",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8192741,
+          19.0086057
+        ]
+      },
+      "id": "node/12857565155"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12857565156",
+        "name": "Siddhivinayak Temple",
+        "name:hi": "सिद्धिविनायक मंदिर",
+        "name:mr": "सिद्धिविनायक मंदिर",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8309199,
+          19.0158935
+        ]
+      },
+      "id": "node/12857565156"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13192130534",
+        "name": "Jagannath Shankar Sheth Metro",
+        "name:hi": "जगन्नाथ शंकर शेठ मेट्रो",
+        "name:mr": "जगन्नाथ शंकर शेठ मेट्रो",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "MCLM",
+        "station": "subway",
+        "subway": "yes",
+        "wikidata": "Q130461631"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8211795,
+          18.9699923
+        ]
+      },
+      "id": "node/13192130534"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13192130535",
+        "name": "Mahalaxmi",
+        "name:en": "Mahalaxmi",
+        "name:hi": "महालक्ष्मी",
+        "name:mr": "महालक्ष्मी",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8254006,
+          18.979467
+        ]
+      },
+      "id": "node/13192130535"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13192130536",
+        "name": "Science Centre",
+        "name:hi": "विज्ञान संग्रहालय",
+        "name:mr": "विज्ञान संग्रहालय",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2025-10-09",
+        "station": "subway",
+        "subway": "yes",
+        "wikidata": "Q130461632"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8213521,
+          18.9908949
+        ]
+      },
+      "id": "node/13192130536"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13207029317",
+        "name": "Cuffe Parade",
+        "name:hi": "कफ़ परेड",
+        "name:mr": "कफ परेड",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "CUP",
+        "start_date": "2025-10-09",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8207152,
+          18.9135692
+        ]
+      },
+      "id": "node/13207029317"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13207029318",
+        "name": "Vidhan Bhavan",
+        "name:hi": "विधान भवन",
+        "name:mr": "विधान भवन",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2025-10-09",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8254934,
+          18.9247813
+        ]
+      },
+      "id": "node/13207029318"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13207029319",
+        "name": "Churchgate",
+        "name:hi": "चर्चगेट",
+        "name:mr": "चर्चगेट",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2025-10-09",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8269394,
+          18.9314946
+        ]
+      },
+      "id": "node/13207029319"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13207029320",
+        "name": "Hutatma Chowk",
+        "name:hi": "हुतात्मा चौक",
+        "name:mr": "हुतात्मा चौक",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2025-10-09",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8325037,
+          18.9341849
+        ]
+      },
+      "id": "node/13207029320"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13207029322",
+        "name": "Chhatrapati Shivaji Maharaj Terminus",
+        "name:hi": "छत्रपती शिवाजी महाराज टर्मिनस",
+        "name:mr": "छत्रपती शिवाजी महाराज टर्मिनस",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2025-10-09",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.831861,
+          18.9408329
+        ]
+      },
+      "id": "node/13207029322"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13207029323",
+        "name": "Kalbadevi",
+        "name:en": "Kalbadevi",
+        "name:hi": "कालबादेवी",
+        "name:mr": "काळबादेवी",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2025-10-09",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.827193,
+          18.946329
+        ]
+      },
+      "id": "node/13207029323"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13207029324",
+        "name": "Girgaon",
+        "name:hi": "गिरगांव",
+        "name:mr": "गिरगाव",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2025-10-09",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8222065,
+          18.9521015
+        ]
+      },
+      "id": "node/13207029324"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13207029325",
+        "name": "Grant Road",
+        "name:hi": "ग्रांट रोड",
+        "name:mr": "ग्रँट रोड",
+        "network": "Mumbai Metro",
+        "operator": "Mumbai Metro Rail Corporation Ltd",
+        "public_transport": "station",
+        "railway": "station",
+        "start_date": "2025-10-09",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8180437,
+          18.9632181
+        ]
+      },
+      "id": "node/13207029325"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13252985100",
+        "name": "Mandale",
+        "name:mr": "मंडाले",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9386763,
+          19.0495787
+        ]
+      },
+      "id": "node/13252985100"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13252997901",
+        "name": "Shivaji Chowk (Chembur)",
+        "name:mr": "शिवाजी चौक (चेंबूर)",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9069806,
+          19.0479383
+        ]
+      },
+      "id": "node/13252997901"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13252997906",
+        "name": "Deonar",
+        "name:mr": "देवनार",
+        "old_name": "BSNL",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9175244,
+          19.0448287
+        ]
+      },
+      "id": "node/13252997906"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13252997911",
+        "name": "Mankhurd",
+        "name:hi": "मानखुर्द",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9311514,
+          19.049192
+        ]
+      },
+      "id": "node/13252997911"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13284781018",
+        "monorail": "yes",
+        "name": "Antop Hill",
+        "public_transport": "station",
+        "railway": "station",
+        "short_name": "GTB Nagar",
+        "station": "monorail",
+        "wikidata": "Q63346708"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8669504,
+          19.0301805
+        ]
+      },
+      "id": "node/13284781018"
+    }
+  ]
+}
