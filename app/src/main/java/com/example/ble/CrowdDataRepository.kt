@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 import kotlin.math.*
 
 
@@ -19,11 +20,11 @@ data class PredictionResult(
 
 object CrowdDataRepository {
 
-    private val fmtTime = SimpleDateFormat("HH:mm", Locale.ENGLISH)
-    private val fmtDateTime = SimpleDateFormat("d MMM yyyy, HH:mm", Locale.ENGLISH)
-    private val fmtDayMonth = SimpleDateFormat("d MMM", Locale.ENGLISH)
+    private val fmtTime = SimpleDateFormat("HH:mm", Locale.ENGLISH).apply { timeZone = TimeZone.getTimeZone("Asia/Kolkata") }
+    private val fmtDateTime = SimpleDateFormat("d MMM yyyy, HH:mm", Locale.ENGLISH).apply { timeZone = TimeZone.getTimeZone("Asia/Kolkata") }
+    private val fmtDayMonth = SimpleDateFormat("d MMM", Locale.ENGLISH).apply { timeZone = TimeZone.getTimeZone("Asia/Kolkata") }
 
-    private val fmtDateOnly = SimpleDateFormat("d MMM yyyy", Locale.ENGLISH)
+    private val fmtDateOnly = SimpleDateFormat("d MMM yyyy", Locale.ENGLISH).apply { timeZone = TimeZone.getTimeZone("Asia/Kolkata") }
 
     /** First → last reading time span for chart headers. */
     fun readingsTimeWindowLabel(readings: List<CrowdReading>): String {
@@ -419,8 +420,8 @@ object CrowdDataRepository {
                 val maxTs = sorted.last().timestamp
                 val byDayStart = readings.groupBy { startOfDayUtcMillis(it.timestamp) }
 
-                val labelSameYear = SimpleDateFormat("d MMM", Locale.ENGLISH)
-                val labelWithYear = SimpleDateFormat("d MMM yy", Locale.ENGLISH)
+                val labelSameYear = SimpleDateFormat("d MMM", Locale.ENGLISH).apply { timeZone = TimeZone.getTimeZone("Asia/Kolkata") }
+                val labelWithYear = SimpleDateFormat("d MMM yy", Locale.ENGLISH).apply { timeZone = TimeZone.getTimeZone("Asia/Kolkata") }
                 val calMin = Calendar.getInstance().apply { timeInMillis = minTs }
                 val calMax = Calendar.getInstance().apply { timeInMillis = maxTs }
                 val sameYear = calMin.get(Calendar.YEAR) == calMax.get(Calendar.YEAR)
