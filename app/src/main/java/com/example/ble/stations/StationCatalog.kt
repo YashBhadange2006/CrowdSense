@@ -7,29 +7,37 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 private const val TAG = "StationCatalog"
-private const val ASSET_NAME = "export.geojson"
+private const val DEFAULT_STATION_ASSET_NAME = "export.geojson"
 private const val GEOHASH_PRECISION = 6
 
 /**
- * Loads Mumbai-area railway points from bundled GeoJSON (OSM / Overpass).
+ * Loads station points from a bundled GeoJSON asset.
  * Thread-safe lazy cache per process; safe to call from any thread.
  */
 object StationCatalog {
 
     @Volatile
+    private var cachedAssetName: String? = null
+    @Volatile
     private var cached: List<Station>? = null
 
-    fun load(context: Context): List<Station> {
-        cached?.let { return it }
-        synchronized(this) {
+    fun load(context: Context, assetName: String = DEFAULT_STATION_ASSET_NAME): List<Station> {
+        if (assetName == cachedAssetName) {
             cached?.let { return it }
+        }
+
+        synchronized(this) {
+            if (assetName == cachedAssetName) {
+                cached?.let { return it }
+            }
             val list = try {
-                val text = context.assets.open(ASSET_NAME).bufferedReader(Charsets.UTF_8).use { it.readText() }
+                val text = context.assets.open(assetName).bufferedReader(Charsets.UTF_8).use { it.readText() }
                 parseFeatures(text)
             } catch (e: Exception) {
-                Log.e(TAG, "Failed to load $ASSET_NAME", e)
+                Log.e(TAG, "Failed to load $assetName", e)
                 emptyList()
             }
+            cachedAssetName = assetName
             cached = list
             return list
         }

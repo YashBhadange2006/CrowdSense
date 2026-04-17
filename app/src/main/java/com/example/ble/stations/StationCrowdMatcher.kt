@@ -3,12 +3,14 @@ package com.example.ble.stations
 import com.example.ble.CrowdDataRepository
 import com.example.ble.RemoteCrowdPoint
 
-private const val MIN_PREFIX_LEN = 5
+private const val MIN_PREFIX_LEN = 4
 private const val MAX_DISTANCE_M = 1_200.0
 
 /**
  * Picks the best [RemoteCrowdPoint] for a station when exact geohash does not match uploads.
- * Order: exact geohash → longest shared prefix (≥5) with tie-break by distance → nearest point within [MAX_DISTANCE_M].
+ * Order: exact geohash → longest shared prefix (≥5) with tie-break by distance
+ * → nearest point within [MAX_DISTANCE_M].
+ * This keeps station badges working even when uploads land in a nearby geohash cell.
  */
 data class CrowdBadgeMatch(
     val point: RemoteCrowdPoint,

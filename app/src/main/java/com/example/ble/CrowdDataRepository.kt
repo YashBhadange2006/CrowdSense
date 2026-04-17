@@ -266,7 +266,7 @@ object CrowdDataRepository {
         val lastX          = points.last().first
         val predictX       = lastX + 15.0
         val predictedScore = (intercept + slope * predictX)
-            .coerceIn(0.0, 20.0)
+            .coerceAtLeast(0.0)
             .toFloat()
 
         // Trend based on slope
