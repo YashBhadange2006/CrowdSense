@@ -7,7 +7,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 private const val TAG = "StationCatalog"
-private const val DEFAULT_STATION_ASSET_NAME = "export.geojson"
+private const val DEFAULT_STATION_ASSET_NAME = "stations.geojson"
 private const val GEOHASH_PRECISION = 6
 
 /**
@@ -72,12 +72,27 @@ object StationCatalog {
                 props.optString("@id").ifEmpty { "idx_$i" }
             }
             val geohash = GeoHashUtils.encode(lat, lng, GEOHASH_PRECISION)
+            
+            // Extract lines (rail lines serving this station)
+            val lines = mutableListOf<String>()
+            val linesArray = props.optJSONArray("lines")
+            if (linesArray != null) {
+                for (j in 0 until linesArray.length()) {
+                    lines.add(linesArray.getString(j))
+                }
+            }
+            
+            // Extract type (station classification)
+            val stationType = props.optString("type", "Suburban")
+            
             byId[id] = Station(
                 id = id,
                 name = name,
                 lat = lat,
                 lng = lng,
                 geohash = geohash,
+                lines = lines,
+                type = stationType,
             )
         }
 
