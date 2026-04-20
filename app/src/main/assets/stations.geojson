@@ -1,0 +1,1870 @@
+{
+"type": "FeatureCollection",
+"metadata": {
+"description": "Comprehensive dataset of Mumbai Suburban Rail, Metro, and Monorail stations.",
+"total_stations": 142,
+"last_updated": "2024",
+"projection": "WGS84"
+},
+"features": [
+{
+"type": "Feature",
+"id": "WR_CHG",
+"properties": {
+"name": "Churchgate",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8273, 18.9344]
+}
+},
+{
+"type": "Feature",
+"id": "WR_MEL",
+"properties": {
+"name": "Marine Lines",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8236, 18.9442]
+}
+},
+{
+"type": "Feature",
+"id": "WR_CYR",
+"properties": {
+"name": "Charni Road",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8184, 18.9515]
+}
+},
+{
+"type": "Feature",
+"id": "WR_GTR",
+"properties": {
+"name": "Grant Road",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8145, 18.9613]
+}
+},
+{
+"type": "Feature",
+"id": "WR_BCL_MMCT",
+"properties": {
+"name": "Mumbai Central",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8193, 18.9696]
+}
+},
+{
+"type": "Feature",
+"id": "WR_MX",
+"properties": {
+"name": "Mahalaxmi",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8236, 18.9822]
+}
+},
+{
+"type": "Feature",
+"id": "WR_PL",
+"properties": {
+"name": "Lower Parel",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8306, 18.9954]
+}
+},
+{
+"type": "Feature",
+"id": "WR_PBHD",
+"properties": {
+"name": "Prabhadevi",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8361, 19.0143]
+}
+},
+{
+"type": "Feature",
+"id": "INT_DDR",
+"properties": {
+"name": "Dadar",
+"lines": ["Western", "Central"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8430, 19.0191]
+}
+},
+{
+"type": "Feature",
+"id": "WR_MRU",
+"properties": {
+"name": "Matunga Road",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8464, 19.0305]
+}
+},
+{
+"type": "Feature",
+"id": "INT_MM",
+"properties": {
+"name": "Mahim Junction",
+"lines": ["Western", "Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8433, 19.0397]
+}
+},
+{
+"type": "Feature",
+"id": "INT_BA",
+"properties": {
+"name": "Bandra",
+"lines": ["Western", "Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8415, 19.0551]
+}
+},
+{
+"type": "Feature",
+"id": "INT_KHAR",
+"properties": {
+"name": "Khar Road",
+"lines": ["Western", "Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8401, 19.0694]
+}
+},
+{
+"type": "Feature",
+"id": "INT_STC",
+"properties": {
+"name": "Santacruz",
+"lines": ["Western", "Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8417, 19.0821]
+}
+},
+{
+"type": "Feature",
+"id": "INT_VLP",
+"properties": {
+"name": "Vile Parle",
+"lines": ["Western", "Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8439, 19.0991]
+}
+},
+{
+"type": "Feature",
+"id": "INT_ADH",
+"properties": {
+"name": "Andheri",
+"lines": ["Western", "Harbour", "Metro Line 1"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8465, 19.1198]
+}
+},
+{
+"type": "Feature",
+"id": "WR_JOS",
+"properties": {
+"name": "Jogeshwari",
+"lines": ["Western", "Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8488, 19.1360]
+}
+},
+{
+"type": "Feature",
+"id": "WR_RMAR",
+"properties": {
+"name": "Ram Mandir",
+"lines": ["Western", "Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8504, 19.1511]
+}
+},
+{
+"type": "Feature",
+"id": "WR_GMN",
+"properties": {
+"name": "Goregaon",
+"lines": ["Western", "Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8494, 19.1648]
+}
+},
+{
+"type": "Feature",
+"id": "WR_MDD",
+"properties": {
+"name": "Malad",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8488, 19.1870]
+}
+},
+{
+"type": "Feature",
+"id": "WR_KILE",
+"properties": {
+"name": "Kandivali",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8520, 19.2044]
+}
+},
+{
+"type": "Feature",
+"id": "WR_BVI",
+"properties": {
+"name": "Borivali",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8574, 19.2291]
+}
+},
+{
+"type": "Feature",
+"id": "WR_DIC",
+"properties": {
+"name": "Dahisar",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8594, 19.2496]
+}
+},
+{
+"type": "Feature",
+"id": "WR_MIRA",
+"properties": {
+"name": "Mira Road",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8557, 19.2818]
+}
+},
+{
+"type": "Feature",
+"id": "WR_BYR",
+"properties": {
+"name": "Bhayandar",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8530, 19.3081]
+}
+},
+{
+"type": "Feature",
+"id": "WR_NIG",
+"properties": {
+"name": "Naigaon",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8462, 19.3515]
+}
+},
+{
+"type": "Feature",
+"id": "WR_BSR",
+"properties": {
+"name": "Vasai Road",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8324, 19.3822]
+}
+},
+{
+"type": "Feature",
+"id": "WR_NSP",
+"properties": {
+"name": "Nallasopara",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8189, 19.4176]
+}
+},
+{
+"type": "Feature",
+"id": "WR_VR",
+"properties": {
+"name": "Virar",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8115, 19.4539]
+}
+},
+{
+"type": "Feature",
+"id": "WR_VTN",
+"properties": {
+"name": "Vaitarna",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8200, 19.5100]
+}
+},
+{
+"type": "Feature",
+"id": "WR_SAH",
+"properties": {
+"name": "Saphale",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8217, 19.5769]
+}
+},
+{
+"type": "Feature",
+"id": "WR_KLV",
+"properties": {
+"name": "Kelve Road",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.7937, 19.6191]
+}
+},
+{
+"type": "Feature",
+"id": "WR_PLG",
+"properties": {
+"name": "Palghar",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.7663, 19.6974]
+}
+},
+{
+"type": "Feature",
+"id": "WR_UOI",
+"properties": {
+"name": "Umroli",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.7628, 19.7431]
+}
+},
+{
+"type": "Feature",
+"id": "WR_BOR",
+"properties": {
+"name": "Boisar",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.7562, 19.8021]
+}
+},
+{
+"type": "Feature",
+"id": "WR_VGN",
+"properties": {
+"name": "Vangaon",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.7483, 19.8943]
+}
+},
+{
+"type": "Feature",
+"id": "WR_DRD",
+"properties": {
+"name": "Dahanu Road",
+"lines": ["Western"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.7438, 19.9913]
+}
+},
+{
+"type": "Feature",
+"id": "INT_CSMT",
+"properties": {
+"name": "Chhatrapati Shivaji Maharaj Terminus",
+"lines": ["Central", "Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8353, 18.9400]
+}
+},
+{
+"type": "Feature",
+"id": "INT_MSD",
+"properties": {
+"name": "Masjid",
+"lines": ["Central", "Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8384, 18.9511]
+}
+},
+{
+"type": "Feature",
+"id": "INT_SNRD",
+"properties": {
+"name": "Sandhurst Road",
+"lines": ["Central", "Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8394, 18.9619]
+}
+},
+{
+"type": "Feature",
+"id": "CR_BY",
+"properties": {
+"name": "Byculla",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8335, 18.9772]
+}
+},
+{
+"type": "Feature",
+"id": "CR_CHG",
+"properties": {
+"name": "Chinchpokli",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8310, 18.9866]
+}
+},
+{
+"type": "Feature",
+"id": "CR_CRD",
+"properties": {
+"name": "Currey Road",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8329, 18.9944]
+}
+},
+{
+"type": "Feature",
+"id": "CR_PR",
+"properties": {
+"name": "Parel",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8415, 19.0094]
+}
+},
+{
+"type": "Feature",
+"id": "CR_MTN",
+"properties": {
+"name": "Matunga",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8539, 19.0271]
+}
+},
+{
+"type": "Feature",
+"id": "CR_SIN",
+"properties": {
+"name": "Sion",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8639, 19.0474]
+}
+},
+{
+"type": "Feature",
+"id": "INT_CLA",
+"properties": {
+"name": "Kurla",
+"lines": ["Central", "Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8797, 19.0652]
+}
+},
+{
+"type": "Feature",
+"id": "CR_VVH",
+"properties": {
+"name": "Vidyavihar",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8961, 19.0792]
+}
+},
+{
+"type": "Feature",
+"id": "INT_GC",
+"properties": {
+"name": "Ghatkopar",
+"lines": ["Central", "Metro Line 1"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9082, 19.0858]
+}
+},
+{
+"type": "Feature",
+"id": "CR_VK",
+"properties": {
+"name": "Vikhroli",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9261, 19.1126]
+}
+},
+{
+"type": "Feature",
+"id": "CR_KJMG",
+"properties": {
+"name": "Kanjurmarg",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9282, 19.1285]
+}
+},
+{
+"type": "Feature",
+"id": "CR_BND",
+"properties": {
+"name": "Bhandup",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9365, 19.1448]
+}
+},
+{
+"type": "Feature",
+"id": "CR_NHU",
+"properties": {
+"name": "Nahur",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9469, 19.1549]
+}
+},
+{
+"type": "Feature",
+"id": "CR_MLND",
+"properties": {
+"name": "Mulund",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9564, 19.1726]
+}
+},
+{
+"type": "Feature",
+"id": "INT_TNA",
+"properties": {
+"name": "Thane",
+"lines": ["Central", "Trans-Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9762, 19.1862]
+}
+},
+{
+"type": "Feature",
+"id": "CR_KLVA",
+"properties": {
+"name": "Kalva",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9964, 19.1951]
+}
+},
+{
+"type": "Feature",
+"id": "CR_MBQ",
+"properties": {
+"name": "Mumbra",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0233, 19.1902]
+}
+},
+{
+"type": "Feature",
+"id": "CR_DIVA",
+"properties": {
+"name": "Diva Junction",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0429, 19.1889]
+}
+},
+{
+"type": "Feature",
+"id": "CR_KOPR",
+"properties": {
+"name": "Kopar",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0778, 19.2115]
+}
+},
+{
+"type": "Feature",
+"id": "CR_DI",
+"properties": {
+"name": "Dombivli",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0869, 19.2184]
+}
+},
+{
+"type": "Feature",
+"id": "CR_THK",
+"properties": {
+"name": "Thakurli",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0978, 19.2260]
+}
+},
+{
+"type": "Feature",
+"id": "CR_KYN",
+"properties": {
+"name": "Kalyan Junction",
+"lines": ["Central"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.1309, 19.2355]
+}
+},
+{
+"type": "Feature",
+"id": "CR_SHAD",
+"properties": {
+"name": "Shahad",
+"lines": ["Central-Kasara"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.1583, 19.2442]
+}
+},
+{
+"type": "Feature",
+"id": "CR_ABY",
+"properties": {
+"name": "Ambivli",
+"lines": ["Central-Kasara"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.1726, 19.2681]
+}
+},
+{
+"type": "Feature",
+"id": "CR_TLA",
+"properties": {
+"name": "Titwala",
+"lines": ["Central-Kasara"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.2031, 19.2963]
+}
+},
+{
+"type": "Feature",
+"id": "CR_KDV",
+"properties": {
+"name": "Khadavli",
+"lines": ["Central-Kasara"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.2384, 19.3496]
+}
+},
+{
+"type": "Feature",
+"id": "CR_VSD",
+"properties": {
+"name": "Vasind",
+"lines": ["Central-Kasara"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.2625, 19.4005]
+}
+},
+{
+"type": "Feature",
+"id": "CR_ASO",
+"properties": {
+"name": "Asangaon",
+"lines": ["Central-Kasara"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.3078, 19.4395]
+}
+},
+{
+"type": "Feature",
+"id": "CR_ATG",
+"properties": {
+"name": "Atgaon",
+"lines": ["Central-Kasara"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.3281, 19.5037]
+}
+},
+{
+"type": "Feature",
+"id": "CR_THS",
+"properties": {
+"name": "Thansit",
+"lines": ["Central-Kasara"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.3520, 19.5502]
+}
+},
+{
+"type": "Feature",
+"id": "CR_KDI",
+"properties": {
+"name": "Khardi",
+"lines": ["Central-Kasara"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.3855, 19.5886]
+}
+},
+{
+"type": "Feature",
+"id": "CR_UMB",
+"properties": {
+"name": "Umbermali",
+"lines": ["Central-Kasara"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.4230, 19.6282]
+}
+},
+{
+"type": "Feature",
+"id": "CR_KSRA",
+"properties": {
+"name": "Kasara",
+"lines": ["Central-Kasara"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.4730, 19.6483]
+}
+},
+{
+"type": "Feature",
+"id": "CR_VLDI",
+"properties": {
+"name": "Vithalwadi",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.1458, 19.2274]
+}
+},
+{
+"type": "Feature",
+"id": "CR_ULNR",
+"properties": {
+"name": "Ulhasnagar",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.1632, 19.2181]
+}
+},
+{
+"type": "Feature",
+"id": "CR_ABH",
+"properties": {
+"name": "Ambernath",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.1848, 19.2100]
+}
+},
+{
+"type": "Feature",
+"id": "CR_BUD",
+"properties": {
+"name": "Badlapur",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.2390, 19.1669]
+}
+},
+{
+"type": "Feature",
+"id": "CR_VGI",
+"properties": {
+"name": "Vangani",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.2843, 19.1084]
+}
+},
+{
+"type": "Feature",
+"id": "CR_SHLU",
+"properties": {
+"name": "Shelu",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.3178, 19.0632]
+}
+},
+{
+"type": "Feature",
+"id": "CR_NRL",
+"properties": {
+"name": "Neral Junction",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.3276, 19.0315]
+}
+},
+{
+"type": "Feature",
+"id": "CR_BVS",
+"properties": {
+"name": "Bhivpuri Road",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.3146, 18.9664]
+}
+},
+{
+"type": "Feature",
+"id": "CR_KJT",
+"properties": {
+"name": "Karjat",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.3207, 18.9114]
+}
+},
+{
+"type": "Feature",
+"id": "CR_PDI",
+"properties": {
+"name": "Palasdari",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.3045, 18.8925]
+}
+},
+{
+"type": "Feature",
+"id": "CR_KLY",
+"properties": {
+"name": "Kelavli",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.3090, 18.8687]
+}
+},
+{
+"type": "Feature",
+"id": "CR_DLV",
+"properties": {
+"name": "Dolavli",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.3203, 18.8336]
+}
+},
+{
+"type": "Feature",
+"id": "CR_LWJ",
+"properties": {
+"name": "Lowjee",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.3330, 18.8085]
+}
+},
+{
+"type": "Feature",
+"id": "CR_KHPI",
+"properties": {
+"name": "Khopoli",
+"lines": ["Central-Khopoli"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.3458, 18.7888]
+}
+},
+{
+"type": "Feature",
+"id": "HR_DKRD",
+"properties": {
+"name": "Dockyard Road",
+"lines": ["Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8444, 18.9674]
+}
+},
+{
+"type": "Feature",
+"id": "HR_RRD",
+"properties": {
+"name": "Reay Road",
+"lines": ["Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8475, 18.9754]
+}
+},
+{
+"type": "Feature",
+"id": "HR_CTGN",
+"properties": {
+"name": "Cotton Green",
+"lines": ["Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8524, 18.9859]
+}
+},
+{
+"type": "Feature",
+"id": "HR_SVE",
+"properties": {
+"name": "Sewri",
+"lines": ["Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8544, 18.9984]
+}
+},
+{
+"type": "Feature",
+"id": "INT_VDLR",
+"properties": {
+"name": "Vadala Road",
+"lines": ["Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8587, 19.0199]
+}
+},
+{
+"type": "Feature",
+"id": "HR_GTBN",
+"properties": {
+"name": "GTB Nagar",
+"lines": ["Harbour", "Monorail"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8708, 19.0368]
+}
+},
+{
+"type": "Feature",
+"id": "HR_CHF",
+"properties": {
+"name": "Chunabhatti",
+"lines": ["Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8753, 19.0505]
+}
+},
+{
+"type": "Feature",
+"id": "HR_TKNG",
+"properties": {
+"name": "Tilak Nagar",
+"lines": ["Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8906, 19.0657]
+}
+},
+{
+"type": "Feature",
+"id": "INT_CMBR",
+"properties": {
+"name": "Chembur",
+"lines": ["Harbour", "Monorail"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9016, 19.0617]
+}
+},
+{
+"type": "Feature",
+"id": "HR_GV",
+"properties": {
+"name": "Govandi",
+"lines": ["Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9150, 19.0558]
+}
+},
+{
+"type": "Feature",
+"id": "HR_MNKD",
+"properties": {
+"name": "Mankhurd",
+"lines": ["Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9324, 19.0507]
+}
+},
+{
+"type": "Feature",
+"id": "INT_VSH",
+"properties": {
+"name": "Vashi",
+"lines": ["Harbour", "Trans-Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9967, 19.0644]
+}
+},
+{
+"type": "Feature",
+"id": "INT_SNPD",
+"properties": {
+"name": "Sanpada",
+"lines": ["Harbour", "Trans-Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0093, 19.0660]
+}
+},
+{
+"type": "Feature",
+"id": "INT_JNJ",
+"properties": {
+"name": "Juinagar",
+"lines": ["Harbour", "Trans-Harbour"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0181, 19.0559]
+}
+},
+{
+"type": "Feature",
+"id": "INT_NEU",
+"properties": {
+"name": "Nerul",
+"lines": ["Harbour", "Trans-Harbour", "Port Line"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0185, 19.0271]
+}
+},
+{
+"type": "Feature",
+"id": "INT_SWDV",
+"properties": {
+"name": "Seawoods Darave",
+"lines": ["Harbour", "Port Line"],
+"type": "Interchange"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0190, 19.0221]
+}
+},
+{
+"type": "Feature",
+"id": "HR_BEP",
+"properties": {
+"name": "Belapur CBD",
+"lines": ["Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0396, 19.0188]
+}
+},
+{
+"type": "Feature",
+"id": "HR_KRG",
+"properties": {
+"name": "Kharghar",
+"lines": ["Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0673, 19.0232]
+}
+},
+{
+"type": "Feature",
+"id": "HR_MANR",
+"properties": {
+"name": "Mansarovar",
+"lines": ["Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0877, 19.0181]
+}
+},
+{
+"type": "Feature",
+"id": "HR_KNDS",
+"properties": {
+"name": "Khandeshwar",
+"lines": ["Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.1042, 19.0069]
+}
+},
+{
+"type": "Feature",
+"id": "HR_PNVL",
+"properties": {
+"name": "Panvel",
+"lines": ["Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.1189, 18.9894]
+}
+},
+{
+"type": "Feature",
+"id": "TH_AIRL",
+"properties": {
+"name": "Airoli",
+"lines": ["Trans-Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9996, 19.1590]
+}
+},
+{
+"type": "Feature",
+"id": "TH_RABL",
+"properties": {
+"name": "Rabale",
+"lines": ["Trans-Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0016, 19.1352]
+}
+},
+{
+"type": "Feature",
+"id": "TH_GNSL",
+"properties": {
+"name": "Ghansoli",
+"lines": ["Trans-Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0028, 19.1221]
+}
+},
+{
+"type": "Feature",
+"id": "TH_KPKR",
+"properties": {
+"name": "Kopar Khairane",
+"lines": ["Trans-Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0076, 19.1039]
+}
+},
+{
+"type": "Feature",
+"id": "TH_TUrb",
+"properties": {
+"name": "Turbhe",
+"lines": ["Trans-Harbour"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0179, 19.0761]
+}
+},
+{
+"type": "Feature",
+"id": "PL_BMDR",
+"properties": {
+"name": "Bamandongri",
+"lines": ["Port Line"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0132, 18.9745]
+}
+},
+{
+"type": "Feature",
+"id": "PL_KHPR",
+"properties": {
+"name": "Kharkopar",
+"lines": ["Port Line"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0141, 18.9598]
+}
+},
+{
+"type": "Feature",
+"id": "PL_GVN",
+"properties": {
+"name": "Gavhan",
+"lines": ["Port Line"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [73.0012, 18.9321]
+}
+},
+{
+"type": "Feature",
+"id": "PL_RJNP",
+"properties": {
+"name": "Ranjanpada",
+"lines": ["Port Line"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9845, 18.9105]
+}
+},
+{
+"type": "Feature",
+"id": "PL_NVSH",
+"properties": {
+"name": "Nhava Sheva",
+"lines": ["Port Line"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9654, 18.8912]
+}
+},
+{
+"type": "Feature",
+"id": "PL_DRNG",
+"properties": {
+"name": "Dronagiri",
+"lines": ["Port Line"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9512, 18.8756]
+}
+},
+{
+"type": "Feature",
+"id": "PL_URAN",
+"properties": {
+"name": "Uran",
+"lines": ["Port Line"],
+"type": "Suburban"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9398, 18.8773]
+}
+},
+{
+"type": "Feature",
+"id": "MT1_VER",
+"properties": {
+"name": "Versova",
+"lines": ["Metro Line 1"],
+"type": "Metro"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8202, 19.1354]
+}
+},
+{
+"type": "Feature",
+"id": "MT1_DNN",
+"properties": {
+"name": "DN Nagar",
+"lines": ["Metro Line 1"],
+"type": "Metro"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8273, 19.1250]
+}
+},
+{
+"type": "Feature",
+"id": "MT1_AZN",
+"properties": {
+"name": "Azad Nagar",
+"lines": ["Metro Line 1"],
+"type": "Metro"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8362, 19.1235]
+}
+},
+{
+"type": "Feature",
+"id": "MT1_WEH",
+"properties": {
+"name": "Western Express Highway",
+"lines": ["Metro Line 1"],
+"type": "Metro"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8563, 19.1158]
+}
+},
+{
+"type": "Feature",
+"id": "MT1_CHK",
+"properties": {
+"name": "Chakala (JB Nagar)",
+"lines": ["Metro Line 1"],
+"type": "Metro"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8672, 19.1114]
+}
+},
+{
+"type": "Feature",
+"id": "MT1_AIR",
+"properties": {
+"name": "Airport Road",
+"lines": ["Metro Line 1"],
+"type": "Metro"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8750, 19.1084]
+}
+},
+{
+"type": "Feature",
+"id": "MT1_MRL",
+"properties": {
+"name": "Marol Naka",
+"lines": ["Metro Line 1"],
+"type": "Metro"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8831, 19.1088]
+}
+},
+{
+"type": "Feature",
+"id": "MT1_SKI",
+"properties": {
+"name": "Saki Naka",
+"lines": ["Metro Line 1"],
+"type": "Metro"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8913, 19.1065]
+}
+},
+{
+"type": "Feature",
+"id": "MT1_ASP",
+"properties": {
+"name": "Asalpha",
+"lines": ["Metro Line 1"],
+"type": "Metro"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8996, 19.1042]
+}
+},
+{
+"type": "Feature",
+"id": "MT1_JAG",
+"properties": {
+"name": "Jagruti Nagar",
+"lines": ["Metro Line 1"],
+"type": "Metro"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9063, 19.0989]
+}
+},
+{
+"type": "Feature",
+"id": "MN_JBC",
+"properties": {
+"name": "Jacob Circle",
+"lines": ["Monorail"],
+"type": "Monorail"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8286, 18.9831]
+}
+},
+{
+"type": "Feature",
+"id": "MN_MNT",
+"properties": {
+"name": "Mint Colony",
+"lines": ["Monorail"],
+"type": "Monorail"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8392, 18.9985]
+}
+},
+{
+"type": "Feature",
+"id": "MN_AMB",
+"properties": {
+"name": "Ambedkar Nagar",
+"lines": ["Monorail"],
+"type": "Monorail"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8432, 19.0012]
+}
+},
+{
+"type": "Feature",
+"id": "MN_NIG",
+"properties": {
+"name": "Naigaon (Monorail)",
+"lines": ["Monorail"],
+"type": "Monorail"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8482, 19.0065]
+}
+},
+{
+"type": "Feature",
+"id": "MN_WDLB",
+"properties": {
+"name": "Wadala Bridge",
+"lines": ["Monorail"],
+"type": "Monorail"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8554, 19.0112]
+}
+},
+{
+"type": "Feature",
+"id": "MN_ACH",
+"properties": {
+"name": "Acharya Atre Nagar",
+"lines": ["Monorail"],
+"type": "Monorail"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8601, 19.0152]
+}
+},
+{
+"type": "Feature",
+"id": "MN_ANT",
+"properties": {
+"name": "Antop Hill",
+"lines": ["Monorail"],
+"type": "Monorail"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8631, 19.0225]
+}
+},
+{
+"type": "Feature",
+"id": "MN_WDL",
+"properties": {
+"name": "Wadala Depot",
+"lines": ["Monorail"],
+"type": "Monorail"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8741, 19.0303]
+}
+},
+{
+"type": "Feature",
+"id": "MN_BHK",
+"properties": {
+"name": "Bhakti Park",
+"lines": ["Monorail"],
+"type": "Monorail"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8795, 19.0245]
+}
+},
+{
+"type": "Feature",
+"id": "MN_MYS",
+"properties": {
+"name": "Mysore Colony",
+"lines": ["Monorail"],
+"type": "Monorail"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8891, 19.0292]
+}
+},
+{
+"type": "Feature",
+"id": "MN_BHP",
+"properties": {
+"name": "Bharat Petroleum",
+"lines": ["Monorail"],
+"type": "Monorail"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.8954, 19.0354]
+}
+},
+{
+"type": "Feature",
+"id": "MN_FER",
+"properties": {
+"name": "Fertiliser Township",
+"lines": ["Monorail"],
+"type": "Monorail"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9048, 19.0435]
+}
+},
+{
+"type": "Feature",
+"id": "MN_VNP",
+"properties": {
+"name": "VNP & RC Marg",
+"lines": ["Monorail"],
+"type": "Monorail"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [72.9056, 19.0531]
+}
+}
+]
+}
