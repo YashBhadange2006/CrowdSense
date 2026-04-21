@@ -102,9 +102,12 @@ fun InsightsScreen(
                 limit = 500
             )
             readings = merged
-            prediction = CrowdDataRepository.linearRegression(merged)
             chartPoints = CrowdDataRepository.groupReadingsForChart(merged, selectedView)
             isLoading = false
+            CrowdDataRepository.fetchPrediction(
+                readings = merged,
+                preferredGeohash = stationGeohash
+            ) { prediction = it }
         }
         CrowdDataRepository.fetchReadingsForGeohash(stationGeohash, limit = 500) {
             fromGh = it
@@ -138,9 +141,9 @@ fun InsightsScreen(
             limit = 50
         ) { fetched ->
             readings = fetched
-            prediction = CrowdDataRepository.linearRegression(fetched)
             chartPoints = CrowdDataRepository.groupReadingsForChart(fetched, selectedView)
             isLoading = false
+            CrowdDataRepository.fetchPrediction(readings = fetched) { prediction = it }
         }
     }
 

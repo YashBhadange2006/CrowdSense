@@ -146,16 +146,18 @@ class BleScanner(
         val now = System.currentTimeMillis()
         if (now - lastUploadTime >= UPLOAD_INTERVAL) {
             lastUploadTime = now
-            currentLocation?.let { location ->
+            if (currentLocation != null) {
                 FirebaseUploader.uploadReading(
                     crowdScore = crowdScore,
-                    location = location,
+                    location = currentLocation!!,
                     userId = userId
                 )
+                Log.d("Firebase", "✅ Upload triggered — location: $currentLocation, score: ${crowdScore.score}")
+            } else {
+                Log.w("Firebase", "⚠️ Upload skipped — location is NULL. Cannot determine geohash.")
             }
         }
 
-        Log.d("Firebase", "Location: $currentLocation, lastUpload: $lastUploadTime")
     }
     @SuppressLint("MissingPermission")
     fun startContinuousScan(reportInterval: Long = 30_000) {

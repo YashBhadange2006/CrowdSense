@@ -1,66 +1,70 @@
 package com.example.ble
 
 import android.util.Log
-import com.google.firebase.database.*
+import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
-import kotlin.math.*
-
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.pow
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 data class PredictionResult(
-    val predictedScore : Float,
-    val predictedLevel : String,
-    val trend          : String,   // "Rising ↑", "Stable →", "Easing ↓"
-    val confidence     : String,   // "Low", "Medium", "High"
-    val minutesAhead   : Int = 15
+    val predictedScore: Float,
+    val predictedLevel: String,
+    val trend: String,
+    val confidence: String,
+    val minutesAhead: Int = 15
 )
 
 object CrowdDataRepository {
 
-    private val fmtTime = SimpleDateFormat("HH:mm", Locale.ENGLISH).apply { timeZone = TimeZone.getTimeZone("Asia/Kolkata") }
-    private val fmtDateTime = SimpleDateFormat("d MMM yyyy, HH:mm", Locale.ENGLISH).apply { timeZone = TimeZone.getTimeZone("Asia/Kolkata") }
-    private val fmtDayMonth = SimpleDateFormat("d MMM", Locale.ENGLISH).apply { timeZone = TimeZone.getTimeZone("Asia/Kolkata") }
+    private val indiaTimeZone = TimeZone.getTimeZone("Asia/Kolkata")
+    private val fmtTime = SimpleDateFormat("HH:mm", Locale.ENGLISH).apply { timeZone = indiaTimeZone }
+    private val fmtDateTime = SimpleDateFormat("d MMM yyyy, HH:mm", Locale.ENGLISH).apply { timeZone = indiaTimeZone }
+    private val fmtDayMonth = SimpleDateFormat("d MMM", Locale.ENGLISH).apply { timeZone = indiaTimeZone }
+    private val fmtDateOnly = SimpleDateFormat("d MMM yyyy", Locale.ENGLISH).apply { timeZone = indiaTimeZone }
+    private val fmtHistoryDateKey = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).apply { timeZone = indiaTimeZone }
 
-    private val fmtDateOnly = SimpleDateFormat("d MMM yyyy", Locale.ENGLISH).apply { timeZone = TimeZone.getTimeZone("Asia/Kolkata") }
+    private val historicalWeights = listOf(-1 to 3, -2 to 2, -3 to 1)
 
-    /** First → last reading time span for chart headers. */
+    private val db = FirebaseDatabase
+        .getInstance("https://crowdsense-4c6d9-default-rtdb.asia-southeast1.firebasedatabase.app")
+        .reference
+
     fun readingsTimeWindowLabel(readings: List<CrowdReading>): String {
         if (readings.isEmpty()) return ""
         val sorted = readings.sortedBy { it.timestamp }
         val a = sorted.first().timestamp
         val b = sorted.last().timestamp
         return if (a == b) fmtDateTime.format(Date(a))
-        else "${fmtDateTime.format(Date(a))} → ${fmtDateTime.format(Date(b))}"
+        else "${fmtDateTime.format(Date(a))} -> ${fmtDateTime.format(Date(b))}"
     }
 
-    /** Short chart mode label for UI (user-facing). */
     fun chartModeShortLabel(view: TimeView): String = when (view) {
-        TimeView.HOUR  -> "5-minute slots"
-        TimeView.DAY   -> "Local hour"
+        TimeView.HOUR -> "5-minute slots"
+        TimeView.DAY -> "Local hour"
         TimeView.MONTH -> "Calendar days"
     }
 
-    /** How old the latest sample is — helps users judge trust. */
     fun dataFreshnessUserLine(readings: List<CrowdReading>, nowMs: Long = System.currentTimeMillis()): String {
         if (readings.isEmpty()) return "No data yet"
         val latest = readings.maxOf { it.timestamp }
         val ageMin = ((nowMs - latest) / 60_000L).toInt().coerceAtLeast(0)
         return when {
-            ageMin <= 1  -> "Live — updated moments ago"
-            ageMin < 10  -> "Updated ~${ageMin} min ago"
-            ageMin < 60  -> "Updated ~${ageMin} min ago"
-            ageMin < 180 -> "Getting older (~${ageMin / 60} h) — use as a guide only"
-            else         -> "Stale (~${ageMin / 60} h+) — check again before you travel"
+            ageMin <= 1 -> "Live - updated moments ago"
+            ageMin < 60 -> "Updated ~${ageMin} min ago"
+            ageMin < 180 -> "Getting older (~${ageMin / 60} h) - use as a guide only"
+            else -> "Stale (~${ageMin / 60} h+) - check again before you travel"
         }
     }
 
-    /** Station charts: pull readings near the stop (GPS vs OSM geohash often differ). */
     const val STATION_NEARBY_RADIUS_M = 700.0
 
-    /** Merge Firebase pulls (e.g. exact geohash + radius) without duplicate points. */
     fun mergeReadingsDeduped(vararg batches: List<CrowdReading>, limit: Int = 500): List<CrowdReading> {
         val cap = limit.coerceAtLeast(1)
         return batches.asSequence()
@@ -89,77 +93,60 @@ object CrowdDataRepository {
     }
 
     private fun sameCalendarDay(a: Long, b: Long): Boolean {
-        val ca = java.util.Calendar.getInstance().apply { timeInMillis = a }
-        val cb = java.util.Calendar.getInstance().apply { timeInMillis = b }
-        return ca.get(java.util.Calendar.YEAR) == cb.get(java.util.Calendar.YEAR) &&
-            ca.get(java.util.Calendar.DAY_OF_YEAR) == cb.get(java.util.Calendar.DAY_OF_YEAR)
+        val ca = Calendar.getInstance().apply { timeInMillis = a }
+        val cb = Calendar.getInstance().apply { timeInMillis = b }
+        return ca.get(Calendar.YEAR) == cb.get(Calendar.YEAR) &&
+            ca.get(Calendar.DAY_OF_YEAR) == cb.get(Calendar.DAY_OF_YEAR)
     }
 
     private fun bucketSamplesLabel(minTs: Long, maxTs: Long): String {
         if (!sameCalendarDay(minTs, maxTs)) {
-            return "${fmtDateTime.format(Date(minTs))} → ${fmtDateTime.format(Date(maxTs))}"
+            return "${fmtDateTime.format(Date(minTs))} -> ${fmtDateTime.format(Date(maxTs))}"
         }
         return if (minTs == maxTs) fmtDateTime.format(Date(minTs))
-        else "${fmtTime.format(Date(minTs))}–${fmtTime.format(Date(maxTs))}"
+        else "${fmtTime.format(Date(minTs))}-${fmtTime.format(Date(maxTs))}"
     }
 
-    private val db = FirebaseDatabase
-        .getInstance("https://crowdsense-4c6d9-default-rtdb.asia-southeast1.firebasedatabase.app")
-        .reference
-
-    // ── Haversine distance between two coords in metres ───────────────────
     fun distanceMetres(lat1: Double, lng1: Double, lat2: Double, lng2: Double): Double {
-        val R = 6_371_000.0
+        val r = 6_371_000.0
         val dLat = Math.toRadians(lat2 - lat1)
         val dLng = Math.toRadians(lng2 - lng1)
         val a = sin(dLat / 2).pow(2) +
-                cos(Math.toRadians(lat1)) * cos(Math.toRadians(lat2)) *
-                sin(dLng / 2).pow(2)
-        return R * 2 * atan2(sqrt(a), sqrt(1 - a))
+            cos(Math.toRadians(lat1)) * cos(Math.toRadians(lat2)) * sin(dLng / 2).pow(2)
+        return r * 2 * atan2(sqrt(a), sqrt(1 - a))
     }
 
-    /**
-     * Reads last 50 readings from Firebase across ALL geohashes.
-     * Merges any readings within 100m of the target location
-     * into one cluster — treats them as the same physical place.
-     *
-     * Returns readings sorted oldest → newest (for regression).
-     */
     fun fetchNearbyReadings(
-        targetLat  : Double,
-        targetLng  : Double,
-        radiusM    : Double = 100.0,
-        limit      : Int    = 50,
-        onResult   : (List<CrowdReading>) -> Unit
+        targetLat: Double,
+        targetLng: Double,
+        radiusM: Double = 100.0,
+        limit: Int = 50,
+        onResult: (List<CrowdReading>) -> Unit
     ) {
-        // Read ALL geohashes under /readings
         db.child("readings").get().addOnSuccessListener { snapshot ->
             val allReadings = mutableListOf<CrowdReading>()
 
             for (geohashSnap in snapshot.children) {
-                // Each geohash has push-id children
                 for (pushSnap in geohashSnap.children) {
                     try {
-                        val lat  = pushSnap.child("lat").getValue(Double::class.java)  ?: continue
-                        val lng  = pushSnap.child("lng").getValue(Double::class.java)  ?: continue
+                        val lat = pushSnap.child("lat").getValue(Double::class.java) ?: continue
+                        val lng = pushSnap.child("lng").getValue(Double::class.java) ?: continue
                         val dist = distanceMetres(targetLat, targetLng, lat, lng)
-
-                        // Only include if within radius of target location
                         if (dist > radiusM) continue
 
-                        val score     = pushSnap.child("score").getValue(Float::class.java)   ?: 0f
-                        val level     = pushSnap.child("level").getValue(String::class.java)  ?: "LOW"
+                        val score = pushSnap.child("score").getValue(Float::class.java) ?: 0f
+                        val level = pushSnap.child("level").getValue(String::class.java) ?: "LOW"
                         val timestamp = pushSnap.child("timestamp").getValue(Long::class.java) ?: 0L
-                        val geohash   = pushSnap.child("geohash").getValue(String::class.java) ?: ""
+                        val geohash = pushSnap.child("geohash").getValue(String::class.java) ?: ""
 
                         allReadings.add(
                             CrowdReading(
                                 timestamp = timestamp,
-                                score     = score,
-                                level     = level,
-                                lat       = lat,
-                                lng       = lng,
-                                geohash   = geohash
+                                score = score,
+                                level = level,
+                                lat = lat,
+                                lng = lng,
+                                geohash = geohash
                             )
                         )
                     } catch (e: Exception) {
@@ -168,24 +155,15 @@ object CrowdDataRepository {
                 }
             }
 
-            // Sort oldest → newest, take last N
-            val sorted = allReadings
-                .sortedBy { it.timestamp }
-                .takeLast(limit)
-
+            val sorted = allReadings.sortedBy { it.timestamp }.takeLast(limit)
             Log.d("CrowdRepo", "Found ${sorted.size} readings within ${radiusM}m of target")
             onResult(sorted)
-
         }.addOnFailureListener { e ->
             Log.e("CrowdRepo", "Firebase read failed: ${e.message}")
             onResult(emptyList())
         }
     }
 
-    /**
-     * Reads historical readings for a single geohash bucket under /readings/{geohash}.
-     * Prefer this for station-scoped charts (matches how uploads are stored).
-     */
     fun fetchReadingsForGeohash(
         geohash: String,
         limit: Int = 500,
@@ -212,7 +190,7 @@ object CrowdDataRepository {
                             lng = lng,
                             geohash = gh,
                             score = score,
-                            level = level,
+                            level = level
                         )
                     )
                 } catch (e: Exception) {
@@ -220,7 +198,7 @@ object CrowdDataRepository {
                 }
             }
             val sorted = list.sortedBy { it.timestamp }.takeLast(limit.coerceAtLeast(1))
-            Log.d("CrowdRepo", "Geohash $geohash → ${sorted.size} readings (cap $limit)")
+            Log.d("CrowdRepo", "Geohash $geohash -> ${sorted.size} readings (cap $limit)")
             onResult(sorted)
         }.addOnFailureListener { e ->
             Log.e("CrowdRepo", "Geohash read failed: ${e.message}")
@@ -228,106 +206,186 @@ object CrowdDataRepository {
         }
     }
 
-    // ── Linear Regression ─────────────────────────────────────────────────
-    /**
-     * On-device linear regression.
-     * Input:  list of (timestamp, score) pairs sorted oldest → newest
-     * Output: predicted score 15 minutes ahead
-     *
-     * Uses time in minutes as X axis, score as Y axis.
-     * Formula: y = intercept + slope * x
-     * Predicted at x = last_x + 15
-     */
-    fun linearRegression(readings: List<CrowdReading>): PredictionResult? {
-        if (readings.size < 3) return null
-
-        val firstTs = readings.first().timestamp
-
-        // Convert to (minutes_since_start, score) pairs
-        val points = readings.map { r ->
-            val x = (r.timestamp - firstTs) / 60_000.0   // minutes
-            val y = r.score.toDouble()
-            Pair(x, y)
+    fun fetchPrediction(
+        readings: List<CrowdReading>,
+        preferredGeohash: String? = null,
+        onResult: (PredictionResult?) -> Unit
+    ) {
+        val geohash = preferredGeohash?.takeIf { it.isNotBlank() } ?: inferPredictionGeohash(readings)
+        if (geohash == null) {
+            onResult(fallbackPredictionFromReadings(readings))
+            return
         }
 
-        val n    = points.size.toDouble()
-        val xBar = points.sumOf { it.first }  / n
-        val yBar = points.sumOf { it.second } / n
+        val anchorTs = readings.maxOfOrNull { it.timestamp } ?: System.currentTimeMillis()
+        val hourKey = hourKeyFor(anchorTs)
 
-        val numerator   = points.sumOf { (x, y) -> (x - xBar) * (y - yBar) }
-        val denominator = points.sumOf { (x, y) -> (x - xBar).pow(2) }
+        db.child("history").child(geohash).get()
+            .addOnSuccessListener { snapshot ->
+                var weightedSum = 0f
+                var totalWeight = 0
+                var matchedDays = 0
+                var supportingSamples = 0
 
-        if (denominator == 0.0) return null
+                for ((dayOffset, weight) in historicalWeights) {
+                    val dateKey = historyDateKeyFor(anchorTs, dayOffset)
+                    val hourSnapshot = snapshot.child(dateKey).child(hourKey)
+                    val avgScore = hourSnapshot.child("avgScore").getValue(Float::class.java) ?: continue
+                    val readingCount = hourSnapshot.child("readingCount").getValue(Int::class.java) ?: 0
 
-        val slope     = numerator / denominator
-        val intercept = yBar - slope * xBar
+                    weightedSum += avgScore * weight
+                    totalWeight += weight
+                    matchedDays += 1
+                    supportingSamples += readingCount
+                }
 
-        // Predict 15 minutes beyond the LAST reading
-        val lastX          = points.last().first
-        val predictX       = lastX + 15.0
-        val predictedScore = (intercept + slope * predictX)
-            .coerceAtLeast(0.0)
-            .toFloat()
+                if (totalWeight > 0) {
+                    val predictedScore = (weightedSum / totalWeight).coerceAtLeast(0f)
+                    val latestScore = readings.maxByOrNull { it.timestamp }?.score
+                    Log.d(
+                        "Prediction",
+                        "Weighted historical prediction geohash=$geohash hour=$hourKey matchedDays=$matchedDays predicted=${"%.2f".format(predictedScore)}"
+                    )
+                    onResult(
+                        buildPredictionResult(
+                            predictedScore = predictedScore,
+                            latestScore = latestScore,
+                            matchedDays = matchedDays,
+                            supportingSamples = supportingSamples
+                        )
+                    )
+                } else {
+                    Log.d("Prediction", "No /history samples for geohash=$geohash hour=$hourKey, using fallback")
+                    onResult(fallbackPredictionFromReadings(readings))
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("Prediction", "History read failed for geohash=$geohash: ${e.message}")
+                onResult(fallbackPredictionFromReadings(readings))
+            }
+    }
 
-        // Trend based on slope
+    private fun inferPredictionGeohash(readings: List<CrowdReading>): String? =
+        readings
+            .filter { it.geohash.isNotBlank() }
+            .groupBy { it.geohash }
+            .maxWithOrNull(
+                compareBy<Map.Entry<String, List<CrowdReading>>> { it.value.size }
+                    .thenBy { entry -> entry.value.maxOfOrNull { it.timestamp } ?: 0L }
+            )
+            ?.key
+
+    private fun fallbackPredictionFromReadings(readings: List<CrowdReading>): PredictionResult? {
+        if (readings.isEmpty()) return null
+
+        val latest = readings.maxByOrNull { it.timestamp } ?: return null
+        val anchorHour = hourKeyFor(latest.timestamp)
+        val anchorDay = historyDateKeyFor(latest.timestamp, 0)
+
+        val priorDayAverages = readings
+            .filter { it.timestamp > 0L && hourKeyFor(it.timestamp) == anchorHour }
+            .groupBy { historyDateKeyFor(it.timestamp, 0) }
+            .filterKeys { it != anchorDay }
+            .toList()
+            .sortedByDescending { (dateKey, _) -> dateKey }
+            .take(historicalWeights.size)
+
+        if (priorDayAverages.isNotEmpty()) {
+            var weightedSum = 0f
+            var totalWeight = 0
+            var supportingSamples = 0
+
+            priorDayAverages.forEachIndexed { index, (_, group) ->
+                val weight = historicalWeights.getOrNull(index)?.second ?: return@forEachIndexed
+                val avgScore = group.map { it.score }.average().toFloat()
+                weightedSum += avgScore * weight
+                totalWeight += weight
+                supportingSamples += group.size
+            }
+
+            if (totalWeight > 0) {
+                return buildPredictionResult(
+                    predictedScore = (weightedSum / totalWeight).coerceAtLeast(0f),
+                    latestScore = latest.score,
+                    matchedDays = priorDayAverages.size,
+                    supportingSamples = supportingSamples
+                )
+            }
+        }
+
+        return buildPredictionResult(
+            predictedScore = latest.score.coerceAtLeast(0f),
+            latestScore = latest.score,
+            matchedDays = 0,
+            supportingSamples = 1
+        )
+    }
+
+    private fun buildPredictionResult(
+        predictedScore: Float,
+        latestScore: Float?,
+        matchedDays: Int,
+        supportingSamples: Int
+    ): PredictionResult {
+        val delta = latestScore?.let { predictedScore - it } ?: 0f
         val trend = when {
-            slope >  0.05 -> "Rising ↑"
-            slope < -0.05 -> "Easing ↓"
-            else          -> "Stable →"
+            delta > 3f -> "Rising ↑"
+            delta < -3f -> "Easing ↓"
+            else -> "Stable →"
         }
 
-        // Confidence based on how many readings we have
         val confidence = when {
-            readings.size >= 30 -> "High"
-            readings.size >= 10 -> "Medium"
-            else                -> "Low"
+            matchedDays >= 3 && supportingSamples >= 6 -> "High"
+            matchedDays >= 2 -> "Medium"
+            else -> "Low"
         }
 
         val predictedLevel = when {
             predictedScore < 10f -> "LOW"
             predictedScore < 25f -> "MEDIUM"
             predictedScore < 45f -> "HIGH"
-            else                 -> "DANGER"
+            else -> "DANGER"
         }
-
-        Log.d("Regression", "slope=${"%.3f".format(slope)} " +
-                "intercept=${"%.3f".format(intercept)} " +
-                "predicted=${"%.2f".format(predictedScore)} " +
-                "trend=$trend")
 
         return PredictionResult(
             predictedScore = predictedScore,
             predictedLevel = predictedLevel,
-            trend          = trend,
-            confidence     = confidence
+            trend = trend,
+            confidence = confidence
         )
     }
 
-    // ── Group readings by time bucket for chart ───────────────────────────
+    private fun historyDateKeyFor(anchorTs: Long, dayOffset: Int): String {
+        val cal = Calendar.getInstance(indiaTimeZone).apply { timeInMillis = anchorTs }
+        cal.add(Calendar.DAY_OF_MONTH, dayOffset)
+        return fmtHistoryDateKey.format(cal.time)
+    }
+
+    private fun hourKeyFor(ts: Long): String =
+        Calendar.getInstance(indiaTimeZone).apply { timeInMillis = ts }
+            .get(Calendar.HOUR_OF_DAY)
+            .toString()
+
     enum class TimeView { HOUR, DAY, MONTH }
 
     data class ChartPoint(
-        val label             : String,
-        val avgScore          : Float,
-        val count             : Int,
-        val isEmpty           : Boolean = false,
-        /** Tap / detail: what time window this bucket represents */
-        val bucketDescription : String = "",
-        /** Chronological ordering & stable list keys (start of bucket in timeline). */
-        val bucketStartMillis : Long = 0L,
+        val label: String,
+        val avgScore: Float,
+        val count: Int,
+        val isEmpty: Boolean = false,
+        val bucketDescription: String = "",
+        val bucketStartMillis: Long = 0L
     )
 
     fun groupReadingsForChart(
-        readings : List<CrowdReading>,
-        view     : TimeView
+        readings: List<CrowdReading>,
+        view: TimeView
     ): List<ChartPoint> {
         if (readings.isEmpty()) return emptyList()
 
         return when (view) {
-
             TimeView.HOUR -> {
-                // Group by 5-minute buckets; sort by real time, not "HH:mm" string (fixes midnight / multi-day).
-                val buckets = readings
+                readings
                     .groupBy { r ->
                         val cal = Calendar.getInstance()
                         cal.timeInMillis = r.timestamp
@@ -356,11 +414,9 @@ object CrowdDataRepository {
                             bucketStartMillis = minTs
                         )
                     }
-                buckets
             }
 
             TimeView.DAY -> {
-                // Group by hour of day (0–23); order is already chronological 00 → 23.
                 val anchorDay = startOfDayUtcMillis(readings.minOf { it.timestamp })
                 val byHour = readings.groupBy { r ->
                     val cal = Calendar.getInstance()
@@ -384,13 +440,13 @@ object CrowdDataRepository {
                         val desc = buildString {
                             append("Local hour ")
                             append(String.format(Locale.ENGLISH, "%02d", hour))
-                            append(":00–")
+                            append(":00-")
                             append(String.format(Locale.ENGLISH, "%02d", hour))
                             append(":59 · ")
                             append(group.size)
                             append(" samples · dates ")
                             append(fmtDayMonth.format(Date(minTs)))
-                            append(" → ")
+                            append(" -> ")
                             append(fmtDayMonth.format(Date(maxTs)))
                         }
                         ChartPoint(
@@ -406,7 +462,7 @@ object CrowdDataRepository {
                             avgScore = 0f,
                             count = 0,
                             isEmpty = true,
-                            bucketDescription = "Local hour ${String.format(Locale.ENGLISH, "%02d", hour)}:00–${String.format(Locale.ENGLISH, "%02d", hour)}:59 · no samples in loaded window",
+                            bucketDescription = "Local hour ${String.format(Locale.ENGLISH, "%02d", hour)}:00-${String.format(Locale.ENGLISH, "%02d", hour)}:59 · no samples in loaded window",
                             bucketStartMillis = bucketStart
                         )
                     }
@@ -414,14 +470,13 @@ object CrowdDataRepository {
             }
 
             TimeView.MONTH -> {
-                // One bar per calendar day from first reading → last reading (not device "current month").
                 val sorted = readings.sortedBy { it.timestamp }
                 val minTs = sorted.first().timestamp
                 val maxTs = sorted.last().timestamp
                 val byDayStart = readings.groupBy { startOfDayUtcMillis(it.timestamp) }
 
-                val labelSameYear = SimpleDateFormat("d MMM", Locale.ENGLISH).apply { timeZone = TimeZone.getTimeZone("Asia/Kolkata") }
-                val labelWithYear = SimpleDateFormat("d MMM yy", Locale.ENGLISH).apply { timeZone = TimeZone.getTimeZone("Asia/Kolkata") }
+                val labelSameYear = SimpleDateFormat("d MMM", Locale.ENGLISH).apply { timeZone = indiaTimeZone }
+                val labelWithYear = SimpleDateFormat("d MMM yy", Locale.ENGLISH).apply { timeZone = indiaTimeZone }
                 val calMin = Calendar.getInstance().apply { timeInMillis = minTs }
                 val calMax = Calendar.getInstance().apply { timeInMillis = maxTs }
                 val sameYear = calMin.get(Calendar.YEAR) == calMax.get(Calendar.YEAR)
@@ -439,7 +494,7 @@ object CrowdDataRepository {
                         val desc = buildString {
                             append(fmtDateTime.format(Date(gMin)))
                             if (gMin != gMax) {
-                                append(" → ")
+                                append(" -> ")
                                 append(fmtDateTime.format(Date(gMax)))
                             }
                             append(" · ")
