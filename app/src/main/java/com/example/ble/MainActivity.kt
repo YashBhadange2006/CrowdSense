@@ -122,8 +122,12 @@ class MainActivity : ComponentActivity() {
                             items.forEach { screen ->
                                 val selected = when {
                                     currentRoute == screen.route -> true
+
+                                    screen.route == Screen.Search.route &&
+                                            currentRoute?.startsWith("insights/station/") == true -> true
+
                                     screen.route == Screen.Insights.route &&
-                                        currentRoute?.startsWith("${Screen.Insights.route}/") == true -> true
+                                            currentRoute == Screen.Insights.route -> true
                                     else -> false
                                 }
                                 NavigationBarItem(
@@ -199,7 +203,12 @@ class MainActivity : ComponentActivity() {
                             )
                         ) { entry ->
                             val gh = entry.arguments?.getString("geohash")
-                            InsightsScreen(location = location, stationGeohash = gh)
+                            val canBack = navController.previousBackStackEntry != null
+                            InsightsScreen(
+                                location = location,
+                                stationGeohash = gh,
+                                canNavigateBack = canBack,
+                                onBack = {navController.popBackStack()})
                         }
                         composable(Screen.Dev.route) {
                             DevScreen(

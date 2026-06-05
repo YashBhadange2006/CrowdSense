@@ -1,5 +1,6 @@
 package com.example.ble.userinterface.screen
 
+import android.graphics.drawable.Icon
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -10,6 +11,10 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -61,6 +66,8 @@ private fun levelColor(level: String) = when (level) {
 fun InsightsScreen(
     location: GeoPoint?,
     stationGeohash: String? = null,
+    canNavigateBack: Boolean = false,
+    onBack: () -> Unit = {}
 ) {
     val context = LocalContext.current
 
@@ -177,15 +184,31 @@ fun InsightsScreen(
     ) {
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(
-            text          = "CROWD INSIGHTS",
-            color         = TextPrime,
-            fontSize      = 18.sp,
-            fontWeight    = FontWeight.Bold,
-            fontFamily    = FontFamily.Monospace,
-            letterSpacing = 3.sp
-        )
-
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (canNavigateBack) {
+                IconButton(
+                    onClick = onBack,
+                    modifier = Modifier.padding(end = 8.dp)
+                ) {
+                    androidx.compose.material3.Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Navigate Back",
+                        tint = TextPrime
+                    )
+                }
+            }
+            Text(
+                text          = "CROWD INSIGHTS",
+                color         = TextPrime,
+                fontSize      = 18.sp,
+                fontWeight    = FontWeight.Bold,
+                fontFamily    = FontFamily.Monospace,
+                letterSpacing = 3.sp
+            )
+        }
         if (stationGeohash != null) {
             Text(
                 text       = stationLabel ?: stationGeohash,

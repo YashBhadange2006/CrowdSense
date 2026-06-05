@@ -124,7 +124,7 @@ fun HomeScreen(
 
         // App name
         Text(
-            text          = "YATRI",
+            text          = "CrowdSense",
             color         = TextPrimary,
             fontSize      = 13.sp,
             fontWeight    = FontWeight.Bold,
