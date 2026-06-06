@@ -19,34 +19,32 @@ import org.osmdroid.util.GeoPoint
 
 class CrowdSenseService : Service() {
 
-    private lateinit var scanner    : BleScanner
-    private lateinit var advertiser : BleAdvertiser
+    private lateinit var scanner: BleScanner
+    private lateinit var advertiser: BleAdvertiser
 
     companion object {
         const val CHANNEL_ID = "crowdsense_channel"
-        const val NOTIF_ID   = 1
+        const val NOTIF_ID = 1
 
-        var latestScore   : CrowdScore?     = null
-        var latestDevices : List<BleDevice> = emptyList()
+        var latestScore: CrowdScore? = null
+        var latestDevices: List<BleDevice> = emptyList()
         var isRunning by mutableStateOf(false)
             private set
 
-        var onScoreUpdate  : ((CrowdScore) -> Unit)?      = null
-        var onDeviceUpdate : ((List<BleDevice>) -> Unit)? = null
+        var onScoreUpdate: ((CrowdScore) -> Unit)? = null
+        var onDeviceUpdate: ((List<BleDevice>) -> Unit)? = null
     }
 
     override fun onCreate() {
         super.onCreate()
-        // Auth runs in BleApplication; init here synchronously so onStartCommand never touches
-        // lateinit scanner/advertiser before they exist.
         initScanner()
     }
 
     private fun initScanner() {
         advertiser = BleAdvertiser(this)
         scanner = BleScanner(
-            context             = this,
-            onDeviceFound       = { devices ->
+            context = this,
+            onDeviceFound = { devices ->
                 latestDevices = devices
                 onDeviceUpdate?.invoke(devices)
             },
@@ -73,7 +71,7 @@ class CrowdSenseService : Service() {
 
         createNotificationChannel()
 
-        val notifIntent   = Intent(this, MainActivity::class.java)
+        val notifIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             this, 0, notifIntent,
             PendingIntent.FLAG_IMMUTABLE
@@ -95,7 +93,7 @@ class CrowdSenseService : Service() {
         isRunning = true
 
         Log.d("CrowdSenseService", "Service started")
-        return START_NOT_STICKY  // ← changed from START_STICKY
+        return START_NOT_STICKY
     }
 
     override fun onDestroy() {

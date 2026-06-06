@@ -7,7 +7,8 @@ import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
 import android.bluetooth.le.BluetoothLeAdvertiser
 import android.content.Context
-import android.os.ParcelUuid
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import java.util.UUID
 
@@ -18,47 +19,98 @@ class BleAdvertiser(private val context: Context) {
     private val advertiser: BluetoothLeAdvertiser? =
         bluetoothManager.adapter?.bluetoothLeAdvertiser
 
-    // Unique ID per install — so each phone has a different name
+    private val handler = Handler(Looper.getMainLooper())
+    private var isAdvertising = false
+    private var advertiseAttempts = 0
+
+    // Unique ID per install — shown in scan response when space allows
     private val uniqueId = UUID.randomUUID().toString().take(8).uppercase()
-    val deviceName = "CrowdSense_$uniqueId"  // e.g. "CrowdSense_A1B2C3D4"
+    val deviceName = "CrowdSense_$uniqueId"
 
     private val advertiseCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
-            Log.d("BleAdvertiser", "Advertising started as $deviceName")
+            isAdvertising = true
+            advertiseAttempts = 0
+            Log.d(TAG, "Advertising started — UUID + mfg tag as $deviceName")
         }
 
         override fun onStartFailure(errorCode: Int) {
-            Log.e("BleAdvertiser", "Advertising failed: $errorCode")
+            isAdvertising = false
+            Log.e(TAG, "Advertising failed: ${failureLabel(errorCode)} ($errorCode)")
+            if (advertiseAttempts < 3 &&
+                errorCode != AdvertiseCallback.ADVERTISE_FAILED_FEATURE_UNSUPPORTED &&
+                errorCode != AdvertiseCallback.ADVERTISE_FAILED_TOO_MANY_ADVERTISERS
+            ) {
+                advertiseAttempts++
+                handler.postDelayed({ startAdvertisingInternal() }, 2_000)
+            }
         }
     }
 
     @SuppressLint("MissingPermission")
     fun startAdvertising() {
+        handler.removeCallbacksAndMessages(null)
+        advertiseAttempts = 0
+        startAdvertisingInternal()
+    }
 
+    @SuppressLint("MissingPermission")
+    private fun startAdvertisingInternal() {
         if (advertiser == null) {
-            Log.w("BleAdvertiser", "Advertiser not available — permission may not be granted yet")
+            Log.w(TAG, "Advertiser not available — grant BLUETOOTH_ADVERTISE and restart scan")
             return
+        }
+        if (isAdvertising) {
+            advertiser.stopAdvertising(advertiseCallback)
+            isAdvertising = false
         }
 
         val settings = AdvertiseSettings.Builder()
-            .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_POWER) // saves battery
-            .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_LOW)
-            .setConnectable(false)  // we don't need connections, just detection
+            .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY)
+            .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH)
+            // Connectable adverts are discovered more reliably on Samsung / Xiaomi
+            .setConnectable(true)
+            .setTimeout(0)
             .build()
 
-        val data = AdvertiseData.Builder()
-            .setIncludeDeviceName(true)  // this broadcasts "CrowdSense_XXXXXXXX"
-            .setIncludeTxPowerLevel(true) // helps other phones calculate distance
+        // Primary packet: service UUID + manufacturer tag (fits in 31-byte limit)
+        val advertiseData = AdvertiseData.Builder()
+            .addServiceUuid(CrowdSenseBle.SERVICE_PARCEL_UUID)
+            .addManufacturerData(
+                CrowdSenseBle.MANUFACTURER_ID,
+                CrowdSenseBle.MANUFACTURER_PAYLOAD
+            )
+            .setIncludeTxPowerLevel(true)
             .build()
 
-        // Set the device name before advertising
+        // Scan response: device name (optional fallback for older parsers)
+        val scanResponse = AdvertiseData.Builder()
+            .setIncludeDeviceName(true)
+            .build()
+
         bluetoothManager.adapter?.name = deviceName
 
-        advertiser?.startAdvertising(settings, data, advertiseCallback)
+        advertiser.startAdvertising(settings, advertiseData, scanResponse, advertiseCallback)
     }
 
     @SuppressLint("MissingPermission")
     fun stopAdvertising() {
+        handler.removeCallbacksAndMessages(null)
+        if (!isAdvertising) return
         advertiser?.stopAdvertising(advertiseCallback)
+        isAdvertising = false
+    }
+
+    private fun failureLabel(code: Int): String = when (code) {
+        AdvertiseCallback.ADVERTISE_FAILED_DATA_TOO_LARGE -> "DATA_TOO_LARGE"
+        AdvertiseCallback.ADVERTISE_FAILED_TOO_MANY_ADVERTISERS -> "TOO_MANY_ADVERTISERS"
+        AdvertiseCallback.ADVERTISE_FAILED_ALREADY_STARTED -> "ALREADY_STARTED"
+        AdvertiseCallback.ADVERTISE_FAILED_INTERNAL_ERROR -> "INTERNAL_ERROR"
+        AdvertiseCallback.ADVERTISE_FAILED_FEATURE_UNSUPPORTED -> "FEATURE_UNSUPPORTED"
+        else -> "UNKNOWN"
+    }
+
+    companion object {
+        private const val TAG = "BleAdvertiser"
     }
 }

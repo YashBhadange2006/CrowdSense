@@ -51,80 +51,92 @@ class BleScanner(
     private val scanner: BluetoothLeScanner? =
         bluetoothAdapter?.bluetoothLeScanner
 
+    private val ownAddress: String? = try {
+        bluetoothAdapter?.address?.takeUnless { it == "02:00:00:00:00:00" }
+    } catch (_: SecurityException) {
+        null
+    }
+
     private val handler = Handler(Looper.getMainLooper())
     private var isScanning = false
 
     private val deviceCache = DeviceCache()
 
     private val cellularMonitor = CellularSignalMonitor(context)
-    // This MUST be at class level
+
+    private val scanSettings = ScanSettings.Builder()
+        .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
+        .setReportDelay(0L)
+        .build()
+
     private val scanCallback = object : ScanCallback() {
         @RequiresApi(Build.VERSION_CODES.P)
         override fun onScanResult(callbackType: Int, result: ScanResult) {
-            val device = result.device
-            val name = try {
-                device.name ?: result.scanRecord?.deviceName
-            } catch (e: SecurityException) {
-                "Unknown"
-            }
+            processScanResult(result)
+        }
 
-            val rssi = result.rssi
-            val txPower = result.scanRecord?.txPowerLevel
-                ?.takeIf { it != Integer.MIN_VALUE }  // Android returns MIN_VALUE if unavailable
-                ?: -59 // fallback: standard BLE calibrated power at 1 meter
-
-            val distance = RssiDistanceCalculator.calculateDistance(rssi,txPower)
-            val bleDevice = BleDevice(
-                name = name ?: "Unknown",
-                address = device.address,
-                rssi = rssi,
-                distance = distance,
-                lastSeen = System.currentTimeMillis()
-            )
-
-            val updatedList = deviceCache.updateDevice(bleDevice)
-            onDeviceFound(updatedList)
-            computeAndEmitCrowdScore(updatedList)
-
-
+        override fun onScanFailed(errorCode: Int) {
+            Log.e("BleScanner", "BLE scan failed: $errorCode")
         }
     }
 
-    /**
-     * Combines BLE device data + cellular signal data into one CrowdScore.
-     * This is the central aegregation point for all signals.
-     */
+    @RequiresApi(Build.VERSION_CODES.P)
+    private fun processScanResult(result: ScanResult) {
+        val device = result.device
+        if (ownAddress != null && device.address.equals(ownAddress, ignoreCase = true)) return
 
+        val record = result.scanRecord
+        val fallbackName = try {
+            device.name
+        } catch (_: SecurityException) {
+            null
+        }
+        val displayName = CrowdSenseBle.resolveDisplayName(record, fallbackName)
+        val isAppUser = CrowdSenseBle.isAppUser(record, displayName)
+
+        val rssi = result.rssi
+        val txPower = record?.txPowerLevel
+            ?.takeIf { it != Integer.MIN_VALUE }
+            ?: -59
+
+        val distance = RssiDistanceCalculator.calculateDistance(rssi, txPower)
+        val bleDevice = BleDevice(
+            name = displayName,
+            address = device.address,
+            rssi = rssi,
+            distance = distance,
+            lastSeen = System.currentTimeMillis(),
+            isAppUser = isAppUser,
+        )
+
+        val updatedList = deviceCache.updateDevice(bleDevice)
+        onDeviceFound(updatedList)
+        computeAndEmitCrowdScore(updatedList)
+    }
 
     private var lastUploadTime = 0L
-    private val UPLOAD_INTERVAL = 1 * 60 * 1000L  // 15 minutes
+    private val UPLOAD_INTERVAL = 1 * 60 * 1000L
 
     @RequiresApi(Build.VERSION_CODES.P)
     private fun computeAndEmitCrowdScore(devices: List<BleDevice>) {
-
-        // Only devices seen in last 30 seconds within 15 meters
         val nearbyDevices = devices.filter {
-            System.currentTimeMillis() - it.lastSeen < 30_000 && it.distance < 15.0
+            System.currentTimeMillis() - it.lastSeen < 30_000 &&
+                (it.distance < 25.0 || it.rssi > -75)
         }
 
         val appUsers = nearbyDevices.filter { it.isAppUser }
         val anonymousDevices = nearbyDevices.filter { !it.isAppUser }
 
-        // BLE weighted score — Wirz et al. inspired weighting
         val bleScore = (appUsers.size * 3.0f) + (anonymousDevices.size * 1.0f)
 
-        // Average RSSI penalty — lower avg RSSI = more contention
         val avgRssi = if (nearbyDevices.isNotEmpty()) {
             nearbyDevices.map { it.rssi }.average().toFloat()
         } else 0f
         val rssiPenalty = if (avgRssi < -75f) 1.5f else 1.0f
 
-        // Cellular crowd pressure from CellularSignalMonitor
-        // via RssiDistanceCalculator.calculateCellularCrowdPressure()
         val cellularData: CellularSignalData? = cellularMonitor.getCurrentSignalData()
         val cellularScore = (cellularData?.crowdPressureScore ?: 0f) * 2.0f
 
-        // Final combined score
         val finalScore = (bleScore * rssiPenalty) + cellularScore
 
         val crowdScore = CrowdScore(
@@ -152,21 +164,20 @@ class BleScanner(
                     location = currentLocation!!,
                     userId = userId
                 )
-                Log.d("Firebase", "✅ Upload triggered — location: $currentLocation, score: ${crowdScore.score}")
+                Log.d("Firebase", "Upload triggered — score: ${crowdScore.score}")
             } else {
-                Log.w("Firebase", "⚠️ Upload skipped — location is NULL. Cannot determine geohash.")
+                Log.w("Firebase", "Upload skipped — location is NULL")
             }
         }
-
     }
+
     @SuppressLint("MissingPermission")
     fun startContinuousScan(reportInterval: Long = 30_000) {
         if (isScanning) return
         isScanning = true
 
-        scanner?.startScan(scanCallback)
+        scanner?.startScan(null, scanSettings, scanCallback)
 
-        // Periodic crowd score report even if no new devices found
         handler.post(object : Runnable {
             @RequiresApi(Build.VERSION_CODES.P)
             override fun run() {
@@ -188,4 +199,3 @@ class BleScanner(
         cellularMonitor.resetBaseline()
     }
 }
-

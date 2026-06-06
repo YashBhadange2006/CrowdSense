@@ -470,7 +470,9 @@ private fun DeviceDebugCard(device: BleDevice) {
                 verticalAlignment     = Alignment.CenterVertically
             ) {
                 Text(
-                    text       = device.name,
+                    text       = if (isAppUser && !device.name.startsWith("CrowdSense_"))
+                        "${device.name} (CrowdSense)"
+                    else device.name,
                     color      = if (isAppUser) AccentCyan else TextPrimary,
                     fontFamily = FontFamily.Monospace,
                     fontWeight = FontWeight.Bold,

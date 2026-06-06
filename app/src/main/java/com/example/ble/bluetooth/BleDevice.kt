@@ -5,10 +5,6 @@ data class BleDevice(
     val address: String,
     val rssi: Int,
     val distance: Double,
-    val lastSeen: Long
-) {
-    val isAppUser: Boolean get() = name.startsWith("CrowdSense_")
-}
-
-
-
+    val lastSeen: Long,
+    val isAppUser: Boolean = false,
+)
