@@ -2,19 +2,41 @@ package com.example.ble.userinterface.screen
 
 import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.EaseInOutSine
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,55 +47,46 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
-import android.content.pm.PackageManager
-import com.example.ble.bluetooth.BleScanner
 import com.example.ble.bluetooth.BleDevice
 import com.example.ble.bluetooth.CrowdScore
 import com.example.ble.bluetooth.DensityLevel
-import com.example.ble.util.LocationHelper
 import org.osmdroid.util.GeoPoint
 
-// ── Colours ───────────────────────────────────────────────────────────────────
-private val BgDeep      = Color(0xFF0A0E14)
-private val BgCard      = Color(0xFF111827)
-private val DividerCol  = Color(0xFF1E2D3D)
-private val AccentCyan  = Color(0xFF00E5FF)
-private val TextPrimary = Color(0xFFE8F0FE)
-private val TextMuted   = Color(0xFF6B7E99)
-private val TextDim     = Color(0xFF3D5068)
-
 private fun DensityLevel.userLabel() = when (this) {
-    DensityLevel.LOW    -> "All Clear"
+    DensityLevel.LOW -> "All Clear"
     DensityLevel.MEDIUM -> "Getting Busy"
-    DensityLevel.HIGH   -> "Very Crowded"
+    DensityLevel.HIGH -> "Very Crowded"
     DensityLevel.DANGER -> "Dangerously Crowded"
 }
 
 private fun DensityLevel.userAdvice() = when (this) {
-    DensityLevel.LOW    -> "Good time to travel. Platforms are clear."
+    DensityLevel.LOW -> "Good time to travel. Platforms are clear."
     DensityLevel.MEDIUM -> "Moderate crowd nearby. Expect some delays."
-    DensityLevel.HIGH   -> "Heavy crowding detected. Consider waiting."
+    DensityLevel.HIGH -> "Heavy crowding detected. Consider waiting."
     DensityLevel.DANGER -> "Dangerous density. Avoid this area now."
 }
 
+@Composable
 private fun DensityLevel.primaryColor() = when (this) {
-    DensityLevel.LOW    -> Color(0xFF00FF9C)
-    DensityLevel.MEDIUM -> Color(0xFFFFB800)
-    DensityLevel.HIGH   -> Color(0xFFFF7A00)
-    DensityLevel.DANGER -> Color(0xFFFF3B3B)
+    DensityLevel.LOW -> MaterialTheme.colorScheme.primary
+    DensityLevel.MEDIUM -> MaterialTheme.colorScheme.secondary
+    DensityLevel.HIGH -> MaterialTheme.colorScheme.tertiary
+    DensityLevel.DANGER -> MaterialTheme.colorScheme.error
 }
 
 @Composable
 fun HomeScreen(
-    crowdScore          : CrowdScore?,
-    devices             : List<BleDevice>,
-    isScanning          : Boolean,
+    crowdScore: CrowdScore?,
+    devices: List<BleDevice>,
+    isScanning: Boolean,
     onPermissionsGranted: () -> Unit,
 ) {
     val context = LocalContext.current
+    val colors = MaterialTheme.colorScheme
 
     val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         arrayOf(
@@ -90,22 +103,18 @@ fun HomeScreen(
         if (results.values.all { it }) onPermissionsGranted()
     }
 
-
-
     LaunchedEffect(Unit) {
         if (!hasPermissions(context, permissions)) {
             permissionLauncher.launch(permissions)
         }
     }
 
-
-    // Pulse animation for status circle
     val pulseAnim = rememberInfiniteTransition(label = "pulse")
     val pulseScale by pulseAnim.animateFloat(
-        initialValue  = 0.92f,
-        targetValue   = 1.0f,
+        initialValue = 0.92f,
+        targetValue = 1.0f,
         animationSpec = infiniteRepeatable(
-            animation  = tween(1200, easing = EaseInOutSine),
+            animation = tween(1200, easing = EaseInOutSine),
             repeatMode = RepeatMode.Reverse
         ),
         label = "scale"
@@ -114,42 +123,38 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BgDeep)
+            .background(color = colors.background)
             .verticalScroll(rememberScrollState())
             .padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Spacer(modifier = Modifier.height(16.dp))
 
-        // App name
         Text(
-            text          = "CrowdSense",
-            color         = TextPrimary,
-            fontSize      = 13.sp,
-            fontWeight    = FontWeight.Bold,
-            fontFamily    = FontFamily.Monospace,
+            text = "CrowdSense",
+            color = colors.onSurface,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Monospace,
             letterSpacing = 6.sp
         )
         Text(
-            text          = "crowd intelligence",
-            color         = TextDim,
-            fontSize      = 10.sp,
-            fontFamily    = FontFamily.Monospace,
+            text = "crowd intelligence",
+            color = colors.onSurfaceVariant,
+            fontSize = 10.sp,
+            fontFamily = FontFamily.Monospace,
             letterSpacing = 2.sp
         )
 
         Spacer(modifier = Modifier.height(36.dp))
 
-        // ── Big status circle ─────────────────────────────────────────────
-        val level       = crowdScore?.level ?: DensityLevel.LOW
-        val levelColor  = level.primaryColor()
+        val level = crowdScore?.level ?: DensityLevel.LOW
+        val levelColor = level.primaryColor()
 
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier.size(200.dp)
         ) {
-            // Outer glow ring
             Box(
                 modifier = Modifier
                     .size(200.dp)
@@ -164,7 +169,6 @@ fun HomeScreen(
                         shape = CircleShape
                     )
             )
-            // Main circle
             Box(
                 modifier = Modifier
                     .size(160.dp)
@@ -172,7 +176,7 @@ fun HomeScreen(
                         brush = Brush.radialGradient(
                             colors = listOf(
                                 levelColor.copy(alpha = 0.2f),
-                                BgCard
+                                colors.onSurfaceVariant
                             )
                         ),
                         shape = CircleShape
@@ -183,37 +187,37 @@ fun HomeScreen(
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     if (crowdScore == null) {
                         Text(
-                            text       = "...",
-                            color      = TextDim,
-                            fontSize   = 32.sp,
+                            text = "...",
+                            color = colors.outline,
+                            fontSize = 32.sp,
                             fontFamily = FontFamily.Monospace
                         )
                         Text(
-                            text      = "scanning",
-                            color     = TextDim,
-                            fontSize  = 11.sp,
+                            text = "scanning",
+                            color = colors.outline,
+                            fontSize = 11.sp,
                             fontFamily = FontFamily.Monospace
                         )
                     } else {
                         Text(
-                            text       = level.userLabel().uppercase(),
-                            color      = levelColor,
-                            fontSize   = when (level) {
-                                DensityLevel.LOW    -> 22.sp
+                            text = level.userLabel().uppercase(),
+                            color = levelColor,
+                            fontSize = when (level) {
+                                DensityLevel.LOW -> 22.sp
                                 DensityLevel.MEDIUM -> 16.sp
-                                else                -> 14.sp
+                                else -> 14.sp
                             },
-                            fontWeight    = FontWeight.Bold,
-                            fontFamily    = FontFamily.Monospace,
-                            textAlign     = TextAlign.Center,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Monospace,
+                            textAlign = TextAlign.Center,
                             letterSpacing = 1.sp,
-                            modifier      = Modifier.padding(horizontal = 12.dp)
+                            modifier = Modifier.padding(horizontal = 12.dp)
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text      = "${crowdScore.totalNearby} devices nearby",
-                            color     = TextMuted,
-                            fontSize  = 10.sp,
+                            text = "${crowdScore.totalNearby} devices nearby",
+                            color = colors.onSurfaceVariant,
+                            fontSize = 10.sp,
                             fontFamily = FontFamily.Monospace
                         )
                     }
@@ -223,7 +227,6 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // ── Advisory text ─────────────────────────────────────────────────
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -234,10 +237,10 @@ fun HomeScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text      = if (crowdScore != null) level.userAdvice()
+                text = if (crowdScore != null) level.userAdvice()
                 else "Starting crowd detection...",
-                color     = if (crowdScore != null) levelColor else TextDim,
-                fontSize  = 14.sp,
+                color = if (crowdScore != null) levelColor else colors.outline,
+                fontSize = 14.sp,
                 fontFamily = FontFamily.Monospace,
                 textAlign = TextAlign.Center,
                 lineHeight = 22.sp
@@ -246,28 +249,27 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // ── Quick stats row ───────────────────────────────────────────────
         if (crowdScore != null) {
             Row(
-                modifier              = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 QuickStatCard(
-                    label  = "App Users",
-                    value  = crowdScore.appUserCount.toString(),
-                    color  = AccentCyan,
+                    label = "App Users",
+                    value = crowdScore.appUserCount.toString(),
+                    color = colors.primary,
                     modifier = Modifier.weight(1f)
                 )
                 QuickStatCard(
-                    label  = "Anonymous",
-                    value  = crowdScore.anonymousCount.toString(),
-                    color  = TextMuted,
+                    label = "Anonymous",
+                    value = crowdScore.anonymousCount.toString(),
+                    color = colors.onSurfaceVariant,
                     modifier = Modifier.weight(1f)
                 )
                 QuickStatCard(
-                    label  = "Score",
-                    value  = "%.1f".format(crowdScore.score),
-                    color  = levelColor,
+                    label = "Score",
+                    value = "%.1f".format(crowdScore.score),
+                    color = levelColor,
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -275,14 +277,13 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(20.dp))
         }
 
-        // ── Map ───────────────────────────────────────────────────────────
         Text(
-            text          = "NEARBY DENSITY",
-            color         = TextMuted,
-            fontSize      = 10.sp,
-            fontFamily    = FontFamily.Monospace,
+            text = "NEARBY DENSITY",
+            color = colors.onSurfaceVariant,
+            fontSize = 10.sp,
+            fontFamily = FontFamily.Monospace,
             letterSpacing = 2.sp,
-            modifier      = Modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
         )
@@ -292,37 +293,36 @@ fun HomeScreen(
                 .fillMaxWidth()
                 .height(260.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .border(1.dp, DividerCol, RoundedCornerShape(16.dp))
+                .border(1.dp, colors.outlineVariant, RoundedCornerShape(16.dp))
         ) {
             MapScreen(
-                deviceCount  = devices.size,
+                deviceCount = devices.size,
                 densityLevel = crowdScore?.level
             )
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // ── Scanning status ───────────────────────────────────────────────
         Row(
-            verticalAlignment     = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
-            modifier              = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
             Box(
                 modifier = Modifier
                     .size(6.dp)
                     .background(
-                        color = if (isScanning) AccentCyan.copy(alpha = pulseScale)
-                        else TextDim,
+                        color = if (isScanning) colors.primary.copy(alpha = pulseScale)
+                        else colors.outline,
                         shape = CircleShape
                     )
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text      = if (isScanning) "Live — sensing your surroundings"
+                text = if (isScanning) "Live — sensing your surroundings"
                 else "Tap to start sensing",
-                color     = if (isScanning) AccentCyan else TextDim,
-                fontSize  = 11.sp,
+                color = if (isScanning) colors.primary else colors.outline,
+                fontSize = 11.sp,
                 fontFamily = FontFamily.Monospace
             )
         }
@@ -333,34 +333,54 @@ fun HomeScreen(
 
 @Composable
 private fun QuickStatCard(
-    label   : String,
-    value   : String,
-    color   : Color,
+    label: String,
+    value: String,
+    color: Color,
     modifier: Modifier = Modifier
 ) {
+    val colors = MaterialTheme.colorScheme
+
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(10.dp))
-            .background(Color(0xFF111827))
-            .border(1.dp, Color(0xFF1E2D3D), RoundedCornerShape(10.dp))
+            .background(colors.surface)
+            .border(1.dp, colors.outlineVariant, RoundedCornerShape(10.dp))
             .padding(12.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text       = value,
-                color      = color,
-                fontSize   = 22.sp,
+                text = value,
+                color = color,
+                fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Monospace
             )
             Text(
-                text      = label,
-                color     = Color(0xFF6B7E99),
-                fontSize  = 9.sp,
+                text = label,
+                color = colors.onSurfaceVariant,
+                fontSize = 9.sp,
                 fontFamily = FontFamily.Monospace,
                 letterSpacing = 1.sp
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun PreviewHomeScreen() {
+    HomeScreen(
+        crowdScore = CrowdScore(
+            score = 50f,
+            appUserCount = 2,
+            anonymousCount = 3,
+            totalNearby = 5,
+            avgRssi = 25f,
+            cellularPressure = 30f,
+            level = DensityLevel.LOW
+        ),
+        devices = listOf(),
+        isScanning = true
+    ) { }
 }

@@ -65,7 +65,7 @@ class BleScanner(
     private val cellularMonitor = CellularSignalMonitor(context)
 
     private val scanSettings = ScanSettings.Builder()
-        .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
+        .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY) //Change its Value, rn consumes a lot of power not for continuous background use
         .setReportDelay(0L)
         .build()
 
@@ -80,6 +80,8 @@ class BleScanner(
         }
     }
 
+    //This functions takes in all the values from scanned BLE
+    // and one by one feeds it into functions to calculate Crowd Density, Update Cards, Calculate distance based on RSSI
     @RequiresApi(Build.VERSION_CODES.P)
     private fun processScanResult(result: ScanResult) {
         val device = result.device
@@ -117,6 +119,12 @@ class BleScanner(
     private var lastUploadTime = 0L
     private val UPLOAD_INTERVAL = 1 * 60 * 1000L
 
+    // This function Filters nearbyDevices as per time, distance and rssi
+    // Then separates app/anon users
+    // calculates BLEScore, averages out RssiValue of nearbyDevices eg. (RSSI_Device1 + RSSI_Device2)/2
+    // gets cellular signal, crowd pressure score
+    // then finalScore is calculated
+    // crowd level range is set by Beta Testing
     @RequiresApi(Build.VERSION_CODES.P)
     private fun computeAndEmitCrowdScore(devices: List<BleDevice>) {
         val nearbyDevices = devices.filter {

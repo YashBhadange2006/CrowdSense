@@ -66,7 +66,7 @@ class BleAdvertiser(private val context: Context) {
         }
 
         val settings = AdvertiseSettings.Builder()
-            .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY)
+            .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY) //Change its Value, rn consumes a lot of power not for continuous background use
             .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH)
             // Connectable adverts are discovered more reliably on Samsung / Xiaomi
             .setConnectable(true)

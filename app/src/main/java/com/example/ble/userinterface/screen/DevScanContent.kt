@@ -36,24 +36,35 @@ import com.example.ble.bluetooth.DensityLevel
 import com.example.ble.util.LocationHelper
 import org.osmdroid.util.GeoPoint
 
-// ── Colour tokens ─────────────────────────────────────────────────────────────
-private val BgDeep      = Color(0xFF0A0E14)
-private val BgCard      = Color(0xFF111827)
-private val BgCardAlt   = Color(0xFF0F1923)
-private val DividerCol  = Color(0xFF1E2D3D)
-private val AccentCyan  = Color(0xFF00E5FF)
-private val AccentGreen = Color(0xFF00FF9C)
-private val AccentAmber = Color(0xFFFFB800)
-private val AccentRed   = Color(0xFFFF3B3B)
-private val TextPrimary = Color(0xFFE8F0FE)
-private val TextMuted   = Color(0xFF6B7E99)
-private val TextDim     = Color(0xFF3D5068)
+@Composable
+private fun BgDeep() = MaterialTheme.colorScheme.background
+@Composable
+private fun BgCard() = MaterialTheme.colorScheme.surface
+@Composable
+private fun BgCardAlt() = MaterialTheme.colorScheme.surfaceVariant
+@Composable
+private fun DividerCol() = MaterialTheme.colorScheme.outlineVariant
+@Composable
+private fun AccentCyan() = MaterialTheme.colorScheme.primary
+@Composable
+private fun AccentGreen() = MaterialTheme.colorScheme.secondary
+@Composable
+private fun AccentAmber() = MaterialTheme.colorScheme.tertiary
+@Composable
+private fun AccentRed() = MaterialTheme.colorScheme.error
+@Composable
+private fun TextPrimary() = MaterialTheme.colorScheme.onSurface
+@Composable
+private fun TextMuted() = MaterialTheme.colorScheme.onSurfaceVariant
+@Composable
+private fun TextDim() = MaterialTheme.colorScheme.outline
 
+@Composable
 private fun DensityLevel.accentColor() = when (this) {
-    DensityLevel.LOW    -> Color(0xFF00FF9C)
-    DensityLevel.MEDIUM -> Color(0xFFFFB800)
-    DensityLevel.HIGH   -> Color(0xFFFF7A00)
-    DensityLevel.DANGER -> Color(0xFFFF3B3B)
+    DensityLevel.LOW    -> MaterialTheme.colorScheme.primary
+    DensityLevel.MEDIUM -> MaterialTheme.colorScheme.secondary
+    DensityLevel.HIGH   -> MaterialTheme.colorScheme.tertiary
+    DensityLevel.DANGER -> MaterialTheme.colorScheme.error
 }
 
 private fun DensityLevel.label() = when (this) {
@@ -63,16 +74,14 @@ private fun DensityLevel.label() = when (this) {
     DensityLevel.DANGER -> "DANGER"
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-
 @Composable
 fun ScanScreen(
     onPermissionsGranted : () -> Unit = {},
-    externalIsScanning   : Boolean? = null,        // ← add
-    onStartScan          : () -> Unit = {},         // ← add
-    onStopScan           : () -> Unit = {},         // ← add
-    externalDevices      : List<BleDevice>? = null, // ← add
-    externalCrowdScore   : CrowdScore? = null       // ← add
+    externalIsScanning   : Boolean? = null,        // add
+    onStartScan          : () -> Unit = {},         // add
+    onStopScan           : () -> Unit = {},         // add
+    externalDevices      : List<BleDevice>? = null, // add
+    externalCrowdScore   : CrowdScore? = null       // add
 ){
     val context = LocalContext.current
 
@@ -142,7 +151,7 @@ fun ScanScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(BgDeep)
+            .background(BgDeep())
     ) {
         LazyColumn(
             modifier            = Modifier.fillMaxSize(),
@@ -150,7 +159,6 @@ fun ScanScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
 
-            // ── Header ───────────────────────────────────────────────────────
             item {
                 Row(
                     modifier              = Modifier
@@ -162,7 +170,7 @@ fun ScanScreen(
                     Column {
                         Text(
                             text          = "CROWDSENSE",
-                            color         = TextPrimary,
+                            color         = TextPrimary(),
                             fontSize      = 22.sp,
                             fontWeight    = FontWeight.Bold,
                             fontFamily    = FontFamily.Monospace,
@@ -170,7 +178,7 @@ fun ScanScreen(
                         )
                         Text(
                             text          = "density monitoring system",
-                            color         = TextMuted,
+                            color         = TextMuted(),
                             fontSize      = 11.sp,
                             fontFamily    = FontFamily.Monospace,
                             letterSpacing = 1.sp
@@ -181,24 +189,23 @@ fun ScanScreen(
                             modifier = Modifier
                                 .size(10.dp)
                                 .background(
-                                    color = AccentCyan.copy(alpha = pulseAlpha),
+                                    color = AccentCyan().copy(alpha = pulseAlpha),
                                     shape = androidx.compose.foundation.shape.CircleShape
                                 )
                         )
                     }
                 }
-                HorizontalDivider(color = DividerCol, thickness = 1.dp)
+                HorizontalDivider(color = DividerCol(), thickness = 1.dp)
             }
 
-            // ── Scan toggle button ───────────────────────────────────────────
             item {
                 val bgColor by animateColorAsState(
-                    targetValue   = if (isScanning) Color(0xFF1A0A0A) else Color(0xFF0A1A12),
+                    targetValue   = if (isScanning) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primaryContainer,
                     animationSpec = tween(400),
                     label         = "btnBg"
                 )
                 val borderColor by animateColorAsState(
-                    targetValue   = if (isScanning) AccentRed else AccentGreen,
+                    targetValue   = if (isScanning) AccentRed() else AccentGreen(),
                     animationSpec = tween(400),
                     label         = "btnBorder"
                 )
@@ -237,7 +244,7 @@ fun ScanScreen(
                     shape  = RoundedCornerShape(8.dp)
                 ) {
                     Text(
-                        text          = if (isScanning) "■  STOP SCAN" else "▶  START SCAN",
+                        text          = if (isScanning) "STOP SCAN" else "START SCAN",
                         color         = borderColor,
                         fontFamily    = FontFamily.Monospace,
                         fontWeight    = FontWeight.Bold,
@@ -247,21 +254,20 @@ fun ScanScreen(
                 }
             }
 
-            // ── Crowd score card ─────────────────────────────────────────────
             item {
                 SectionLabel("CROWD ANALYSIS")
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(12.dp))
-                        .background(BgCard)
-                        .border(1.dp, DividerCol, RoundedCornerShape(12.dp))
+                        .background(BgCard())
+                        .border(1.dp, DividerCol(), RoundedCornerShape(12.dp))
                         .padding(16.dp)
                 ) {
                     if (crowdScore == null) {
                         Text(
                             text       = "Awaiting first scan cycle…",
-                            color      = TextDim,
+                            color      = TextDim(),
                             fontFamily = FontFamily.Monospace,
                             fontSize   = 13.sp
                         )
@@ -278,14 +284,14 @@ fun ScanScreen(
                                 Column {
                                     Text(
                                         text          = "DENSITY SCORE",
-                                        color         = TextMuted,
+                                        color         = TextMuted(),
                                         fontSize      = 10.sp,
                                         fontFamily    = FontFamily.Monospace,
                                         letterSpacing = 1.5.sp
                                     )
                                     Text(
                                         text       = "%.2f".format(s.score),
-                                        color      = TextPrimary,
+                                        color      = TextPrimary(),
                                         fontSize   = 36.sp,
                                         fontWeight = FontWeight.Bold,
                                         fontFamily = FontFamily.Monospace
@@ -314,19 +320,19 @@ fun ScanScreen(
                                 }
                             }
 
-                            HorizontalDivider(color = DividerCol)
+                            HorizontalDivider(color = DividerCol())
 
                             // Device counts row
                             Row(
                                 modifier              = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                MetricCell("APP USERS",  s.appUserCount.toString(),  AccentCyan)
-                                MetricCell("ANONYMOUS",  s.anonymousCount.toString(), TextMuted)
-                                MetricCell("TOTAL NEAR", s.totalNearby.toString(),    AccentCyan)
+                                MetricCell("APP USERS",  s.appUserCount.toString(),  AccentCyan())
+                                MetricCell("ANONYMOUS",  s.anonymousCount.toString(), TextMuted())
+                                MetricCell("TOTAL NEAR", s.totalNearby.toString(),    AccentCyan())
                             }
 
-                            HorizontalDivider(color = DividerCol)
+                            HorizontalDivider(color = DividerCol())
 
                             // Signal metrics row
                             Row(
@@ -336,21 +342,21 @@ fun ScanScreen(
                                 MetricCell(
                                     label  = "AVG RSSI",
                                     value  = "%.1f dBm".format(s.avgRssi),
-                                    accent = if (s.avgRssi < -75f) AccentAmber else AccentGreen
+                                    accent = if (s.avgRssi < -75f) AccentAmber() else AccentGreen()
                                 )
                                 MetricCell(
                                     label  = "CELL PRESSURE",
                                     value  = "%.2f".format(s.cellularPressure),
-                                    accent = if (s.cellularPressure > 2f) AccentRed else AccentGreen
+                                    accent = if (s.cellularPressure > 2f) AccentRed() else AccentGreen()
                                 )
                                 MetricCell(
                                     label  = "RSSI PENALTY",
                                     value  = if (s.avgRssi < -75f) "1.5×" else "1.0×",
-                                    accent = if (s.avgRssi < -75f) AccentAmber else TextMuted
+                                    accent = if (s.avgRssi < -75f) AccentAmber() else TextMuted()
                                 )
                             }
 
-                            HorizontalDivider(color = DividerCol)
+                            HorizontalDivider(color = DividerCol())
 
                             // Formula breakdown
                             val bleRaw  = (s.appUserCount * 3f) + (s.anonymousCount * 1f)
@@ -361,32 +367,32 @@ fun ScanScreen(
                             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                 Text(
                                     text          = "SCORE BREAKDOWN",
-                                    color         = TextMuted,
+                                    color         = TextMuted(),
                                     fontSize      = 10.sp,
                                     fontFamily    = FontFamily.Monospace,
                                     letterSpacing = 1.5.sp
                                 )
                                 Text(
                                     text       = "  BLE raw  = (${s.appUserCount}×3) + (${s.anonymousCount}×1) = %.1f".format(bleRaw),
-                                    color      = TextMuted,
+                                    color      = TextMuted(),
                                     fontSize   = 11.sp,
                                     fontFamily = FontFamily.Monospace
                                 )
                                 Text(
                                     text       = "  BLE adj  = %.1f × %.1f = %.2f".format(bleRaw, penalty, bleAdj),
-                                    color      = TextMuted,
+                                    color      = TextMuted(),
                                     fontSize   = 11.sp,
                                     fontFamily = FontFamily.Monospace
                                 )
                                 Text(
                                     text       = "  Cell adj = %.2f × 2.0 = %.2f".format(s.cellularPressure, cellAdj),
-                                    color      = TextMuted,
+                                    color      = TextMuted(),
                                     fontSize   = 11.sp,
                                     fontFamily = FontFamily.Monospace
                                 )
                                 Text(
                                     text       = "  TOTAL    = %.2f + %.2f = %.2f".format(bleAdj, cellAdj, s.score),
-                                    color      = AccentCyan,
+                                    color      = AccentCyan(),
                                     fontSize   = 12.sp,
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = FontFamily.Monospace
@@ -397,15 +403,15 @@ fun ScanScreen(
                 }
             }
 
-            // ── Map — FIXED HEIGHT so it doesn't take over screen ────────────
+            // // Map - fixed height so it does not take over screen
             item {
                 SectionLabel("LOCATION HEATMAP")
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(220.dp)           // ← fixed height, key fix
+                        .height(220.dp)           // fixed height, key fix
                         .clip(RoundedCornerShape(12.dp))
-                        .border(1.dp, DividerCol, RoundedCornerShape(12.dp))
+                        .border(1.dp, DividerCol(), RoundedCornerShape(12.dp))
                 ) {
                     MapScreen(
                         deviceCount  = devices.size,
@@ -414,7 +420,7 @@ fun ScanScreen(
                 }
             }
 
-            // ── Device debug list ────────────────────────────────────────────
+            // // Device debug list
             item {
                 SectionLabel("RAW DEVICE LOG  [${devices.size}]")
             }
@@ -429,7 +435,7 @@ fun ScanScreen(
                     ) {
                         Text(
                             text       = if (isScanning) "Listening for signals…" else "No scan started",
-                            color      = TextDim,
+                            color      = TextDim(),
                             fontFamily = FontFamily.Monospace,
                             fontSize   = 13.sp
                         )
@@ -446,18 +452,16 @@ fun ScanScreen(
     }
 }
 
-// ── Device debug card ─────────────────────────────────────────────────────────
-
 @Composable
 private fun DeviceDebugCard(device: BleDevice) {
     val isAppUser  = device.isAppUser
-    val borderTint = if (isAppUser) AccentCyan.copy(alpha = 0.4f) else DividerCol
+    val borderTint = if (isAppUser) AccentCyan().copy(alpha = 0.4f) else DividerCol()
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
-            .background(BgCardAlt)
+            .background(BgCardAlt())
             .border(1.dp, borderTint, RoundedCornerShape(8.dp))
             .padding(12.dp)
     ) {
@@ -473,7 +477,7 @@ private fun DeviceDebugCard(device: BleDevice) {
                     text       = if (isAppUser && !device.name.startsWith("CrowdSense_"))
                         "${device.name} (CrowdSense)"
                     else device.name,
-                    color      = if (isAppUser) AccentCyan else TextPrimary,
+                    color      = if (isAppUser) AccentCyan() else TextPrimary(),
                     fontFamily = FontFamily.Monospace,
                     fontWeight = FontWeight.Bold,
                     fontSize   = 13.sp,
@@ -481,7 +485,7 @@ private fun DeviceDebugCard(device: BleDevice) {
                 )
                 Text(
                     text          = if (isAppUser) "APP USER" else "ANON",
-                    color         = if (isAppUser) AccentCyan else TextDim,
+                    color         = if (isAppUser) AccentCyan() else TextDim(),
                     fontSize      = 10.sp,
                     fontFamily    = FontFamily.Monospace,
                     letterSpacing = 1.sp
@@ -490,12 +494,12 @@ private fun DeviceDebugCard(device: BleDevice) {
 
             Text(
                 text       = device.address,
-                color      = TextDim,
+                color      = TextDim(),
                 fontSize   = 11.sp,
                 fontFamily = FontFamily.Monospace
             )
 
-            HorizontalDivider(color = DividerCol)
+            HorizontalDivider(color = DividerCol())
 
             // Metrics
             Row(
@@ -514,9 +518,9 @@ private fun DeviceDebugCard(device: BleDevice) {
             // RSSI signal bar
             val fraction   = ((device.rssi + 100f) / 60f).coerceIn(0f, 1f)
             val barColor   = when {
-                fraction > 0.6f -> AccentGreen
-                fraction > 0.3f -> AccentAmber
-                else            -> AccentRed
+                fraction > 0.6f -> AccentGreen()
+                fraction > 0.3f -> AccentAmber()
+                else            -> AccentRed()
             }
 
             Column {
@@ -526,7 +530,7 @@ private fun DeviceDebugCard(device: BleDevice) {
                 ) {
                     Text(
                         "SIGNAL STRENGTH",
-                        color      = TextDim,
+                        color      = TextDim(),
                         fontSize   = 9.sp,
                         fontFamily = FontFamily.Monospace
                     )
@@ -543,7 +547,7 @@ private fun DeviceDebugCard(device: BleDevice) {
                         .fillMaxWidth()
                         .height(4.dp)
                         .clip(RoundedCornerShape(2.dp))
-                        .background(DividerCol)
+                        .background(DividerCol())
                 ) {
                     Box(
                         modifier = Modifier
@@ -561,14 +565,12 @@ private fun DeviceDebugCard(device: BleDevice) {
     }
 }
 
-// ── Small reusable composables ────────────────────────────────────────────────
-
 @Composable
 private fun MetricCell(label: String, value: String, accent: Color) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text          = label,
-            color         = TextMuted,
+            color         = TextMuted(),
             fontSize      = 9.sp,
             fontFamily    = FontFamily.Monospace,
             letterSpacing = 1.sp,
@@ -589,8 +591,8 @@ private fun MetricCell(label: String, value: String, accent: Color) {
 @Composable
 private fun DebugMetric(label: String, value: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(label, color = TextDim,     fontSize = 9.sp,  fontFamily = FontFamily.Monospace)
-        Text(value, color = TextPrimary, fontSize = 11.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+        Text(label, color = TextDim(),     fontSize = 9.sp,  fontFamily = FontFamily.Monospace)
+        Text(value, color = TextPrimary(), fontSize = 11.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
     }
 }
 
@@ -598,7 +600,7 @@ private fun DebugMetric(label: String, value: String) {
 private fun SectionLabel(text: String) {
     Text(
         text          = text,
-        color         = TextMuted,
+        color         = TextMuted(),
         fontSize      = 10.sp,
         fontFamily    = FontFamily.Monospace,
         letterSpacing = 2.sp,
@@ -606,10 +608,10 @@ private fun SectionLabel(text: String) {
     )
 }
 
-// ── Permission helper ─────────────────────────────────────────────────────────
-
 fun hasPermissions(context: Context, permissions: Array<String>): Boolean {
     return permissions.all {
         ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
     }
 }
+
+

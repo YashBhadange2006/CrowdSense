@@ -5,10 +5,36 @@ import android.content.Context
 import android.os.Looper
 import com.google.android.gms.location.*
 
+// Just a Diagram for my future understanding/reference
+
+//    [Call getLastLocation]
+//    │
+//    ▼
+//    ┌──────────────┐
+//    │ Check Cache  │───(Found Cached Location)───► [Return Lat/Lon Immediately]
+//    └──────────────┘
+//    │
+//    (Cache Null)
+//    │
+//    ▼
+//    ┌───────────────────────┐
+//    │ Request Fresh Fix     │
+//    │ High Accuracy (GPS)   │
+//    └───────────────────────┘
+//    │
+//    ▼
+//    ┌───────────────────────┐
+//    │ Deliver Lat/Lon       │
+//    │ Stop Hardware Updates │
+//    └───────────────────────┘
+
 object LocationHelper {
 
     private var fusedClient: FusedLocationProviderClient? = null
 
+    // This function checks for Cached Location,
+    // in case Google Map requested the location recently,
+    // Android stores it in the cache
     @SuppressLint("MissingPermission")
     fun getLastLocation(
         context: Context,
@@ -31,6 +57,12 @@ object LocationHelper {
         }
     }
 
+    // If the cache is empty/null returned from .lastLocation
+    // then this function forces the hardware to wake up and find
+    // Here the Priority is high accuracy which forces device to use
+    // GPS, Wi-Fi and cell towers to get most precise location.
+    // Location taken 1 time in 5 seconds polling, if somewhere
+    // else app its 1s our app will only take location every 2s to prevent app overlading main thread
     @SuppressLint("MissingPermission")
     private fun requestFreshLocation(
         client: FusedLocationProviderClient,

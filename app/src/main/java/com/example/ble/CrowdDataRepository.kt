@@ -32,9 +32,11 @@ object CrowdDataRepository {
 
     private val historicalWeights = listOf(-1 to 3, -2 to 2, -3 to 1)
 
-    private val db = FirebaseDatabase
-        .getInstance("https://crowdsense-4c6d9-default-rtdb.asia-southeast1.firebasedatabase.app")
-        .reference
+    private val db by lazy {
+        FirebaseDatabase
+            .getInstance("https://crowdsense-4c6d9-default-rtdb.asia-southeast1.firebasedatabase.app")
+            .reference
+    }
 
     fun readingsTimeWindowLabel(readings: List<CrowdReading>): String {
         if (readings.isEmpty()) return ""
@@ -107,6 +109,7 @@ object CrowdDataRepository {
         else "${fmtTime.format(Date(minTs))}-${fmtTime.format(Date(maxTs))}"
     }
 
+    // Lat-Long to Metres conversion function
     fun distanceMetres(lat1: Double, lng1: Double, lat2: Double, lng2: Double): Double {
         val r = 6_371_000.0
         val dLat = Math.toRadians(lat2 - lat1)
@@ -116,6 +119,7 @@ object CrowdDataRepository {
         return r * 2 * atan2(sqrt(a), sqrt(1 - a))
     }
 
+    // Fetches Crowd data in the radius of 100M
     fun fetchNearbyReadings(
         targetLat: Double,
         targetLng: Double,
@@ -164,6 +168,8 @@ object CrowdDataRepository {
         }
     }
 
+    // This function is used to fetch data for that specific location
+    // which is then used to display Crowd Predictions and Crowd density charts
     fun fetchReadingsForGeohash(
         geohash: String,
         limit: Int = 500,

@@ -2,16 +2,32 @@ package com.example.ble.userinterface.screen
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.ColorMatrixColorFilter
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
@@ -27,28 +43,26 @@ import org.osmdroid.views.overlay.Polygon
 
 @Composable
 fun MapScreen(
-    deviceCount : Int,
+    deviceCount: Int,
     densityLevel: DensityLevel? = null
 ) {
-    val context  = LocalContext.current
+    val context = LocalContext.current
+    val colors = MaterialTheme.colorScheme
     var location by remember { mutableStateOf<GeoPoint?>(null) }
     var remotePoints by remember { mutableStateOf<List<RemoteCrowdPoint>>(emptyList()) }
 
-    // Get own location
     LaunchedEffect(Unit) {
         LocationHelper.getLastLocation(context) { lat, lon ->
             location = GeoPoint(lat, lon)
         }
     }
 
-    // Listen to ALL crowd points from Firebase
     LaunchedEffect(Unit) {
         FirebaseReader.listenToLatest { points ->
             remotePoints = points
         }
     }
 
-    // Stop listener when composable leaves screen
     DisposableEffect(Unit) {
         onDispose {
             FirebaseReader.stopListening()
@@ -58,9 +72,8 @@ fun MapScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(androidx.compose.ui.graphics.Color(0xFF0A0E14))
+            .background(colors.background)
     ) {
-
         val mapViewRef = remember { mutableStateOf<MapView?>(null) }
 
         location?.let { myLocation ->
@@ -72,11 +85,12 @@ fun MapScreen(
                 },
                 update = { mapView ->
                     updateMap(
-                        mapView      = mapView,
-                        myLocation   = myLocation,
-                        deviceCount  = deviceCount,
+                        mapView = mapView,
+                        myLocation = myLocation,
+                        deviceCount = deviceCount,
                         densityLevel = densityLevel,
-                        remotePoints = remotePoints  // always latest value
+                        remotePoints = remotePoints,
+                        colors = colors
                     )
                 }
             )
@@ -84,11 +98,12 @@ fun MapScreen(
             LaunchedEffect(remotePoints) {
                 mapViewRef.value?.let { mapView ->
                     updateMap(
-                        mapView      = mapView,
-                        myLocation   = myLocation,
-                        deviceCount  = deviceCount,
+                        mapView = mapView,
+                        myLocation = myLocation,
+                        deviceCount = deviceCount,
                         densityLevel = densityLevel,
-                        remotePoints = remotePoints
+                        remotePoints = remotePoints,
+                        colors = colors
                     )
                 }
             }
@@ -96,15 +111,14 @@ fun MapScreen(
 
         if (location == null) {
             Text(
-                text       = "Resolving location…",
-                color      = androidx.compose.ui.graphics.Color(0xFF3D5068),
+                text = "Resolving location…",
+                color = colors.onSurfaceVariant,
                 fontFamily = FontFamily.Monospace,
-                fontSize   = TextUnit(12f, TextUnitType.Sp),
-                modifier   = Modifier.align(Alignment.Center)
+                fontSize = TextUnit(12f, TextUnitType.Sp),
+                modifier = Modifier.align(Alignment.Center)
             )
         }
 
-        // Live indicator — top right
         if (remotePoints.isNotEmpty()) {
             Row(
                 modifier = Modifier
@@ -113,18 +127,15 @@ fun MapScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                androidx.compose.foundation.layout.Box(
+                Box(
                     modifier = Modifier
                         .size(6.dp)
-                        .background(
-                            androidx.compose.ui.graphics.Color(0xFF00E5FF),
-                            androidx.compose.foundation.shape.CircleShape
-                        )
+                        .background(colors.primary, CircleShape)
                 )
                 Text(
-                    text      = "${remotePoints.size} active zones",
-                    color     = androidx.compose.ui.graphics.Color(0xFF00E5FF),
-                    fontSize  = TextUnit(9f, TextUnitType.Sp),
+                    text = "${remotePoints.size} active zones",
+                    color = colors.primary,
+                    fontSize = TextUnit(9f, TextUnitType.Sp),
                     fontFamily = FontFamily.Monospace
                 )
             }
@@ -132,12 +143,10 @@ fun MapScreen(
     }
 }
 
-// ── Map creation ──────────────────────────────────────────────────────────────
-
 private fun createMapView(
-    context     : Context,
-    startPoint  : GeoPoint,
-    deviceCount : Int,
+    context: Context,
+    startPoint: GeoPoint,
+    deviceCount: Int,
     densityLevel: DensityLevel?
 ): MapView {
     Configuration.getInstance().load(
@@ -154,14 +163,13 @@ private fun createMapView(
     mapView.controller.setZoom(17.0)
     mapView.controller.setCenter(startPoint)
 
-    // Dark tile filter
     mapView.overlayManager.tilesOverlay.setColorFilter(
-        android.graphics.ColorMatrixColorFilter(
+        ColorMatrixColorFilter(
             floatArrayOf(
-                -1f,  0f,  0f, 0f, 255f,
-                0f, -1f,  0f, 0f, 255f,
-                0f,  0f, -1f, 0f, 255f,
-                0f,  0f,  0f, 1f,   0f
+                -1f, 0f, 0f, 0f, 255f,
+                0f, -1f, 0f, 0f, 255f,
+                0f, 0f, -1f, 0f, 255f,
+                0f, 0f, 0f, 1f, 0f
             )
         )
     )
@@ -169,91 +177,75 @@ private fun createMapView(
     return mapView
 }
 
-// ── Map update ────────────────────────────────────────────────────────────────
-
 private fun updateMap(
-    mapView     : MapView,
-    myLocation  : GeoPoint,
-    deviceCount : Int,
+    mapView: MapView,
+    myLocation: GeoPoint,
+    deviceCount: Int,
     densityLevel: DensityLevel?,
-    remotePoints: List<RemoteCrowdPoint>
+    remotePoints: List<RemoteCrowdPoint>,
+    colors: androidx.compose.material3.ColorScheme
 ) {
     mapView.overlays.clear()
 
-    // Draw all remote crowd points from Firebase first (bottom layer)
     remotePoints.forEach { point ->
         val geoPoint = GeoPoint(point.lat, point.lng)
-        val level    = parseDensityLevel(point.level)
-        drawSpreadingBlob(mapView, geoPoint, point.score, level)
+        val level = parseDensityLevel(point.level)
+        drawSpreadingBlob(mapView, geoPoint, point.score, level, colors)
     }
 
-    // Draw own location on top (top layer)
-    drawSpreadingBlob(mapView, myLocation, null, densityLevel)
-    drawMyLocationDot(mapView, myLocation)
+    drawSpreadingBlob(mapView, myLocation, null, densityLevel, colors)
+    drawMyLocationDot(mapView, myLocation, colors)
 
     mapView.invalidate()
 }
 
-// ── Spreading blob — the key visual effect ────────────────────────────────────
-
-/**
- * Draws multiple concentric circles with decreasing opacity.
- * Creates a natural ink-spread / heat-blob effect.
- * When two blobs overlap, their transparent layers visually merge
- * making the overlapping area appear brighter/more intense —
- * exactly like mixing two colours.
- *
- * Score drives the radius — higher crowd = larger spread.
- * This means two HIGH areas next to each other naturally
- * converge into one large danger zone visually.
- */
 private fun drawSpreadingBlob(
-    mapView : MapView,
-    center  : GeoPoint,
-    score   : Float?,
-    level   : DensityLevel?
+    mapView: MapView,
+    center: GeoPoint,
+    score: Float?,
+    level: DensityLevel?,
+    colors: androidx.compose.material3.ColorScheme
 ) {
     val radius = when (level) {
-        DensityLevel.LOW    -> 8.0
+        DensityLevel.LOW -> 8.0
         DensityLevel.MEDIUM -> 15.0
-        DensityLevel.HIGH   -> 30.0
+        DensityLevel.HIGH -> 30.0
         DensityLevel.DANGER -> 45.0
-        null                -> 20.0
+        null -> 20.0
     }
 
-    val (r, g, b) = when (level) {
-        DensityLevel.LOW    -> Triple(0,   255, 156)
-        DensityLevel.MEDIUM -> Triple(255, 184,   0)
-        DensityLevel.HIGH   -> Triple(255, 122,   0)
-        DensityLevel.DANGER -> Triple(255,  59,  59)
-        null                -> Triple(0,   229, 255)
+    val color = when (level) {
+        DensityLevel.LOW -> colors.primary
+        DensityLevel.MEDIUM -> colors.secondary
+        DensityLevel.HIGH -> colors.tertiary
+        DensityLevel.DANGER -> colors.error
+        null -> colors.primary
     }
 
-    // Single circle — clean, doesn't cover map
     val circle = Polygon().apply {
-        points      = Polygon.pointsAsCircle(center, radius)
-        fillColor   = Color.argb(80, r, g, b)   // low alpha = map visible through it
-        strokeColor = Color.argb(180, r, g, b)  // stronger border = clear boundary
+        points = Polygon.pointsAsCircle(center, radius)
+        fillColor = Color.argb(80, Color.red(color.toArgb()), Color.green(color.toArgb()), Color.blue(color.toArgb()))
+        strokeColor = Color.argb(180, Color.red(color.toArgb()), Color.green(color.toArgb()), Color.blue(color.toArgb()))
         strokeWidth = 2f
     }
 
     mapView.overlays.add(circle)
 }
 
-// ── My location dot — small precise indicator ─────────────────────────────────
-
-private fun drawMyLocationDot(mapView: MapView, center: GeoPoint) {
-    // Outer white ring
+private fun drawMyLocationDot(
+    mapView: MapView,
+    center: GeoPoint,
+    colors: androidx.compose.material3.ColorScheme
+) {
     val ring = Polygon().apply {
-        points      = Polygon.pointsAsCircle(center, 6.0)
-        fillColor   = Color.argb(255, 255, 255, 255)
+        points = Polygon.pointsAsCircle(center, 6.0)
+        fillColor = Color.argb(255, Color.red(colors.onSurface.toArgb()), Color.green(colors.onSurface.toArgb()), Color.blue(colors.onSurface.toArgb()))
         strokeColor = Color.TRANSPARENT
         strokeWidth = 0f
     }
-    // Inner cyan dot
     val dot = Polygon().apply {
-        points      = Polygon.pointsAsCircle(center, 3.5)
-        fillColor   = Color.argb(255, 0, 229, 255)
+        points = Polygon.pointsAsCircle(center, 3.5)
+        fillColor = Color.argb(255, Color.red(colors.primary.toArgb()), Color.green(colors.primary.toArgb()), Color.blue(colors.primary.toArgb()))
         strokeColor = Color.TRANSPARENT
         strokeWidth = 0f
     }
@@ -261,12 +253,15 @@ private fun drawMyLocationDot(mapView: MapView, center: GeoPoint) {
     mapView.overlays.add(dot)
 }
 
-// ── Helper ────────────────────────────────────────────────────────────────────
+private fun parseDensityLevel(level: String): DensityLevel = when (level.uppercase()) {
+    "MEDIUM" -> DensityLevel.MEDIUM
+    "HIGH" -> DensityLevel.HIGH
+    "DANGER" -> DensityLevel.DANGER
+    else -> DensityLevel.LOW
+}
 
-private fun parseDensityLevel(level: String): DensityLevel {
-    return try {
-        DensityLevel.valueOf(level)
-    } catch (e: Exception) {
-        DensityLevel.LOW
-    }
+@Preview
+@Composable
+fun PreviewMapScreen() {
+    MapScreen(deviceCount = 3, densityLevel = DensityLevel.MEDIUM)
 }

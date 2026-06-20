@@ -5,6 +5,7 @@ import android.app.Application
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 
+// Just for Anon Auth Firebase
 class BleApplication : Application() {
     override fun onCreate() {
         super.onCreate()

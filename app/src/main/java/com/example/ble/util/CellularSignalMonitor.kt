@@ -8,6 +8,8 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.ble.util.RssiDistanceCalculator
 
+// All the RSRP, RSSI and cellular values are collected from here and sent to the Crowd Prediction Function.
+
 data class CellularSignalData(
     val rsrp: Int?,
     val rsrq: Int?,
@@ -53,6 +55,7 @@ class CellularSignalMonitor(private val context: Context) {
 
             when (cellInfo) {
 
+                // For 4G Calculation
                 is CellInfoLte -> {
                     val signal = cellInfo.cellSignalStrength
                     val rsrp = signal.rsrp
@@ -80,6 +83,7 @@ class CellularSignalMonitor(private val context: Context) {
                     )
                 }
 
+                // For 5G Calculation
                 is CellInfoNr -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         val signal = cellInfo.cellSignalStrength as CellSignalStrengthNr

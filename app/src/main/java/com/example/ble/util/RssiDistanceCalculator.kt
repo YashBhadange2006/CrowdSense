@@ -2,6 +2,10 @@ package com.example.ble.util
 
 import kotlin.math.pow
 
+// This function basically calculates the distance using Rssi & txPower
+// Also calculates crowd pressure on the basis of currRsrp and baselineRsrp (first/uncrowded reference)
+// if baselineRsrp - currRsrp = +ve means signal degraded meaning crowding increased
+// legacy devices don't support rsrp/rsrq so direct dBM range is set for penalty
 object RssiDistanceCalculator {
 
     private const val DEFAULT_TX_POWER = -59
@@ -17,19 +21,19 @@ object RssiDistanceCalculator {
     }
 
 
-//    /**
-//     * Derives a crowd pressure score from cellular signal metrics.
-//     * Called from BleScanner to combine with BLE crowd score.
-//     *
-//     * Logic: In crowded areas, more devices compete for the same cell tower,
-//     * causing RSRP to drop and RSRQ to degrade. We measure that degradation
-//     * relative to a baseline captured when the app first starts.
-//     *
-//     * @param currentRsrp   Current LTE/5G reference signal power (dBm)
-//     * @param rsrq          Signal quality (dB), nullable
-//     * @param baselineRsrp  First recorded RSRP value (uncrowded reference)
-//     * @return              Crowd pressure score from 0.0 to 5.0
-//     */
+    /**
+     * Derives a crowd pressure score from cellular signal metrics.
+     * Called from BleScanner to combine with BLE crowd score.
+     *
+     * Logic: In crowded areas, more devices compete for the same cell tower,
+     * causing RSRP to drop and RSRQ to degrade. We measure that degradation
+     * relative to a baseline captured when the app first starts.
+     *
+     * @param currentRsrp   Current LTE/5G reference signal power (dBm)
+     * @param rsrq          Signal quality (dB), nullable
+     * @param baselineRsrp  First recorded RSRP value (uncrowded reference)
+     * @return              Crowd pressure score from 0.0 to 5.0
+     */
     fun calculateCellularCrowdPressure(
         currentRsrp: Int,
         rsrq: Int?,
