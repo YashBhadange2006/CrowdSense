@@ -60,13 +60,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.osmdroid.util.GeoPoint
 import androidx.compose.foundation.isSystemInDarkTheme
-
-sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
-    object Home : Screen("home", "Home", Icons.Filled.Home)
-    object Search : Screen("search", "Search", Icons.Filled.Search)
-    object Insights : Screen("insights", "Insights", Icons.Filled.BarChart)
-    object Dev : Screen("dev", "Dev", Icons.Filled.BugReport)
-}
+import com.example.ble.navigation.MainNavigation
 
 class MainActivity : ComponentActivity() {
 
@@ -74,16 +68,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-            ) {
-                requestPermissions(
-                    arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION),
-                    1001
-                )
-            }
-        }
+        checkBackgroundLocationPermissions()
 
         setContent {
             val context = LocalContext.current
@@ -96,171 +81,54 @@ class MainActivity : ComponentActivity() {
             var remotePoints by remember { mutableStateOf<List<RemoteCrowdPoint>>(emptyList()) }
             var stations by remember { mutableStateOf<List<Station>>(emptyList()) }
 
+            LaunchedEffect(Unit) {
+                stations = withContext(Dispatchers.IO) {
+                    StationCatalog.load(context.applicationContext)
+                }
+            }
+
+            DisposableEffect(Unit) {
+                CrowdSenseService.onDeviceUpdate = { devices = it }
+                CrowdSenseService.onScoreUpdate = { crowdScore = it }
+                onDispose {
+                    CrowdSenseService.onDeviceUpdate = null
+                    CrowdSenseService.onScoreUpdate = null
+                }
+            }
+
+            LaunchedEffect(Unit) {
+                FirebaseReader.listenToLatest { points ->
+                    remotePoints = points
+                }
+            }
+            DisposableEffect(Unit) {
+                onDispose { FirebaseReader.stopListening() }
+            }
+
             BLETheme(darkTheme = darkTheme, dynamicColor = false) {
-                LaunchedEffect(Unit) {
-                    stations = withContext(Dispatchers.IO) {
-                        StationCatalog.load(context.applicationContext)
-                    }
-                }
-
-                DisposableEffect(Unit) {
-                    CrowdSenseService.onDeviceUpdate = { devices = it }
-                    CrowdSenseService.onScoreUpdate = { crowdScore = it }
-                    onDispose {
-                        CrowdSenseService.onDeviceUpdate = null
-                        CrowdSenseService.onScoreUpdate = null
-                    }
-                }
-
-                LaunchedEffect(Unit) {
-                    FirebaseReader.listenToLatest { points ->
-                        remotePoints = points
-                    }
-                }
-                DisposableEffect(Unit) {
-                    onDispose { FirebaseReader.stopListening() }
-                }
-
-                val navController = rememberNavController()
-                val items = listOf(Screen.Home, Screen.Search, Screen.Insights, Screen.Dev)
-                val isRunning = CrowdSenseService.isRunning
-
-                val colorScheme = MaterialTheme.colorScheme
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(colorScheme.background)
-                ) {
-                    Scaffold(
-                        containerColor = Color.Transparent,
-                        bottomBar = {
-                            NavigationBar(
-                                containerColor = colorScheme.surface,
-                                tonalElevation = 0.dp
-                            ) {
-                                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                                val currentRoute = navBackStackEntry?.destination?.route
-
-                                items.forEach { screen ->
-                                    val selected = when {
-                                        currentRoute == screen.route -> true
-                                        screen.route == Screen.Search.route &&
-                                            currentRoute?.startsWith("insights/station/") == true -> true
-                                        screen.route == Screen.Insights.route &&
-                                            currentRoute == Screen.Insights.route -> true
-                                        else -> false
-                                    }
-                                    NavigationBarItem(
-                                        selected = selected,
-                                        onClick = {
-                                            navController.navigate(screen.route) {
-                                                popUpTo(Screen.Home.route) {
-                                                    saveState = true
-                                                }
-                                                launchSingleTop = true
-                                                restoreState = true
-                                            }
-                                        },
-                                        icon = {
-                                            Icon(
-                                                imageVector = screen.icon,
-                                                contentDescription = screen.label
-                                            )
-                                        },
-                                        label = {
-                                            Text(
-                                                text = screen.label,
-                                                fontSize = androidx.compose.ui.unit.TextUnit(
-                                                    10f,
-                                                    androidx.compose.ui.unit.TextUnitType.Sp
-                                                )
-                                            )
-                                        },
-                                        colors = NavigationBarItemDefaults.colors(
-                                            selectedIconColor = colorScheme.primary,
-                                            selectedTextColor = colorScheme.primary,
-                                            unselectedIconColor = colorScheme.onSurfaceVariant,
-                                            unselectedTextColor = colorScheme.onSurfaceVariant,
-                                            indicatorColor = colorScheme.primary.copy(alpha = 0.12f)
-                                        )
-                                    )
-                                }
-                            }
-                        }
-                    ) { innerPadding ->
-                        NavHost(
-                            navController = navController,
-                            startDestination = Screen.Home.route,
-                            modifier = Modifier.padding(innerPadding)
-                        ) {
-                            composable(Screen.Home.route) {
-                                HomeScreen(
-                                    crowdScore = crowdScore,
-                                    devices = devices,
-                                    isScanning = isRunning,
-                                    onPermissionsGranted = { }
-                                )
-                            }
-                            composable(Screen.Search.route) {
-                                SearchScreen(
-                                    stations = stations,
-                                    remotePoints = remotePoints,
-                                    onStationClick = { station ->
-                                        navController.navigate("insights/station/${station.geohash}") {
-                                            launchSingleTop = false
-                                        }
-                                    }
-                                )
-                            }
-                            composable(Screen.Insights.route) {
-                                InsightsScreen(location = location, stationGeohash = null)
-                            }
-                            composable(
-                                route = "insights/station/{geohash}",
-                                arguments = listOf(
-                                    navArgument("geohash") { type = NavType.StringType }
-                                )
-                            ) { entry ->
-                                val gh = entry.arguments?.getString("geohash")
-                                val canBack = navController.previousBackStackEntry != null
-                                InsightsScreen(
-                                    location = location,
-                                    stationGeohash = gh,
-                                    canNavigateBack = canBack,
-                                    onBack = { navController.popBackStack() }
-                                )
-                            }
-                            composable(Screen.Dev.route) {
-                                DevScreen(
-                                    devices = devices,
-                                    crowdScore = crowdScore,
-                                    isScanning = isRunning,
-                                    remotePoints = remotePoints,
-                                    onStopScan = { stopCrowdService() },
-                                    onStartScan = { startCrowdService() }
-                                )
-                            }
-                        }
-                    }
-
-                    IconButton(
-                        onClick = { darkTheme = !darkTheme },
-                        modifier = Modifier
-                            .align(Alignment.TopEnd)
-                            .padding(12.dp)
-                    ) {
-                        Icon(
-                            imageVector = if (darkTheme) Icons.Filled.Brightness7 else Icons.Filled.Brightness4,
-                            contentDescription = "Toggle theme",
-                            tint = colorScheme.onSurface
-                        )
-                    }
-                }
+                MainNavigation(
+                    devices = devices,
+                    crowdScore = crowdScore,
+                    isScanning = CrowdSenseService.isRunning,
+                    stations = stations,
+                    remotePoints = remotePoints,
+                    location = location,
+                    onStopScan = { stopCrowdService() },
+                    onStartScan = { startCrowdService() },
+                    onThemeToggle = {darkTheme = !darkTheme},
+                    darkTheme = darkTheme
+                )
             }
         }
     }
 
+    private fun checkBackgroundLocationPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), 1001)
+            }
+        }
+    }
     private fun startCrowdService() {
         if (CrowdSenseService.isRunning) return
         val intent = Intent(this, CrowdSenseService::class.java)

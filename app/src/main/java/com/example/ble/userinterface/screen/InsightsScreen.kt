@@ -264,13 +264,11 @@ fun InsightsScreen(
         } else if (readings.isEmpty()) {
             NoDataCard()
         } else {
-            // â”€â”€ Prediction card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             prediction?.let { pred ->
                 PredictionCard(pred)
                 Spacer(modifier = Modifier.height(16.dp))
             }
 
-            // â”€â”€ Live trend sparkline â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             SparklineCard(readings = readings, timeView = selectedView)
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -292,7 +290,6 @@ fun InsightsScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // â”€â”€ Legend â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             Legend()
         }
 
@@ -366,7 +363,6 @@ private fun PredictionCard(pred: PredictionResult) {
     }
 }
 
-// â”€â”€ Sparkline â€” chronological readings with real date/time context â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @Composable
 private fun SparklineCard(
@@ -504,7 +500,6 @@ private fun TimeViewSelector(
     }
 }
 
-// â”€â”€ Bar chart â€” scrollable, Y-axis, tap for date/time explanation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @Composable
 private fun BarChartCard(
