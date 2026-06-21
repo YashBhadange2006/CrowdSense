@@ -345,7 +345,7 @@ fun ScanScreen(
                                         text       = "%.2f".format(s.score),
                                         color      = TextPrimary(),
                                         fontSize   = 36.sp,
-                                        fontWeight = FontWeight.Bold,
+                                        fontWeight = FontWeight.ExtraBold,
                                         fontFamily = FontFamily.Default
                                     )
                                 }
@@ -354,11 +354,6 @@ fun ScanScreen(
                                     modifier = Modifier
                                         .clip(RoundedCornerShape(6.dp))
                                         .background(levelColor.copy(alpha = 0.12f))
-                                        .border(
-                                            1.dp,
-                                            levelColor.copy(alpha = 0.6f),
-                                            RoundedCornerShape(6.dp)
-                                        )
                                         .padding(horizontal = 14.dp, vertical = 8.dp)
                                 ) {
                                     Text(
@@ -516,7 +511,7 @@ private fun DeviceDebugCard(device: BleDevice) {
             .fillMaxWidth()
             .background(BgCard()),
         colors = CardDefaults.elevatedCardColors(
-            containerColor = borderTint
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
         shape = RoundedCornerShape(24.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
