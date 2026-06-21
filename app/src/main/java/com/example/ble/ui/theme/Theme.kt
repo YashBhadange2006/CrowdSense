@@ -9,10 +9,17 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
+val DeepNavyText = Color(0xFF0D2C54)
+val CleanWhiteCard = Color(0xFFFFFFFF)
+val MutedSlateText = Color(0xFF708090)
+
 private val DarkColorScheme = darkColorScheme()
-private val LightColorScheme = lightColorScheme()
+private val LightColorScheme = lightColorScheme(
+    background = OffWhiteBg,
+)
 
 @Composable
 fun BLETheme(

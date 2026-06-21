@@ -14,18 +14,24 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CellTower
+import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
@@ -33,11 +39,11 @@ import com.example.ble.bluetooth.BleDevice
 import com.example.ble.bluetooth.BleScanner
 import com.example.ble.bluetooth.CrowdScore
 import com.example.ble.bluetooth.DensityLevel
+import com.example.ble.ui.theme.BLETheme
 import com.example.ble.util.LocationHelper
 import org.osmdroid.util.GeoPoint
+import kotlin.String
 
-@Composable
-private fun BgDeep() = MaterialTheme.colorScheme.background
 @Composable
 private fun BgCard() = MaterialTheme.colorScheme.surface
 @Composable
@@ -84,7 +90,7 @@ fun ScanScreen(
     externalCrowdScore   : CrowdScore? = null       // add
 ){
     val context = LocalContext.current
-
+    val colorScheme = MaterialTheme.colorScheme
     var localDevices    by remember { mutableStateOf(listOf<BleDevice>()) }
     var localCrowdScore by remember { mutableStateOf<CrowdScore?>(null) }
     var localIsScanning by remember { mutableStateOf(false) }
@@ -151,7 +157,7 @@ fun ScanScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(BgDeep())
+            .background(colorScheme.background)
     ) {
         LazyColumn(
             modifier            = Modifier.fillMaxSize(),
@@ -169,19 +175,18 @@ fun ScanScreen(
                 ) {
                     Column {
                         Text(
-                            text          = "CROWDSENSE",
+                            text          = "Crowd Analysis",
                             color         = TextPrimary(),
                             fontSize      = 22.sp,
                             fontWeight    = FontWeight.Bold,
-                            fontFamily    = FontFamily.Monospace,
-                            letterSpacing = 4.sp
+                            fontFamily    = FontFamily.Default,
+                            style = MaterialTheme.typography.headlineLarge,
                         )
                         Text(
                             text          = "density monitoring system",
                             color         = TextMuted(),
                             fontSize      = 11.sp,
-                            fontFamily    = FontFamily.Monospace,
-                            letterSpacing = 1.sp
+                            fontFamily    = FontFamily.Default,
                         )
                     }
                     if (isScanning) {
@@ -190,7 +195,7 @@ fun ScanScreen(
                                 .size(10.dp)
                                 .background(
                                     color = AccentCyan().copy(alpha = pulseAlpha),
-                                    shape = androidx.compose.foundation.shape.CircleShape
+                                    shape = CircleShape
                                 )
                         )
                     }
@@ -199,16 +204,23 @@ fun ScanScreen(
             }
 
             item {
-                val bgColor by animateColorAsState(
-                    targetValue   = if (isScanning) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primaryContainer,
-                    animationSpec = tween(400),
-                    label         = "btnBg"
-                )
-                val borderColor by animateColorAsState(
-                    targetValue   = if (isScanning) AccentRed() else AccentGreen(),
-                    animationSpec = tween(400),
-                    label         = "btnBorder"
-                )
+                val dynamicGradientBrush = remember(isScanning) {
+                    if (isScanning) {
+                        Brush.horizontalGradient(
+                            colors = listOf(
+                                Color(0xFF990000),
+                                Color(0xFFD32F2F)
+                            )
+                        )
+                    } else {
+                        Brush.horizontalGradient(
+                            colors = listOf(
+                                Color(0xFFD35400),
+                                Color(0xFFE67E22)
+                            )
+                        )
+                    }
+                }
 
                 Button(
                     onClick = {
@@ -238,42 +250,81 @@ fun ScanScreen(
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(52.dp)
-                        .border(1.dp, borderColor, RoundedCornerShape(8.dp)),
-                    colors = ButtonDefaults.buttonColors(containerColor = bgColor),
-                    shape  = RoundedCornerShape(8.dp)
-                ) {
-                    Text(
-                        text          = if (isScanning) "STOP SCAN" else "START SCAN",
-                        color         = borderColor,
-                        fontFamily    = FontFamily.Monospace,
-                        fontWeight    = FontWeight.Bold,
-                        letterSpacing = 2.sp,
-                        fontSize      = 14.sp
+                        .height(56.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Transparent,
+                        contentColor = Color.White
+                    ),
+                    shape  = RoundedCornerShape(24.dp),
+                    contentPadding = PaddingValues(0.dp),
+                    elevation = ButtonDefaults.elevatedButtonElevation(
+                        defaultElevation = 7.dp,
+                        pressedElevation = 3.dp
                     )
+
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(dynamicGradientBrush),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Icon(
+                                imageVector = if(isScanning) Icons.Filled.Stop else Icons.Filled.CellTower,
+                                contentDescription = null,
+                                modifier = Modifier.size(22.dp),
+                                tint = Color.White
+                            )
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Text(
+                                text = if (isScanning) "STOP SCAN" else "START SCAN",
+                                color = Color.White,
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize = 18.sp,
+                                letterSpacing = 1.5.sp
+                            )
+                        }
+                    }
                 }
             }
 
             item {
-                SectionLabel("CROWD ANALYSIS")
-                Box(
+                Text(
+                    "Crowd Analysis",
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+                ElevatedCard(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(BgCard())
-                        .border(1.dp, DividerCol(), RoundedCornerShape(12.dp))
-                        .padding(16.dp)
+                        .background(BgCard()),
+                    colors = CardDefaults.elevatedCardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    ),
+                    shape = RoundedCornerShape(24.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
                 ) {
                     if (crowdScore == null) {
                         Text(
                             text       = "Awaiting first scan cycle…",
                             color      = TextDim(),
-                            fontFamily = FontFamily.Monospace,
-                            fontSize   = 13.sp
+                            fontFamily = FontFamily.Default,
+                            fontSize   = 13.sp,
+                            letterSpacing = 1.5.sp,
+                            modifier = Modifier
+                                .padding(5.dp)
                         )
                     } else {
                         val s = crowdScore!!
-                        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(20.dp)
+                            ) {
 
                             // Score + level badge
                             Row(
@@ -286,7 +337,8 @@ fun ScanScreen(
                                         text          = "DENSITY SCORE",
                                         color         = TextMuted(),
                                         fontSize      = 10.sp,
-                                        fontFamily    = FontFamily.Monospace,
+                                        fontFamily    = FontFamily.Default,
+                                        style = MaterialTheme.typography.labelSmall,
                                         letterSpacing = 1.5.sp
                                     )
                                     Text(
@@ -294,7 +346,7 @@ fun ScanScreen(
                                         color      = TextPrimary(),
                                         fontSize   = 36.sp,
                                         fontWeight = FontWeight.Bold,
-                                        fontFamily = FontFamily.Monospace
+                                        fontFamily = FontFamily.Default
                                     )
                                 }
                                 val levelColor = s.level.accentColor()
@@ -312,7 +364,7 @@ fun ScanScreen(
                                     Text(
                                         text          = s.level.label(),
                                         color         = levelColor,
-                                        fontFamily    = FontFamily.Monospace,
+                                        fontFamily    = FontFamily.Default,
                                         fontWeight    = FontWeight.Bold,
                                         fontSize      = 14.sp,
                                         letterSpacing = 2.sp
@@ -351,8 +403,8 @@ fun ScanScreen(
                                 )
                                 MetricCell(
                                     label  = "RSSI PENALTY",
-                                    value  = if (s.avgRssi < -75f) "1.5×" else "1.0×",
-                                    accent = if (s.avgRssi < -75f) AccentAmber() else TextMuted()
+                                    value  = if (s.avgRssi >= -60f){"1.4×"} else if(s.avgRssi >= -68f) "1.2×" else "1.0×",
+                                    accent = if (s.avgRssi >= -60f) AccentAmber() else if(s.avgRssi >= -68f) TextMuted() else TextMuted()
                                 )
                             }
 
@@ -360,42 +412,44 @@ fun ScanScreen(
 
                             // Formula breakdown
                             val bleRaw  = (s.appUserCount * 3f) + (s.anonymousCount * 1f)
-                            val penalty = if (s.avgRssi < -75f) 1.5f else 1.0f
+                            val penalty = if (s.avgRssi >= -60f) 1.4f else if(s.avgRssi >= -68f) 1.2f else 1.0f
                             val bleAdj  = bleRaw * penalty
                             val cellAdj = s.cellularPressure * 2f
 
-                            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                            ) {
                                 Text(
                                     text          = "SCORE BREAKDOWN",
                                     color         = TextMuted(),
                                     fontSize      = 10.sp,
-                                    fontFamily    = FontFamily.Monospace,
-                                    letterSpacing = 1.5.sp
+                                    fontFamily    = FontFamily.Default,
                                 )
                                 Text(
-                                    text       = "  BLE raw  = (${s.appUserCount}×3) + (${s.anonymousCount}×1) = %.1f".format(bleRaw),
+                                    text       = "BLE raw = (${s.appUserCount}×2.5) + (${s.anonymousCount}×1) = %.1f".format(bleRaw),
                                     color      = TextMuted(),
                                     fontSize   = 11.sp,
-                                    fontFamily = FontFamily.Monospace
+                                    fontFamily = FontFamily.Default
                                 )
                                 Text(
-                                    text       = "  BLE adj  = %.1f × %.1f = %.2f".format(bleRaw, penalty, bleAdj),
+                                    text       = "BLE adj = %.1f × %.1f = %.2f".format(bleRaw, penalty, bleAdj),
                                     color      = TextMuted(),
                                     fontSize   = 11.sp,
-                                    fontFamily = FontFamily.Monospace
+                                    fontFamily = FontFamily.Default
                                 )
                                 Text(
-                                    text       = "  Cell adj = %.2f × 2.0 = %.2f".format(s.cellularPressure, cellAdj),
+                                    text       = "Cell adj = %.2f × 2.0 = %.2f".format(s.cellularPressure, cellAdj),
                                     color      = TextMuted(),
                                     fontSize   = 11.sp,
-                                    fontFamily = FontFamily.Monospace
+                                    fontFamily = FontFamily.Default
                                 )
                                 Text(
-                                    text       = "  TOTAL    = %.2f + %.2f = %.2f".format(bleAdj, cellAdj, s.score),
+                                    text       = "TOTAL = %.2f + %.2f = %.2f".format(bleAdj, cellAdj, s.score),
                                     color      = AccentCyan(),
                                     fontSize   = 12.sp,
                                     fontWeight = FontWeight.Bold,
-                                    fontFamily = FontFamily.Monospace
+                                    fontFamily = FontFamily.Default
                                 )
                             }
                         }
@@ -436,7 +490,7 @@ fun ScanScreen(
                         Text(
                             text       = if (isScanning) "Listening for signals…" else "No scan started",
                             color      = TextDim(),
-                            fontFamily = FontFamily.Monospace,
+                            fontFamily = FontFamily.Default,
                             fontSize   = 13.sp
                         )
                     }
@@ -457,15 +511,21 @@ private fun DeviceDebugCard(device: BleDevice) {
     val isAppUser  = device.isAppUser
     val borderTint = if (isAppUser) AccentCyan().copy(alpha = 0.4f) else DividerCol()
 
-    Box(
+    ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(BgCardAlt())
-            .border(1.dp, borderTint, RoundedCornerShape(8.dp))
-            .padding(12.dp)
+            .background(BgCard()),
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = borderTint
+        ),
+        shape = RoundedCornerShape(24.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Column(
+            modifier = Modifier
+            .fillMaxWidth()
+            .padding(20.dp)
+        ) {
 
             // Name + type badge
             Row(
@@ -478,7 +538,7 @@ private fun DeviceDebugCard(device: BleDevice) {
                         "${device.name} (CrowdSense)"
                     else device.name,
                     color      = if (isAppUser) AccentCyan() else TextPrimary(),
-                    fontFamily = FontFamily.Monospace,
+                    fontFamily = FontFamily.Default,
                     fontWeight = FontWeight.Bold,
                     fontSize   = 13.sp,
                     modifier   = Modifier.weight(1f)
@@ -487,7 +547,7 @@ private fun DeviceDebugCard(device: BleDevice) {
                     text          = if (isAppUser) "APP USER" else "ANON",
                     color         = if (isAppUser) AccentCyan() else TextDim(),
                     fontSize      = 10.sp,
-                    fontFamily    = FontFamily.Monospace,
+                    fontFamily    = FontFamily.Default,
                     letterSpacing = 1.sp
                 )
             }
@@ -496,7 +556,7 @@ private fun DeviceDebugCard(device: BleDevice) {
                 text       = device.address,
                 color      = TextDim(),
                 fontSize   = 11.sp,
-                fontFamily = FontFamily.Monospace
+                fontFamily = FontFamily.Default
             )
 
             HorizontalDivider(color = DividerCol())
@@ -532,13 +592,13 @@ private fun DeviceDebugCard(device: BleDevice) {
                         "SIGNAL STRENGTH",
                         color      = TextDim(),
                         fontSize   = 9.sp,
-                        fontFamily = FontFamily.Monospace
+                        fontFamily = FontFamily.Default
                     )
                     Text(
                         "${(fraction * 100).toInt()}%",
                         color      = barColor,
                         fontSize   = 9.sp,
-                        fontFamily = FontFamily.Monospace
+                        fontFamily = FontFamily.Default
                     )
                 }
                 Spacer(modifier = Modifier.height(3.dp))
@@ -572,7 +632,7 @@ private fun MetricCell(label: String, value: String, accent: Color) {
             text          = label,
             color         = TextMuted(),
             fontSize      = 9.sp,
-            fontFamily    = FontFamily.Monospace,
+            fontFamily    = FontFamily.Default,
             letterSpacing = 1.sp,
             textAlign     = TextAlign.Center
         )
@@ -582,7 +642,7 @@ private fun MetricCell(label: String, value: String, accent: Color) {
             color      = accent,
             fontSize   = 15.sp,
             fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Monospace,
+            fontFamily = FontFamily.Default,
             textAlign  = TextAlign.Center
         )
     }
@@ -591,8 +651,8 @@ private fun MetricCell(label: String, value: String, accent: Color) {
 @Composable
 private fun DebugMetric(label: String, value: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(label, color = TextDim(),     fontSize = 9.sp,  fontFamily = FontFamily.Monospace)
-        Text(value, color = TextPrimary(), fontSize = 11.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+        Text(label, color = TextDim(),     fontSize = 9.sp,  fontFamily = FontFamily.Default, letterSpacing = 1.sp)
+        Text(value, color = TextPrimary(), fontSize = 11.sp, fontFamily = FontFamily.Default, fontWeight = FontWeight.Bold,letterSpacing = 1.sp)
     }
 }
 
@@ -602,8 +662,8 @@ private fun SectionLabel(text: String) {
         text          = text,
         color         = TextMuted(),
         fontSize      = 10.sp,
-        fontFamily    = FontFamily.Monospace,
-        letterSpacing = 2.sp,
+        fontFamily    = FontFamily.Default,
+        letterSpacing = 1.sp,
         modifier      = Modifier.padding(bottom = 6.dp, top = 4.dp)
     )
 }
@@ -611,6 +671,47 @@ private fun SectionLabel(text: String) {
 fun hasPermissions(context: Context, permissions: Array<String>): Boolean {
     return permissions.all {
         ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
+    }
+}
+
+@Preview(name = "Full Dashboard Screen",showBackground = true)
+@Composable
+fun PreviewDevScanContent() {
+
+    BLETheme(darkTheme = false) {
+        ScanScreen(
+            onPermissionsGranted = { },
+            externalIsScanning   = true,
+            onStartScan          = {},
+            onStopScan           = {},
+            externalDevices      = listOf(),
+            externalCrowdScore   = CrowdScore(
+                score = 50f,
+                appUserCount = 2,
+                anonymousCount = 3,
+                totalNearby = 5,
+                avgRssi = 25f,
+                cellularPressure = 30f,
+                level = DensityLevel.DANGER
+            )
+        )
+    }
+}
+
+@Preview(name = "Single Log Card Row Component",showBackground = true)
+@Composable
+fun PreviewDebugLogCard() {
+    BLETheme(darkTheme = false) {
+        DeviceDebugCard(
+            device = BleDevice(
+                name = "Samsung",
+                address = "AA:BB:CC:DD:EE:FF",
+                rssi = -65,
+                distance = 2.5,
+                lastSeen = System.currentTimeMillis(),
+                isAppUser = false
+            )
+        )
     }
 }
 

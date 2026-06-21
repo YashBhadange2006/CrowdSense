@@ -65,7 +65,7 @@ class BleScanner(
     private val cellularMonitor = CellularSignalMonitor(context)
 
     private val scanSettings = ScanSettings.Builder()
-        .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY) //Change its Value, rn consumes a lot of power not for continuous background use
+        .setScanMode(ScanSettings.SCAN_MODE_BALANCED) //Changed its Value, now it doesn't consume a lot of power
         .setReportDelay(0L)
         .build()
 
@@ -135,12 +135,17 @@ class BleScanner(
         val appUsers = nearbyDevices.filter { it.isAppUser }
         val anonymousDevices = nearbyDevices.filter { !it.isAppUser }
 
-        val bleScore = (appUsers.size * 3.0f) + (anonymousDevices.size * 1.0f)
+        val bleScore = (appUsers.size * 2.5f) + (anonymousDevices.size * 1.0f)
 
         val avgRssi = if (nearbyDevices.isNotEmpty()) {
             nearbyDevices.map { it.rssi }.average().toFloat()
         } else 0f
-        val rssiPenalty = if (avgRssi < -75f) 1.5f else 1.0f
+        val rssiPenalty = when {
+            avgRssi >= -60f -> 1.4f
+            avgRssi >= -68f -> 1.2f
+            else            -> 1.0f
+        }
+
 
         val cellularData: CellularSignalData? = cellularMonitor.getCurrentSignalData()
         val cellularScore = (cellularData?.crowdPressureScore ?: 0f) * 2.0f
@@ -155,9 +160,9 @@ class BleScanner(
             avgRssi = avgRssi,
             cellularPressure = cellularData?.crowdPressureScore ?: 0f,
             level = when {
-                finalScore < 10f -> DensityLevel.LOW
-                finalScore < 25f -> DensityLevel.MEDIUM
-                finalScore < 45f -> DensityLevel.HIGH
+                finalScore < 8f -> DensityLevel.LOW
+                finalScore < 20f -> DensityLevel.MEDIUM
+                finalScore < 38f -> DensityLevel.HIGH
                 else             -> DensityLevel.DANGER
             }
         )
