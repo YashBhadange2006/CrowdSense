@@ -36,6 +36,7 @@ import com.example.ble.CrowdReading
 import com.example.ble.PredictionResult
 import com.example.ble.stations.Station
 import com.example.ble.stations.StationCatalog
+import com.example.ble.ui.theme.BLETheme
 import com.example.ble.util.LocationHelper
 import org.osmdroid.util.GeoPoint
 import java.util.Locale
@@ -808,34 +809,38 @@ private fun NoDataCard() {
 fun PreviewInsightScreen(){
     val mockLocation = GeoPoint(37.7749, -122.4194)
 
-    InsightsScreen(
-        location = mockLocation ,
-        stationGeohash = "2fv9d",
-        canNavigateBack = true,
-        onBack = {}
-    )
+    BLETheme(darkTheme = false) {
+        InsightsScreen(
+            location = mockLocation ,
+            stationGeohash = "2fv9d",
+            canNavigateBack = true,
+            onBack = {}
+        )
+    }
 }
 
 @Preview
 @Composable
 fun PreviewBarChartCardPopulated() {
     val mockPoints = listOf(
-        ChartPoint(label = "08:00", avgScore = 20.5f, count = 3, bucketDescription = "Morning Low"),
-        ChartPoint(label = "12:00", avgScore = 85.0f, count = 12, bucketDescription = "Lunch Rush Peak"),
-        ChartPoint(label = "16:00", avgScore = 55.2f, count = 7, bucketDescription = "Mid Afternoon"),
-        ChartPoint(label = "20:00", avgScore = 10.0f, count = 1, bucketDescription = "Night Decline")
+        ChartPoint(label = "08:00", avgScore = 20.5f, count = 3, bucketDescription = "Morning Low", bucketStartMillis = 1000L),
+        ChartPoint(label = "12:00", avgScore = 85.0f, count = 12, bucketDescription = "Lunch Rush Peak", bucketStartMillis = 2000L),
+        ChartPoint(label = "16:00", avgScore = 55.2f, count = 7, bucketDescription = "Mid Afternoon", bucketStartMillis = 3000L),
+        ChartPoint(label = "20:00", avgScore = 10.0f, count = 1, bucketDescription = "Night Decline", bucketStartMillis = 4000L)
     )
     val mockReadings = listOf(
         CrowdReading(timestamp = 1718875785000L, score = 85.0f, level = "HIGH", appUsers = 4, anonymous = 8),
         CrowdReading(timestamp = 1718875795000L, score = 20.5f, level = "LOW", appUsers = 1, anonymous = 2)
     )
 
-    Box(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
-        BarChartCard(
-            points = mockPoints,
-            view = TimeView.DAY,
-            readings = mockReadings
-        )
+    BLETheme(darkTheme = false) {
+        Box(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+            BarChartCard(
+                points = mockPoints,
+                view = TimeView.DAY,
+                readings = mockReadings
+            )
+        }
     }
 }
 
