@@ -14,6 +14,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -228,14 +230,14 @@ fun InsightsScreen(
                 color      = TextPrime(),
                 fontSize   = 22.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Monospace,
+                fontFamily = FontFamily.Default,
                 modifier   = Modifier.padding(top = 8.dp)
             )
             Text(
                 text       = "Charts combine this stop's area with nearby readings when map cells differ.",
                 color      = TextMuted(),
                 fontSize   = 12.sp,
-                fontFamily = FontFamily.Monospace,
+                fontFamily = FontFamily.Default,
                 lineHeight = 17.sp
             )
         } else {
@@ -244,7 +246,7 @@ fun InsightsScreen(
                 color      = AccentCyan(),
                 fontSize   = 15.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Monospace,
+                fontFamily = FontFamily.Default,
                 modifier   = Modifier.padding(top = 8.dp)
             )
             nearestStopLine?.let { line ->
@@ -252,7 +254,7 @@ fun InsightsScreen(
                     text       = line,
                     color      = TextMuted(),
                     fontSize   = 12.sp,
-                    fontFamily = FontFamily.Monospace,
+                    fontFamily = FontFamily.Default,
                     modifier   = Modifier.padding(top = 4.dp)
                 )
             }
@@ -752,53 +754,64 @@ private fun Legend() {
     }
 }
 
-// // Loading / Empty states
-
 @Composable
 private fun LoadingCard() {
-    Box(
-        modifier = Modifier
+
+    ElevatedCard(
+        shape = RoundedCornerShape(14.dp),
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = BgCard()
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(14.dp))
-            .background(BgCard())
-            .border(1.dp, Divider(), RoundedCornerShape(14.dp))
-            .padding(32.dp),
-        contentAlignment = Alignment.Center
+            .padding(14.dp)
     ) {
             Text(
                 "Loading readings from Firebase…",
             color     = TextMuted(),
             fontSize  = 12.sp,
-            fontFamily = FontFamily.Monospace
+            fontFamily = FontFamily.Default,
+                modifier = Modifier.padding(16.dp)
         )
     }
 }
 
 @Composable
 private fun NoDataCard() {
-    Box(
+    ElevatedCard(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = BgCard()
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(14.dp))
-            .background(BgCard())
-            .border(1.dp, Divider(), RoundedCornerShape(14.dp))
-            .padding(32.dp),
-        contentAlignment = Alignment.Center
+            .padding(16.dp),
+
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 24.dp, horizontal = 16.dp)
+        ) {
             Text(
                 "No readings nearby",
                 color      = TextPrime(),
-                fontSize   = 14.sp,
-                fontFamily = FontFamily.Monospace,
-                fontWeight = FontWeight.Bold
+                fontSize   = 16.sp,
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
                 "Walk around with the app open\nto build crowd data for this area",
                 color     = TextMuted(),
-                fontSize  = 11.sp,
-                fontFamily = FontFamily.Monospace
+                fontSize  = 13.sp,
+                fontFamily = FontFamily.Default,
+                lineHeight = 18.sp,
+                textAlign = TextAlign.Center
             )
         }
     }

@@ -198,7 +198,6 @@ private fun StationCard(
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.elevatedCardColors(
             containerColor = colors.surfaceBright
-
         ),
         modifier = Modifier.fillMaxWidth()
     ) {
