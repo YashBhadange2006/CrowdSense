@@ -6,8 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,8 +18,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -38,93 +48,108 @@ import com.example.ble.bluetooth.DensityLevel
 import com.example.ble.stations.Station
 import com.example.ble.stations.StationCrowdMatcher
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
     stations: List<Station>,
     remotePoints: List<RemoteCrowdPoint>,
     onStationClick: (Station) -> Unit,
 ) {
-    var query by remember { mutableStateOf("") }
-    val colors = MaterialTheme.colorScheme
 
-    val filtered = remember(stations, query) {
-        stations.filter { st ->
-            st.name.contains(query, ignoreCase = true) ||
-                st.geohash.contains(query, ignoreCase = true)
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Column {
+                        Text(
+                            text = "FIND A STATION",
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontSize      = 22.sp,
+                            fontWeight    = FontWeight.Bold,
+                            fontFamily    = FontFamily.Default,
+                            style = MaterialTheme.typography.headlineLarge,
+                        )
+                        Text(
+                            text = "check crowd before you arrive",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            fontSize      = 11.sp,
+                            fontFamily    = FontFamily.Default,
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    scrolledContainerColor = MaterialTheme.colorScheme.background,
+                ),
+                windowInsets = WindowInsets(top = 0.dp,bottom = 0.dp)
+            )
         }
-    }
+    ) { innerPadding ->
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colors.background)
-            .padding(20.dp)
-    ) {
-        Spacer(modifier = Modifier.height(16.dp))
+        var query by remember { mutableStateOf("") }
+        val filtered = remember(stations, query) {
+            stations.filter { st ->
+                st.name.contains(query, ignoreCase = true) ||
+                        st.geohash.contains(query, ignoreCase = true)
+            }
+        }
 
-        Text(
-            text = "FIND A STATION",
-            color = colors.onSurface,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Monospace,
-            letterSpacing = 3.sp
-        )
-        Text(
-            text = "check crowd before you arrive",
-            color = colors.onSurfaceVariant,
-            fontSize = 11.sp,
-            fontFamily = FontFamily.Monospace
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp))
-                .background(colors.surface)
-                .border(1.dp, colors.outlineVariant, RoundedCornerShape(10.dp))
-                .padding(horizontal = 16.dp, vertical = 14.dp)
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(horizontal = 16.dp)
         ) {
-            if (query.isEmpty()) {
-                Text(
-                    "Search station name...",
-                    color = colors.onSurfaceVariant,
-                    fontSize = 14.sp,
-                    fontFamily = FontFamily.Monospace
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(MaterialTheme.colorScheme.surfaceVariant)
+                    .padding(horizontal = 16.dp, vertical = 14.dp)
+            ) {
+                if (query.isEmpty()) {
+                    Text(
+                        "Search station name...",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontSize = 14.sp,
+                        fontFamily = FontFamily.Default
+                    )
+                }
+                BasicTextField(
+                    value = query,
+                    onValueChange = { query = it },
+                    textStyle = TextStyle(
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontSize = 14.sp,
+                        fontFamily = FontFamily.Default
+                    ),
+                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
-            BasicTextField(
-                value = query,
-                onValueChange = { query = it },
-                textStyle = TextStyle(
-                    color = colors.onSurface,
-                    fontSize = 14.sp,
-                    fontFamily = FontFamily.Monospace
-                ),
-                cursorBrush = SolidColor(colors.primary),
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        if (stations.isEmpty()) {
-            Text(
-                text = "Loading stations…",
-                color = colors.onSurfaceVariant,
-                fontSize = 13.sp,
-                fontFamily = FontFamily.Monospace
-            )
-        } else {
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                items(filtered, key = { it.id }) { station ->
-                    StationCard(
-                        station = station,
-                        remotePoints = remotePoints,
-                        onClick = { onStationClick(station) }
-                    )
+            if (stations.isEmpty()) {
+                Text(
+                    text = "Loading stations…",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 13.sp,
+                    fontFamily = FontFamily.Default
+                )
+            } else {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    contentPadding = PaddingValues(bottom = 16.dp)) {
+                    items(filtered, key = { it.id }) { station ->
+                        StationCard(
+                            station = station,
+                            remotePoints = remotePoints,
+                            onClick = { onStationClick(station) }
+                        )
+                    }
                 }
             }
         }
@@ -139,7 +164,7 @@ private fun levelFromFirebase(level: String): DensityLevel = when (level.upperca
 }
 
 @Composable
-private fun levelColor(level: DensityLevel?): androidx.compose.ui.graphics.Color {
+private fun levelColor(level: DensityLevel?): Color {
     val colors = MaterialTheme.colorScheme
     return when (level) {
         null -> colors.onSurfaceVariant
@@ -168,62 +193,66 @@ private fun StationCard(
         else -> level.name
     }
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(colors.surface)
-            .border(1.dp, colors.outlineVariant, RoundedCornerShape(12.dp))
-            .clickable(onClick = onClick)
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+    ElevatedCard(
+        onClick = onClick,
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = colors.surfaceBright
+
+        ),
+        modifier = Modifier.fillMaxWidth()
     ) {
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = station.name,
-                color = colors.onSurface,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Monospace
-            )
-            Text(
-                text = "Tap for crowd trend",
-                color = colors.onSurfaceVariant,
-                fontSize = 10.sp,
-                fontFamily = FontFamily.Monospace
-            )
-            Text(
-                text = station.geohash,
-                color = colors.onSurfaceVariant,
-                fontSize = 10.sp,
-                fontFamily = FontFamily.Monospace
-            )
-            if (match?.approximate == true && point != null) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Live level from nearby reading (~${point.geohash.take(6)}…)",
-                    color = colors.outline,
-                    fontSize = 9.sp,
-                    fontFamily = FontFamily.Monospace
+                    text = station.name,
+                    color = colors.onSurface,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Default
+                )
+                Text(
+                    text = "Tap for crowd trend",
+                    color = colors.onSurfaceVariant,
+                    fontSize = 10.sp,
+                    fontFamily = FontFamily.Default
+                )
+                Text(
+                    text = station.geohash,
+                    color = colors.onSurfaceVariant,
+                    fontSize = 10.sp,
+                    fontFamily = FontFamily.Default
+                )
+                if (match?.approximate == true && point != null) {
+                    Text(
+                        text = "Live level from nearby reading (~${point.geohash.take(6)}…)",
+                        color = colors.outline,
+                        fontSize = 9.sp,
+                        fontFamily = FontFamily.Monospace
+                    )
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(badgeColor.copy(alpha = 0.12f))
+                    .border(1.dp, badgeColor.copy(alpha = 0.5f), RoundedCornerShape(8.dp))
+                    .padding(horizontal = 12.dp, vertical = 6.dp)
+            ) {
+                Text(
+                    text = badgeLabel,
+                    color = badgeColor,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Monospace,
+                    letterSpacing = 1.sp
                 )
             }
-        }
-
-        Box(
-            modifier = Modifier
-                .clip(RoundedCornerShape(8.dp))
-                .background(badgeColor.copy(alpha = 0.12f))
-                .border(1.dp, badgeColor.copy(alpha = 0.5f), RoundedCornerShape(8.dp))
-                .padding(horizontal = 12.dp, vertical = 6.dp)
-        ) {
-            Text(
-                text = badgeLabel,
-                color = badgeColor,
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Monospace,
-                letterSpacing = 1.sp
-            )
         }
     }
 }
