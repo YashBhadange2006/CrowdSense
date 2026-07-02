@@ -16,13 +16,19 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
@@ -77,6 +83,7 @@ private fun levelColor(level: String) = when (level) {
     else     -> MaterialTheme.colorScheme.primary
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InsightsScreen(
     location: GeoPoint?,
@@ -189,114 +196,119 @@ fun InsightsScreen(
             }
         }
     }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BgDeep())
-            .verticalScroll(rememberScrollState())
-            .padding(20.dp)
-    ) {
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (canNavigateBack) {
-                IconButton(
-                    onClick = onBack,
-                    modifier = Modifier.padding(end = 8.dp)
-                ) {
-                    androidx.compose.material3.Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Navigate Back",
-                        tint = TextPrime()
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text          = "CROWD INSIGHTS",
+                        color         = TextPrime(),
+                        fontSize      = 18.sp,
+                        fontWeight    = FontWeight.Bold,
+                        fontFamily    = FontFamily.Default,
+                        letterSpacing = 3.sp
                     )
-                }
-            }
-            Text(
-                text          = "CROWD INSIGHTS",
-                color         = TextPrime(),
-                fontSize      = 18.sp,
-                fontWeight    = FontWeight.Bold,
-                fontFamily    = FontFamily.Monospace,
-                letterSpacing = 3.sp
+                },
+                navigationIcon = {
+                    if (canNavigateBack) {
+                        IconButton(onClick = onBack) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Navigate Back",
+                                tint = TextPrime()
+                            )
+                        }
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = BgDeep()
+                ),
+                windowInsets = WindowInsets(top = 0.dp,bottom = 0.dp)
             )
-        }
-        if (stationGeohash != null) {
-            Text(
-                text       = stationLabel ?: stationGeohash,
-                color      = TextPrime(),
-                fontSize   = 22.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Default,
-                modifier   = Modifier.padding(top = 8.dp)
-            )
-            Text(
-                text       = "Charts combine this stop's area with nearby readings when map cells differ.",
-                color      = TextMuted(),
-                fontSize   = 12.sp,
-                fontFamily = FontFamily.Default,
-                lineHeight = 17.sp
-            )
-        } else {
-            Text(
-                text       = "Within ~100 m of your GPS location",
-                color      = AccentCyan(),
-                fontSize   = 15.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Default,
-                modifier   = Modifier.padding(top = 8.dp)
-            )
-            nearestStopLine?.let { line ->
+        },
+        containerColor = BgDeep()
+    ){ innerPadding ->
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(BgDeep())
+                .verticalScroll(rememberScrollState())
+                .padding(innerPadding)
+                .padding(20.dp)
+        ) {
+
+            if (stationGeohash != null) {
                 Text(
-                    text       = line,
+                    text       = stationLabel ?: stationGeohash,
+                    color      = TextPrime(),
+                    fontSize   = 22.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Default,
+                )
+                Text(
+                    text       = "Charts combine this stop's area with nearby readings when map cells differ.",
                     color      = TextMuted(),
                     fontSize   = 12.sp,
                     fontFamily = FontFamily.Default,
-                    modifier   = Modifier.padding(top = 4.dp)
+                    lineHeight = 17.sp
                 )
+            } else {
+                Text(
+                    text       = "Within ~100 m of your GPS location",
+                    color      = AccentCyan(),
+                    fontSize   = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Default,
+                    modifier   = Modifier.padding(top = 8.dp)
+                )
+                nearestStopLine?.let { line ->
+                    Text(
+                        text       = line,
+                        color      = TextMuted(),
+                        fontSize   = 12.sp,
+                        fontFamily = FontFamily.Default,
+                        modifier   = Modifier.padding(top = 4.dp)
+                    )
+                }
             }
-        }
 
-        Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-        if (isLoading) {
-            LoadingCard()
-        } else if (readings.isEmpty()) {
-            NoDataCard()
-        } else {
-            prediction?.let { pred ->
-                PredictionCard(pred)
+            if (isLoading) {
+                LoadingCard()
+            } else if (readings.isEmpty()) {
+                NoDataCard()
+            } else {
+                prediction?.let { pred ->
+                    PredictionCard(pred)
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+
+                SparklineCard(readings = readings, timeView = selectedView)
+
                 Spacer(modifier = Modifier.height(16.dp))
+
+                // // Time view dropdown
+                TimeViewSelector(
+                    selected  = selectedView,
+                    onChange  = { selectedView = it }
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Bar chart
+                BarChartCard(
+                    points   = chartPoints,
+                    view     = selectedView,
+                    readings = readings
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Legend()
             }
-
-            SparklineCard(readings = readings, timeView = selectedView)
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // // Time view dropdown
-            TimeViewSelector(
-                selected  = selectedView,
-                onChange  = { selectedView = it }
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            // Bar chart
-            BarChartCard(
-                points   = chartPoints,
-                view     = selectedView,
-                readings = readings
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Legend()
         }
-
-        Spacer(modifier = Modifier.height(24.dp))
     }
 }
 
@@ -320,7 +332,7 @@ private fun PredictionCard(pred: PredictionResult) {
                 color         = TextMuted(),
                 fontSize      = 10.sp,
                 fontWeight    = FontWeight.Bold,
-                fontFamily    = FontFamily.Monospace,
+                fontFamily    = FontFamily.Default,
                 letterSpacing = 1.sp
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -336,13 +348,13 @@ private fun PredictionCard(pred: PredictionResult) {
                         color      = color,
                         fontSize   = 28.sp,
                         fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Monospace
+                        fontFamily = FontFamily.Default
                     )
                     Text(
                         text      = "Strength ${"%.0f".format(pred.predictedScore)}",
                         color     = TextMuted(),
                         fontSize  = 12.sp,
-                        fontFamily = FontFamily.Monospace
+                        fontFamily = FontFamily.Default
                     )
                 }
 
@@ -358,7 +370,7 @@ private fun PredictionCard(pred: PredictionResult) {
                         text      = "Trust: ${pred.confidence}",
                         color     = TextDim(),
                         fontSize  = 10.sp,
-                        fontFamily = FontFamily.Monospace
+                        fontFamily = FontFamily.Default
                     )
                 }
             }
@@ -378,21 +390,26 @@ private fun SparklineCard(
     val modeLine = remember(timeView) { CrowdDataRepository.chartModeShortLabel(timeView) }
     val freshness = remember(readings) { CrowdDataRepository.dataFreshnessUserLine(readings) }
 
-    Box(
+    ElevatedCard(
+        shape = RoundedCornerShape(14.dp),
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = BgCard()
+        ),
+        elevation = CardDefaults.elevatedCardElevation(
+            defaultElevation = 2.dp
+        ),
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(14.dp))
-            .background(BgCard())
-            .border(1.dp, Divider(), RoundedCornerShape(14.dp))
-            .padding(horizontal = 20.dp, vertical = 18.dp)
     ) {
-        Column {
+        Column(
+            modifier = Modifier.padding(15.dp)
+        ) {
             Text(
                 text = "RECENT UPLOADS",
                 color = TextMuted(),
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Monospace,
+                fontFamily = FontFamily.Default,
                 letterSpacing = 1.sp
             )
             Spacer(modifier = Modifier.height(6.dp))
@@ -400,19 +417,19 @@ private fun SparklineCard(
                 text = modeLine,
                 color = AccentCyan(),
                 fontSize = 12.sp,
-                fontFamily = FontFamily.Monospace
+                fontFamily = FontFamily.Default
             )
             Text(
                 text = freshness,
                 color = TextMuted(),
                 fontSize = 11.sp,
-                fontFamily = FontFamily.Monospace
+                fontFamily = FontFamily.Default
             )
             Text(
                 text = "Older ←  ·  → Newer",
                 color = TextDim(),
                 fontSize = 10.sp,
-                fontFamily = FontFamily.Monospace
+                fontFamily = FontFamily.Default
             )
             Spacer(modifier = Modifier.height(14.dp))
 
@@ -448,7 +465,7 @@ private fun SparklineCard(
                     text = CrowdDataRepository.readingsTimeWindowLabel(recent),
                     color = TextDim(),
                     fontSize = 10.sp,
-                    fontFamily = FontFamily.Monospace
+                    fontFamily = FontFamily.Default
                 )
             }
         }
@@ -496,7 +513,7 @@ private fun TimeViewSelector(
                     color      = if (isSelected) AccentCyan() else TextMuted(),
                     fontSize   = 11.sp,
                     fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                    fontFamily = FontFamily.Monospace
+                    fontFamily = FontFamily.Default
                 )
             }
         }
@@ -524,7 +541,7 @@ private fun BarChartCard(
                 "No data for this period",
                 color = TextDim(),
                 fontSize = 12.sp,
-                fontFamily = FontFamily.Monospace
+                fontFamily = FontFamily.Default
             )
         }
         return
@@ -538,40 +555,46 @@ private fun BarChartCard(
     val modeLabel = remember(view) { CrowdDataRepository.chartModeShortLabel(view) }
     val freshness = remember(readings) { CrowdDataRepository.dataFreshnessUserLine(readings) }
 
-    Box(
+    ElevatedCard(
+        shape = RoundedCornerShape(14.dp),
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = BgCard()
+        ),
+        elevation = CardDefaults.elevatedCardElevation(
+            defaultElevation = 2.dp
+        ),
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(14.dp))
-            .background(BgCard())
-            .border(1.dp, Divider(), RoundedCornerShape(14.dp))
-            .padding(horizontal = 20.dp, vertical = 18.dp)
     ) {
-        Column {
+        Column(
+            modifier = Modifier.padding(15.dp
+            )
+        ) {
             Text(
                 text = "CROWD BY TIME",
                 color = TextMuted(),
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Monospace
+                fontFamily = FontFamily.Default
             )
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = modeLabel,
                 color = AccentCyan(),
                 fontSize = 12.sp,
-                fontFamily = FontFamily.Monospace
+                fontFamily = FontFamily.Default
             )
             Text(
                 text = freshness,
                 color = TextMuted(),
                 fontSize = 11.sp,
-                fontFamily = FontFamily.Monospace
+                fontFamily = FontFamily.Default
             )
             Text(
                 text = "Tap a bar for details",
                 color = TextDim(),
                 fontSize = 10.sp,
-                fontFamily = FontFamily.Monospace
+                fontFamily = FontFamily.Default
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -593,19 +616,19 @@ private fun BarChartCard(
                         text = "%.0f".format(maxScore),
                         color = TextDim(),
                         fontSize = 9.sp,
-                        fontFamily = FontFamily.Monospace
+                        fontFamily = FontFamily.Default
                     )
                     Text(
                         text = "%.0f".format(midScore),
                         color = TextDim(),
                         fontSize = 9.sp,
-                        fontFamily = FontFamily.Monospace
+                        fontFamily = FontFamily.Default
                     )
                     Text(
                         text = "0",
                         color = TextDim(),
                         fontSize = 9.sp,
-                        fontFamily = FontFamily.Monospace
+                        fontFamily = FontFamily.Default
                     )
                 }
 
@@ -665,7 +688,7 @@ private fun BarChartCard(
                                 text = point.label,
                                 color = if (selected) AccentCyan() else TextMuted(),
                                 fontSize = 9.sp,
-                                fontFamily = FontFamily.Monospace,
+                                fontFamily = FontFamily.Default,
                                 textAlign = TextAlign.Center,
                                 maxLines = 2,
                                 lineHeight = 11.sp,
@@ -675,7 +698,7 @@ private fun BarChartCard(
                                 text = if (point.count > 0) "${point.count}×" else "—",
                                 color = TextDim(),
                                 fontSize = 8.sp,
-                                fontFamily = FontFamily.Monospace
+                                fontFamily = FontFamily.Default
                             )
                         }
                     }
@@ -699,7 +722,7 @@ private fun BarChartCard(
                             color = AccentCyan(),
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Bold,
-                            fontFamily = FontFamily.Monospace
+                            fontFamily = FontFamily.Default
                         )
                         Text(
                             text = p.bucketDescription.ifEmpty {
@@ -710,7 +733,7 @@ private fun BarChartCard(
                             },
                             color = TextPrime(),
                             fontSize = 12.sp,
-                            fontFamily = FontFamily.Monospace,
+                            fontFamily = FontFamily.Default,
                             lineHeight = 17.sp
                         )
                     }
@@ -747,7 +770,7 @@ private fun Legend() {
                     label,
                     color     = TextMuted(),
                     fontSize  = 9.sp,
-                    fontFamily = FontFamily.Monospace
+                    fontFamily = FontFamily.Default
                 )
             }
         }
