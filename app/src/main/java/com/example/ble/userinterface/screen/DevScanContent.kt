@@ -511,10 +511,10 @@ private fun DeviceDebugCard(device: BleDevice) {
             .fillMaxWidth()
             .background(BgCard()),
         colors = CardDefaults.elevatedCardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
         ),
         shape = RoundedCornerShape(24.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(
             modifier = Modifier
@@ -695,8 +695,25 @@ fun PreviewDevScanContent() {
 
 @Preview(name = "Single Log Card Row Component",showBackground = true)
 @Composable
-fun PreviewDebugLogCard() {
+fun PreviewDebugLogCardLight() {
     BLETheme(darkTheme = false) {
+        DeviceDebugCard(
+            device = BleDevice(
+                name = "Samsung",
+                address = "AA:BB:CC:DD:EE:FF",
+                rssi = -65,
+                distance = 2.5,
+                lastSeen = System.currentTimeMillis(),
+                isAppUser = false
+            )
+        )
+    }
+}
+
+@Preview(name = "Single Log Card Row Component",showBackground = true)
+@Composable
+fun PreviewDebugLogCardDark() {
+    BLETheme(darkTheme = true) {
         DeviceDebugCard(
             device = BleDevice(
                 name = "Samsung",

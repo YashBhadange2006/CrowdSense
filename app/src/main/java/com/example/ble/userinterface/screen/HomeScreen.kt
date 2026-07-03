@@ -1,4 +1,4 @@
-package com.example.ble.userinterface.screen
+﻿package com.example.ble.userinterface.screen
 
 import android.Manifest
 import android.content.Context
@@ -29,7 +29,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,9 +44,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -54,6 +59,7 @@ import androidx.core.content.ContextCompat
 import com.example.ble.bluetooth.BleDevice
 import com.example.ble.bluetooth.CrowdScore
 import com.example.ble.bluetooth.DensityLevel
+import com.example.ble.ui.theme.BLETheme
 import org.osmdroid.util.GeoPoint
 
 private fun DensityLevel.userLabel() = when (this) {
@@ -76,6 +82,14 @@ private fun DensityLevel.primaryColor() = when (this) {
     DensityLevel.MEDIUM -> MaterialTheme.colorScheme.secondary
     DensityLevel.HIGH -> MaterialTheme.colorScheme.tertiary
     DensityLevel.DANGER -> MaterialTheme.colorScheme.error
+}
+
+@Composable
+private fun scoreColor(score: Float) = when {
+    score < 25f -> MaterialTheme.colorScheme.primary
+    score < 50f -> MaterialTheme.colorScheme.secondary
+    score < 75f -> MaterialTheme.colorScheme.tertiary
+    else -> MaterialTheme.colorScheme.error
 }
 
 @Composable
@@ -122,7 +136,7 @@ fun HomeScreen(
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .background(color = colors.background)
             .verticalScroll(rememberScrollState())
             .padding(20.dp),
@@ -132,18 +146,29 @@ fun HomeScreen(
 
         Text(
             text = "CrowdSense",
-            color = colors.onSurface,
-            fontSize = 13.sp,
+            style = TextStyle(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        Color(0xFF990000),
+                        Color(0xFFD32F2F)
+                    )
+                ),
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Black,
+                fontFamily = FontFamily.SansSerif,
+                letterSpacing = (-0.5).sp
+            )
+        )
+
+        Spacer(modifier = Modifier.height(6.dp))
+
+        Text(
+            text = "CROWD INTELLIGENCE",
+            color = MaterialTheme.colorScheme.secondary,
+            fontSize = 11.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Monospace,
-            letterSpacing = 6.sp
-        )
-        Text(
-            text = "crowd intelligence",
-            color = colors.onSurfaceVariant,
-            fontSize = 10.sp,
-            fontFamily = FontFamily.Monospace,
-            letterSpacing = 2.sp
+            letterSpacing = 4.sp
         )
 
         Spacer(modifier = Modifier.height(36.dp))
@@ -172,16 +197,22 @@ fun HomeScreen(
             Box(
                 modifier = Modifier
                     .size(160.dp)
+                    .shadow(
+                        elevation = 6.dp,
+                        shape = CircleShape,
+                        ambientColor = levelColor.copy(alpha = 0.12f),
+                        spotColor = levelColor.copy(alpha = 0.18f)
+                    )
                     .background(
                         brush = Brush.radialGradient(
                             colors = listOf(
-                                levelColor.copy(alpha = 0.2f),
-                                colors.onSurfaceVariant
+                                levelColor.copy(alpha = 0.10f),
+                                colors.surfaceContainerHigh,
+                                colors.surfaceContainerLow
                             )
                         ),
                         shape = CircleShape
-                    )
-                    .border(2.dp, levelColor.copy(alpha = 0.6f), CircleShape),
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -190,13 +221,13 @@ fun HomeScreen(
                             text = "...",
                             color = colors.outline,
                             fontSize = 32.sp,
-                            fontFamily = FontFamily.Monospace
+                            fontFamily = FontFamily.Default
                         )
                         Text(
                             text = "scanning",
                             color = colors.outline,
                             fontSize = 11.sp,
-                            fontFamily = FontFamily.Monospace
+                            fontFamily = FontFamily.Default
                         )
                     } else {
                         Text(
@@ -231,20 +262,28 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
-                .background(levelColor.copy(alpha = 0.08f))
-                .border(1.dp, levelColor.copy(alpha = 0.3f), RoundedCornerShape(12.dp))
+                .background(colors.surfaceContainerHigh)
                 .padding(16.dp),
-            contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = if (crowdScore != null) level.userAdvice()
-                else "Starting crowd detection...",
-                color = if (crowdScore != null) levelColor else colors.outline,
-                fontSize = 14.sp,
-                fontFamily = FontFamily.Monospace,
-                textAlign = TextAlign.Center,
-                lineHeight = 22.sp
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (crowdScore != null) {
+                    Icon(
+                        imageVector = Icons.Filled.CheckCircle,
+                        contentDescription = null,
+                        tint = levelColor
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                }
+                Text(
+                    text = if (crowdScore != null) level.userAdvice()
+                    else "Starting crowd detection...",
+                    color = colors.onSurfaceVariant,
+                    fontSize = 14.sp,
+                    fontFamily = FontFamily.Monospace,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 22.sp
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -257,7 +296,7 @@ fun HomeScreen(
                 QuickStatCard(
                     label = "App Users",
                     value = crowdScore.appUserCount.toString(),
-                    color = colors.primary,
+                    color = colors.onSurface,
                     modifier = Modifier.weight(1f)
                 )
                 QuickStatCard(
@@ -269,7 +308,7 @@ fun HomeScreen(
                 QuickStatCard(
                     label = "Score",
                     value = "%.1f".format(crowdScore.score),
-                    color = levelColor,
+                    color = scoreColor(crowdScore.score),
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -281,7 +320,7 @@ fun HomeScreen(
             text = "NEARBY DENSITY",
             color = colors.onSurfaceVariant,
             fontSize = 10.sp,
-            fontFamily = FontFamily.Monospace,
+            fontFamily = FontFamily.Default,
             letterSpacing = 2.sp,
             modifier = Modifier
                 .fillMaxWidth()
@@ -308,25 +347,15 @@ fun HomeScreen(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Box(
-                modifier = Modifier
-                    .size(6.dp)
-                    .background(
-                        color = if (isScanning) colors.primary.copy(alpha = pulseScale)
-                        else colors.outline,
-                        shape = CircleShape
-                    )
-            )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = if (isScanning) "Live — sensing your surroundings"
-                else "Tap to start sensing",
+                else "Go to start Dev screen to start sensing",
                 color = if (isScanning) colors.primary else colors.outline,
                 fontSize = 11.sp,
                 fontFamily = FontFamily.Monospace
             )
         }
-
         Spacer(modifier = Modifier.height(24.dp))
     }
 }
@@ -343,8 +372,7 @@ private fun QuickStatCard(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(10.dp))
-            .background(colors.surface)
-            .border(1.dp, colors.outlineVariant, RoundedCornerShape(10.dp))
+            .background(colors.surfaceContainerHigh)
             .padding(12.dp),
         contentAlignment = Alignment.Center
     ) {
@@ -354,13 +382,13 @@ private fun QuickStatCard(
                 color = color,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Monospace
+                fontFamily = FontFamily.Default
             )
             Text(
                 text = label,
                 color = colors.onSurfaceVariant,
                 fontSize = 9.sp,
-                fontFamily = FontFamily.Monospace,
+                fontFamily = FontFamily.Default,
                 letterSpacing = 1.sp
             )
         }
@@ -369,18 +397,41 @@ private fun QuickStatCard(
 
 @Preview
 @Composable
-fun PreviewHomeScreen() {
-    HomeScreen(
-        crowdScore = CrowdScore(
-            score = 50f,
-            appUserCount = 2,
-            anonymousCount = 3,
-            totalNearby = 5,
-            avgRssi = 25f,
-            cellularPressure = 30f,
-            level = DensityLevel.LOW
-        ),
-        devices = listOf(),
-        isScanning = true
-    ) { }
+fun PreviewHomeScreenLight() {
+    BLETheme(darkTheme = false) {
+        HomeScreen(
+            crowdScore = CrowdScore(
+                score = 50f,
+                appUserCount = 2,
+                anonymousCount = 3,
+                totalNearby = 5,
+                avgRssi = 25f,
+                cellularPressure = 30f,
+                level = DensityLevel.LOW
+            ),
+            devices = listOf(),
+            isScanning = true
+        ) { }
+    }
 }
+
+@Preview
+@Composable
+fun PreviewHomeScreenDark() {
+    BLETheme(darkTheme = true) {
+        HomeScreen(
+            crowdScore = CrowdScore(
+                score = 50f,
+                appUserCount = 2,
+                anonymousCount = 3,
+                totalNearby = 5,
+                avgRssi = 25f,
+                cellularPressure = 30f,
+                level = DensityLevel.LOW
+            ),
+            devices = listOf(),
+            isScanning = true
+        ) { }
+    }
+}
+
