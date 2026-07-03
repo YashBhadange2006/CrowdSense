@@ -14,6 +14,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -134,6 +135,23 @@ fun HomeScreen(
         label = "scale"
     )
 
+    val isDark = isSystemInDarkTheme()
+    val textGradientBrush = if (isDark) {
+        Brush.horizontalGradient(
+            colors = listOf(
+                Color(0xFFFF4D4D),
+                Color(0xFFFF7643)
+            )
+        )
+    } else {
+        Brush.horizontalGradient(
+            colors = listOf(
+                Color(0xFF990000),
+                Color(0xFFD32F2F)
+            )
+        )
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -147,12 +165,7 @@ fun HomeScreen(
         Text(
             text = "CrowdSense",
             style = TextStyle(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(
-                        Color(0xFF990000),
-                        Color(0xFFD32F2F)
-                    )
-                ),
+                brush = textGradientBrush,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Black,
                 fontFamily = FontFamily.SansSerif,
