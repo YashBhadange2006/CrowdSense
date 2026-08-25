@@ -1,6 +1,7 @@
 package com.example.ble
 
 import android.util.Log
+import com.google.firebase.FirebaseApp
 import com.google.firebase.database.*
 import com.example.ble.bluetooth.DensityLevel
 import org.osmdroid.util.GeoPoint
@@ -17,7 +18,9 @@ data class RemoteCrowdPoint(
 object FirebaseReader {
 
     private val db = FirebaseDatabase
-        .getInstance("https://crowdsense-4c6d9-default-rtdb.asia-southeast1.firebasedatabase.app")
+        .getInstance(
+            FirebaseApp.getInstance().applicationContext.getString(R.string.firebase_db_url)
+        )
         .reference
 
     private var listener: ValueEventListener? = null

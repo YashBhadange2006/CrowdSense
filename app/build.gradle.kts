@@ -7,7 +7,7 @@ val mapTilerProperties = Properties().apply {
     }
 }
 val mapTilerApiKey = mapTilerProperties.getProperty("MAPTILER_API_KEY", "")
-
+val firebaseDbUrl = mapTilerProperties.getProperty("FIREBASE_DB_URL", "")
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -31,7 +31,11 @@ android {
             "maptiler_api_key",
             mapTilerApiKey
         )
-
+        resValue(
+            "string",
+            "firebase_db_url",
+            firebaseDbUrl
+        )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

@@ -63,13 +63,13 @@ Open the folder in Android Studio, allow the Gradle sync to finish, complete the
 }
 ```
 
-6. Copy the database URL from the Realtime Database page and replace the URL in both `FirebaseUploader.kt` and `FirebaseReader.kt`. It must match your new project, for example:
+6. Add your database URL to the untracked `local.properties` file. Keep the existing `sdk.dir` line:
 
-```kotlin
-FirebaseDatabase.getInstance(
-    "https://YOUR_PROJECT_ID-default-rtdb.YOUR_REGION.firebasedatabase.app"
-)
+```properties
+FIREBASE_DB_URL=https://YOUR_PROJECT_ID-default-rtdb.YOUR_REGION.firebasedatabase.app
 ```
+
+The build reads this value into the app without committing it to Git.
 
 No manual database schema is required. The app creates these paths on its first successful upload:
 

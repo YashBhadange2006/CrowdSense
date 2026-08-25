@@ -1,6 +1,7 @@
 package com.example.ble
 
 import android.util.Log
+import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import com.example.ble.bluetooth.CrowdScore
 import com.example.ble.util.GeoHashUtils
@@ -23,7 +24,9 @@ data class CrowdReading(
 object FirebaseUploader {
 
     private val db by lazy {
-        FirebaseDatabase.getInstance("https://crowdsense-4c6d9-default-rtdb.asia-southeast1.firebasedatabase.app")
+        FirebaseDatabase.getInstance(
+            FirebaseApp.getInstance().applicationContext.getString(R.string.firebase_db_url)
+        )
             .reference
     }
 
