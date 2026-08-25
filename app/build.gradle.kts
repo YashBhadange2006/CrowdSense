@@ -1,3 +1,13 @@
+import java.util.Properties
+
+val mapTilerProperties = Properties().apply {
+    val propertiesFile = rootProject.file("local.properties")
+    if (propertiesFile.exists()) {
+        propertiesFile.inputStream().use(::load)
+    }
+}
+val mapTilerApiKey = mapTilerProperties.getProperty("MAPTILER_API_KEY", "")
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -16,6 +26,11 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
+        resValue(
+            "string",
+            "maptiler_api_key",
+            mapTilerApiKey
+        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

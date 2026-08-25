@@ -34,11 +34,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.ble.FirebaseReader
 import com.example.ble.RemoteCrowdPoint
+import com.example.ble.R
 import com.example.ble.bluetooth.DensityLevel
 import com.example.ble.util.LocationHelper
 import org.osmdroid.config.Configuration
+import org.osmdroid.tileprovider.tilesource.XYTileSource
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.CopyrightOverlay
 import org.osmdroid.views.overlay.Polygon
 
 @Composable
@@ -153,8 +156,19 @@ private fun createMapView(
         context,
         context.getSharedPreferences("osm", Context.MODE_PRIVATE)
     )
+    Configuration.getInstance().userAgentValue = "CrowdSense-Android"
 
     val mapView = MapView(context)
+    mapView.setTileSource(
+        XYTileSource(
+            "MapTiler Streets",
+            0,
+            22,
+            256,
+            ".png?key=${context.getString(R.string.maptiler_api_key)}",
+            arrayOf("https://api.maptiler.com/maps/streets-v2/")
+        )
+    )
     mapView.layoutParams = FrameLayout.LayoutParams(
         ViewGroup.LayoutParams.MATCH_PARENT,
         ViewGroup.LayoutParams.MATCH_PARENT
@@ -162,6 +176,13 @@ private fun createMapView(
     mapView.setMultiTouchControls(true)
     mapView.controller.setZoom(17.0)
     mapView.controller.setCenter(startPoint)
+    mapView.overlays.add(
+        CopyrightOverlay(context).apply {
+            setAlignRight(true)
+            setAlignBottom(true)
+            setCopyrightNotice("© MapTiler © OpenStreetMap contributors")
+        }
+    )
 
     mapView.overlayManager.tilesOverlay.setColorFilter(
         ColorMatrixColorFilter(
