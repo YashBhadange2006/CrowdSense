@@ -1,11 +1,14 @@
 package com.example.ble
 
+import android.content.Context
 import android.util.Log
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import com.example.ble.bluetooth.CrowdScore
 import com.example.ble.util.GeoHashUtils
 import org.osmdroid.util.GeoPoint
+import com.example.ble.localdb.CrowdDataProvider
+import com.example.ble.localdb.LocalCrowdStore
 
 data class CrowdReading(
     val timestamp: Long = 0,
@@ -24,17 +27,19 @@ data class CrowdReading(
 object FirebaseUploader {
 
     private val db by lazy {
-        FirebaseDatabase.getInstance(
-            FirebaseApp.getInstance().applicationContext.getString(R.string.firebase_db_url)
-        )
-            .reference
+        FirebaseDatabase.getInstance(CrowdDataProvider.databaseUrl()).reference
     }
 
     fun uploadReading(
+        context: Context,
         crowdScore: CrowdScore,
         location: GeoPoint,
         userId: String
     ) {
+        if (!CrowdDataProvider.usesFirebase) {
+            LocalCrowdStore.save(context, crowdScore, location)
+            return
+        }
         val geohash = GeoHashUtils.encode(location.latitude, location.longitude, 6)
 
         val reading = CrowdReading(
@@ -57,10 +62,10 @@ object FirebaseUploader {
             .push()
             .setValue(reading)
             .addOnSuccessListener {
-                Log.d("Firebase", "✅ Upload success — score: ${reading.score} geohash: $geohash")
+                Log.d("Firebase", "Upload success - score: ${reading.score} geohash: $geohash")
             }
             .addOnFailureListener { e ->
-                Log.e("Firebase", "❌ Upload failed: ${e.message}")
+                Log.e("Firebase", "Upload failed: ${e.message}")
             }
 
         // Also update the latest reading for quick access

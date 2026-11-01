@@ -6,7 +6,7 @@ import java.util.UUID
 
 /**
  * Shared BLE identity for CrowdSense app users.
- * Detection uses service UUID + manufacturer data — not only the device name,
+ * Detection uses service UUID + manufacturer data - not only the device name,
  * because many phones (Xiaomi, Samsung) report the phone model name instead.
  */
 object CrowdSenseBle {

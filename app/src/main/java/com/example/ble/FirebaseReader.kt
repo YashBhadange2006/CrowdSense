@@ -5,6 +5,8 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.database.*
 import com.example.ble.bluetooth.DensityLevel
 import org.osmdroid.util.GeoPoint
+import com.example.ble.localdb.CrowdDataProvider
+import com.example.ble.localdb.LocalCrowdStore
 
 data class RemoteCrowdPoint(
     val lat      : Double,
@@ -17,13 +19,14 @@ data class RemoteCrowdPoint(
 
 object FirebaseReader {
 
-    private val db = FirebaseDatabase
+    private val db by lazy { FirebaseDatabase
         .getInstance(
-            FirebaseApp.getInstance().applicationContext.getString(R.string.firebase_db_url)
+            CrowdDataProvider.databaseUrl()
         )
-        .reference
+        .reference }
 
     private var listener: ValueEventListener? = null
+    private var localListener: Int? = null
 
     /**
      * Listens to /latest node in real time.
@@ -33,6 +36,10 @@ object FirebaseReader {
     fun listenToLatest(onUpdate: (List<RemoteCrowdPoint>) -> Unit) {
         // Remove any existing listener first
         stopListening()
+        if (!CrowdDataProvider.usesFirebase) {
+            localListener = LocalCrowdStore.listen(CrowdDataProvider.context(), onUpdate)
+            return
+        }
 
         listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -80,6 +87,8 @@ object FirebaseReader {
     }
 
     fun stopListening() {
+        localListener?.let(LocalCrowdStore::stop)
+        localListener = null
         listener?.let {
             db.child("latest").removeEventListener(it)
         }

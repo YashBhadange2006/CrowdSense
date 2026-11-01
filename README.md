@@ -43,7 +43,7 @@ git clone https://github.com/YashBhadange2006/CrowdSense.git
 cd CrowdSense
 ```
 
-Open the folder in Android Studio, allow the Gradle sync to finish, complete the Firebase and MapTiler setup below, then run the `app` configuration on a real device. Grant Bluetooth and location permissions when prompted.
+Open the folder in Android Studio, allow the Gradle sync to finish, then run the `app` configuration on a real device. Grant Bluetooth and location permissions when prompted. Firebase is optional: without `app/google-services.json`, readings are stored locally on the device. Add Firebase configuration to use the shared Firebase database instead.
 
 ## Firebase setup
 
@@ -91,7 +91,7 @@ These rules are suitable only for a prototype because every authenticated anonym
 MAPTILER_API_KEY=your_maptiler_key_here
 ```
 
-The build reads this value into the app's map resource. Do not commit `local.properties` or share the key. The app uses the MapTiler Streets tile source with required MapTiler and OpenStreetMap attribution.
+The build embeds this value in the app's map resource. Do not commit `local.properties`; restrict the key and set usage limits because keys bundled in an APK can be extracted. The app uses the MapTiler Streets tile source with required MapTiler and OpenStreetMap attribution. Without a key, map tiles will not load.
 
 ## Data and privacy
 

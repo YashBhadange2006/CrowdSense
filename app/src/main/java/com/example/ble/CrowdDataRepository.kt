@@ -2,6 +2,8 @@ package com.example.ble
 
 import android.util.Log
 import com.google.firebase.database.FirebaseDatabase
+import com.example.ble.localdb.CrowdDataProvider
+import com.example.ble.localdb.LocalCrowdStore
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -33,9 +35,7 @@ object CrowdDataRepository {
     private val historicalWeights = listOf(-1 to 3, -2 to 2, -3 to 1)
 
     private val db by lazy {
-        FirebaseDatabase
-            .getInstance("https://crowdsense-4c6d9-default-rtdb.asia-southeast1.firebasedatabase.app")
-            .reference
+        FirebaseDatabase.getInstance(CrowdDataProvider.databaseUrl()).reference
     }
 
     fun readingsTimeWindowLabel(readings: List<CrowdReading>): String {
@@ -127,6 +127,10 @@ object CrowdDataRepository {
         limit: Int = 50,
         onResult: (List<CrowdReading>) -> Unit
     ) {
+        if (!CrowdDataProvider.usesFirebase) {
+            LocalCrowdStore.nearby(CrowdDataProvider.context(), targetLat, targetLng, radiusM, limit, onResult)
+            return
+        }
         db.child("readings").get().addOnSuccessListener { snapshot ->
             val allReadings = mutableListOf<CrowdReading>()
 
@@ -179,6 +183,10 @@ object CrowdDataRepository {
             onResult(emptyList())
             return
         }
+        if (!CrowdDataProvider.usesFirebase) {
+            LocalCrowdStore.forGeohash(CrowdDataProvider.context(), geohash, limit, onResult)
+            return
+        }
         db.child("readings").child(geohash).get().addOnSuccessListener { snapshot ->
             val list = mutableListOf<CrowdReading>()
             for (pushSnap in snapshot.children) {
@@ -217,6 +225,10 @@ object CrowdDataRepository {
         preferredGeohash: String? = null,
         onResult: (PredictionResult?) -> Unit
     ) {
+        if (!CrowdDataProvider.usesFirebase) {
+            onResult(fallbackPredictionFromReadings(readings))
+            return
+        }
         val geohash = preferredGeohash?.takeIf { it.isNotBlank() } ?: inferPredictionGeohash(readings)
         if (geohash == null) {
             onResult(fallbackPredictionFromReadings(readings))

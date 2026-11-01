@@ -10,11 +10,13 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
 import com.example.ble.FirebaseUploader
-import com.google.firebase.auth.FirebaseAuth
+import com.example.ble.localdb.CrowdDataProvider
 import com.example.ble.util.CellularSignalData
 import com.example.ble.util.CellularSignalMonitor
 import com.example.ble.util.RssiDistanceCalculator
+import com.google.firebase.auth.FirebaseAuth
 import org.osmdroid.util.GeoPoint
 
 
@@ -32,14 +34,15 @@ enum class DensityLevel { LOW, MEDIUM, HIGH, DANGER }
 
 
 class BleScanner(
-    context: Context,
+    private val context: Context,
     private val onDeviceFound: (List<BleDevice>) -> Unit,
     private val onCrowdScoreUpdated: (CrowdScore) -> Unit,
 ) {
 
     private val userId: String
-        get() = FirebaseAuth.getInstance().currentUser?.uid
+        get() = if (CrowdDataProvider.usesFirebase) FirebaseAuth.getInstance().currentUser?.uid
                 ?: "anon_${System.currentTimeMillis()}"
+            else "local"
 
     var currentLocation: GeoPoint? = null
     private val bluetoothManager =
@@ -70,6 +73,7 @@ class BleScanner(
         .build()
 
     private val scanCallback = object : ScanCallback() {
+        @RequiresPermission("android.permission.LOCAL_MAC_ADDRESS")
         @RequiresApi(Build.VERSION_CODES.P)
         override fun onScanResult(callbackType: Int, result: ScanResult) {
             processScanResult(result)
@@ -173,6 +177,7 @@ class BleScanner(
             lastUploadTime = now
             if (currentLocation != null) {
                 FirebaseUploader.uploadReading(
+                    context = context,
                     crowdScore = crowdScore,
                     location = currentLocation!!,
                     userId = userId

@@ -527,7 +527,8 @@ private fun BarChartCard(
     view    : TimeView,
     readings: List<CrowdReading>
 ) {
-    if (points.isEmpty()) {
+    val displayPoints = remember(points) { points.sortedByDescending { it.bucketStartMillis } }
+    if (displayPoints.isEmpty()) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -548,9 +549,9 @@ private fun BarChartCard(
     }
 
     var selectedIndex by remember { mutableIntStateOf(-1) }
-    LaunchedEffect(points) { selectedIndex = -1 }
+    LaunchedEffect(displayPoints) { selectedIndex = -1 }
 
-    val maxScore = points.maxOfOrNull { it.avgScore }?.coerceAtLeast(1f) ?: 1f
+    val maxScore = displayPoints.maxOfOrNull { it.avgScore }?.coerceAtLeast(1f) ?: 1f
     val midScore = maxScore / 2f
     val modeLabel = remember(view) { CrowdDataRepository.chartModeShortLabel(view) }
     val freshness = remember(readings) { CrowdDataRepository.dataFreshnessUserLine(readings) }
@@ -591,7 +592,7 @@ private fun BarChartCard(
                 fontFamily = FontFamily.Default
             )
             Text(
-                text = "Tap a bar for details",
+                text = "Newest first · scroll for older · tap a bar for details",
                 color = TextDim(),
                 fontSize = 10.sp,
                 fontFamily = FontFamily.Default
@@ -640,7 +641,7 @@ private fun BarChartCard(
                     contentPadding = PaddingValues(end = 12.dp, start = 4.dp)
                 ) {
                     itemsIndexed(
-                        points,
+                        displayPoints,
                         key = { _, p -> p.bucketStartMillis }
                     ) { index, point ->
                         val selected = index == selectedIndex
@@ -705,8 +706,8 @@ private fun BarChartCard(
                 }
             }
 
-            if (selectedIndex in points.indices) {
-                val p = points[selectedIndex]
+            if (selectedIndex in displayPoints.indices) {
+                val p = displayPoints[selectedIndex]
                 Spacer(modifier = Modifier.height(12.dp))
                 Box(
                     modifier = Modifier

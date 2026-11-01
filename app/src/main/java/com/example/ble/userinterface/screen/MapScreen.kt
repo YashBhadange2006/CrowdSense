@@ -130,11 +130,7 @@ fun MapScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Box(
-                    modifier = Modifier
-                        .size(6.dp)
-                        .background(colors.primary, CircleShape)
-                )
+
                 Text(
                     text = "${remotePoints.size} active zones",
                     color = colors.primary,

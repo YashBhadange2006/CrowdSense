@@ -39,6 +39,7 @@ import com.example.ble.bluetooth.BleDevice
 import com.example.ble.bluetooth.BleScanner
 import com.example.ble.bluetooth.CrowdScore
 import com.example.ble.bluetooth.DensityLevel
+import com.example.ble.localdb.CrowdDataProvider
 import com.example.ble.ui.theme.BLETheme
 import com.example.ble.util.LocationHelper
 import org.osmdroid.util.GeoPoint
@@ -166,6 +167,14 @@ fun ScanScreen(
         ) {
 
             item {
+                Text(
+                    text = if (CrowdDataProvider.usesFirebase) "Data Stored :  Firebase" else "Data Stored :  This Device",
+                    color = colorScheme.primary,
+                    fontSize = 11.sp,
+                )
+            }
+
+            item {
                 Row(
                     modifier              = Modifier
                         .fillMaxWidth()
@@ -189,16 +198,7 @@ fun ScanScreen(
                             fontFamily    = FontFamily.Default,
                         )
                     }
-                    if (isScanning) {
-                        Box(
-                            modifier = Modifier
-                                .size(10.dp)
-                                .background(
-                                    color = AccentCyan().copy(alpha = pulseAlpha),
-                                    shape = CircleShape
-                                )
-                        )
-                    }
+
                 }
                 HorizontalDivider(color = DividerCol(), thickness = 1.dp)
             }
@@ -452,7 +452,7 @@ fun ScanScreen(
                 }
             }
 
-            // // Map - fixed height so it does not take over screen
+            // Map - fixed height so it does not take over screen
             item {
                 SectionLabel("LOCATION HEATMAP")
                 Box(
