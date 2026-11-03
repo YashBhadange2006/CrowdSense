@@ -29,22 +29,43 @@ A score is an estimate, not an exact count of people. BLE participation, phone h
 1. **Sense and broadcast:** The phone scans for nearby BLE devices and advertises a small CrowdSense beacon so other participating phones can detect it.
 2. **Estimate crowd pressure:** CrowdSense combines nearby detected CrowdSense devices and other BLE devices, signal strength, and a cellular signal pressure estimate. The result is an estimate, not a headcount.
 3. **Save a reading:** At intervals, the app records a score with location coordinates/geohash and timestamp. When a location is available, readings are saved about once per minute.
-4. **Choose storage automatically:** If Firebase is configured, CrowdSense uses the shared Firebase database. If Firebase is not configured, readings are stored in Room on that device. Configured Firebase does not automatically fall back to Room when the network is unavailable.
+4. **Choose storage automatically:** If Firebase is configured, CrowdSense uses the shared Firebase database. If Firebase is not configured, readings are stored in Room on that device. Configured Firebase does not automatically fall back to Room when the network is unavailable. Firebase map readings older than 10 minutes are omitted.
 5. **View insights:** The app presents available readings through the map, station search, and crowd trend charts. Room readings remain on the device that collected them; Firebase readings can be shared across devices.
 
+## Crowd pressure score
+
+The score is calculated on the phone from nearby detected devices and available cellular measurements:
+
+```text
+BLE score = (2.5 × CrowdSense app users) + (1.0 × other detected BLE devices)
+RSSI multiplier = 1.4 when average RSSI ≥ -60 dBm
+                  = 1.2 when average RSSI ≥ -68 dBm
+                  = 1.0 otherwise
+LTE/5G cellular pressure = clamp(clamp((baseline RSRP - current RSRP) / 5, 0, 5) + RSRQ penalty, 0, 5)
+RSRQ penalty = 0 when > -10 dB; 1 when > -15 dB; otherwise 2
+Final score = (BLE score × RSSI multiplier) + (2 × cellular pressure)
+```
+
+For older cellular technologies, the app uses a simpler signal-strength fallback. If cellular measurements are unavailable, cellular pressure contributes zero.
+
+| Display level | Score |
+|---|---:|
+| Low | < 8 |
+| Medium | 8 to < 20 |
+| High | 20 to < 38 |
+| Danger | ≥ 38 |
+
+These bands are prototype estimates, not validated crowd counts.
 ## Screenshots
 
 | Home | Map | Station search |
 |:---:|:---:|:---:|
 | ![CrowdSense home screen](image/Img1.jpg) | ![CrowdSense map screen](image/Img2.jpg) | ![CrowdSense station search](image/Img3.jpg) |
 
-| Crowd insights | Crowd trends | Additional view |
+| Crowd insights | Crowd trends | More insights |
 |:---:|:---:|:---:|
 | ![CrowdSense insights screen](image/Img4.jpg) | ![CrowdSense insights chart](image/Img5.jpg) | ![CrowdSense app screen](image/Img6.jpeg) |
 
-| Additional view |
-|:---:|
-| ![CrowdSense app screen](image/Img7.jpeg) |
 
 ## What you can do
 
@@ -123,7 +144,7 @@ app/src/main/java/com/crowdsense/app/
 
 ## License
 
-CrowdSense is intended to be released under the **Apache License 2.0**. The repository should include the full license text in a `LICENSE` file before public release.
+CrowdSense is intended to be released under the **Apache License 2.0**.
 
 ## Acknowledgements
 
