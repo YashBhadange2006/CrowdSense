@@ -1,112 +1,130 @@
 # CrowdSense
 
-CrowdSense is an Android crowd-pressure prototype. Nearby Bluetooth Low Energy (BLE) devices and cellular signal conditions are combined into a live crowd-pressure score. Readings are shared anonymously through Firebase and shown on a MapTiler-powered map.
+<p align="center">
+  <img src="image/CrowdSense_icon_1024.png" alt="CrowdSense app icon" width="160" />
+</p>
 
-It estimates local pressure, not an exact people count. BLE visibility, device settings, buildings, and cellular coverage can affect the result.
+<h3 align="center">Understand how busy a place may be before you go.</h3>
+
+<p align="center">
+  CrowdSense is an Android app that estimates crowd pressure from nearby Bluetooth Low Energy (BLE) signals and cellular signal conditions, then presents readings on a map, station search, and time based insights.
+</p>
+
+<p align="center">
+  <a href="#how-it-works">How it works</a> ·
+  <a href="#screenshots">Screenshots</a> ·
+  <a href="#getting-started">Getting started</a>
+</p>
+
+## Why CrowdSense
+
+CrowdSense explores whether signals already observable by a phone can help people understand how busy nearby places might be. Each participating phone estimates a crowd pressure score locally and saves a reading with its location and time. The app can show readings collected by multiple users when connected to Firebase, or keep readings on the current device using Room for local testing.
+
+A score is an estimate, not an exact count of people. BLE participation, phone hardware, carrier coverage, and other environmental conditions can affect readings.
 
 ## How it works
 
-1. The foreground service scans nearby BLE devices and advertises this app's BLE identity.
-2. Devices seen in the last 30 seconds and either within 25 m or stronger than -75 dBm are included.
-3. CrowdSense app users are detected through a service UUID/manufacturer payload; all other devices are counted as anonymous devices.
-4. RSSI estimates proximity, while RSRP/RSRQ cellular degradation contributes congestion pressure.
-5. The score, location, and summary data are uploaded once per minute. The map shows fresh shared readings for up to 10 minutes.
+![CrowdSense system overview: sensing, estimating crowd pressure, storing readings, and viewing insights](image/crowdsense-system-overview.png)
 
-> **Crowd-pressure score**
->
-> `BLE = (2.5 x app users) + (1.0 x anonymous devices)`
->
-> `RSSI multiplier = 1.4 if average RSSI >= -60 dBm; 1.2 if >= -68 dBm; otherwise 1.0`
->
-> `cell pressure = clamp((baseline RSRP - current RSRP) / 5 + RSRQ penalty, 0, 5)`
->
-> `RSRQ penalty = 0 when > -10 dB; 1 when -15 < RSRQ <= -10 dB; 2 when <= -15 dB`
->
-> `final score = (BLE x RSSI multiplier) + (2 x cell pressure)`
->
-> Levels: `Low < 8`, `Medium < 20`, `High < 38`, otherwise `Danger`.
+1. **Sense and broadcast:** The phone scans for nearby BLE devices and advertises a small CrowdSense beacon so other participating phones can detect it.
+2. **Estimate crowd pressure:** CrowdSense combines nearby detected CrowdSense devices and other BLE devices, signal strength, and a cellular signal pressure estimate. The result is an estimate, not a headcount.
+3. **Save a reading:** At intervals, the app records a score with location coordinates/geohash and timestamp. When a location is available, readings are saved about once per minute.
+4. **Choose storage automatically:** If Firebase is configured, CrowdSense uses the shared Firebase database. If Firebase is not configured, readings are stored in Room on that device. Configured Firebase does not automatically fall back to Room when the network is unavailable.
+5. **View insights:** The app presents available readings through the map, station search, and crowd trend charts. Room readings remain on the device that collected them; Firebase readings can be shared across devices.
 
-## Requirements
+## Screenshots
 
-- Android Studio Narwhal (2025.1.1) or newer
-- JDK 17
-- Android SDK Platform 36 and Build Tools 35.0.0+
-- An Android 7.0+ device (API 24) with Bluetooth LE; advertising support is recommended
-- A Firebase project and a MapTiler API key
+| Home | Map | Station search |
+|:---:|:---:|:---:|
+| ![CrowdSense home screen](image/Img1.jpg) | ![CrowdSense map screen](image/Img2.jpg) | ![CrowdSense station search](image/Img3.jpg) |
 
-The project uses Android Gradle Plugin 8.11 and Gradle 8.13. Android Studio Narwhal supports AGP 8.11, and AGP 8.11 requires JDK 17. See the [Android Studio compatibility table](https://developer.android.com/build/releases/about-agp) and [AGP 8.11 requirements](https://developer.android.com/build/releases/agp-8-11-0-release-notes).
+| Crowd insights | Crowd trends | Additional view |
+|:---:|:---:|:---:|
+| ![CrowdSense insights screen](image/Img4.jpg) | ![CrowdSense insights chart](image/Img5.jpg) | ![CrowdSense app screen](image/Img6.jpeg) |
 
-## Get started
+| Additional view |
+|:---:|
+| ![CrowdSense app screen](image/Img7.jpeg) |
 
-```bash
-git clone https://github.com/YashBhadange2006/CrowdSense.git
-cd CrowdSense
-```
+## What you can do
 
-Open the folder in Android Studio, allow the Gradle sync to finish, then run the `app` configuration on a real device. Grant Bluetooth and location permissions when prompted. Firebase is optional: without `app/google-services.json`, readings are stored locally on the device. Add Firebase configuration to use the shared Firebase database instead.
-
-## Firebase setup
-
-1. Create a project in the [Firebase console](https://console.firebase.google.com/).
-2. Add an Android app with package name `com.crowdsense.app`.
-3. Download `google-services.json` and place it at `app/google-services.json`. It is intentionally ignored by Git.
-4. In **Build > Authentication > Sign-in method**, enable **Anonymous**.
-5. In **Build > Realtime Database**, create a Realtime Database. Choose a location, then open the **Rules** tab and publish these prototype rules:
-
-```json
-{
-  "rules": {
-    "readings": { ".read": "auth != null", ".write": "auth != null" },
-    "latest": { ".read": "auth != null", ".write": "auth != null" },
-    "history": { ".read": "auth != null", ".write": "auth != null" }
-  }
-}
-```
-
-6. Add your database URL to the untracked `local.properties` file. Keep the existing `sdk.dir` line:
-
-```properties
-FIREBASE_DB_URL=https://YOUR_PROJECT_ID-default-rtdb.YOUR_REGION.firebasedatabase.app
-```
-
-The build reads this value into the app without committing it to Git.
-
-No manual database schema is required. The app creates these paths on its first successful upload:
-
-```text
-readings/{geohash}/{push-id}  # individual readings
-latest/{geohash}              # most recent reading for each area
-history/{geohash}/{date}/{hour} # average score and count
-```
-
-These rules are suitable only for a prototype because every authenticated anonymous user can read and write the shared nodes. Tighten them before production.
-
-## MapTiler setup
-
-1. Create a free MapTiler account and API key.
-2. In the key settings, allow the user-agent `CrowdSense-Android`.
-3. Add this line to your untracked `local.properties` file. Keep the existing `sdk.dir` line.
-
-```properties
-MAPTILER_API_KEY=your_maptiler_key_here
-```
-
-The build embeds this value in the app's map resource. Do not commit `local.properties`; restrict the key and set usage limits because keys bundled in an APK can be extracted. The app uses the MapTiler Streets tile source with required MapTiler and OpenStreetMap attribution. Without a key, map tiles will not load.
+- See crowd pressure estimates on a map.
+- Search supported stations and view available crowd readings.
+- Explore readings and trends over time.
+- Try local mode without configuring Firebase; local readings stay on that device.
+- Connect Firebase for shared readings across participating installs.
 
 ## Data and privacy
 
-CrowdSense uploads a timestamp, latitude/longitude, geohash, score, crowd level, nearby-device counts, average RSSI, cellular pressure, and an anonymous Firebase user ID. It does not upload Bluetooth device addresses or names.
+CrowdSense does not collect Bluetooth device names or addresses, and does not collect names or messages. A Firebase reading includes its timestamp, location, score and level, nearby app-user and anonymous-device counts, average BLE RSSI, cellular pressure, and an anonymous Firebase user ID. Local Room records store timestamp, coordinates/geohash, score, and level. Location is needed to associate crowd readings with places.
 
-## Project stack
+## Getting started
 
-- Kotlin, Jetpack Compose, and Material 3
-- Android BLE scanning and advertising
-- Firebase Authentication (anonymous) and Realtime Database
-- MapTiler Streets through osmdroid
-- Google Play Services Location
+### Requirements
 
-## Troubleshooting
+- Android Studio and the Android SDK required by the project.
+- Android 7.0 (API 24) or newer.
+- A physical BLE capable Android phone for BLE scanning and advertising. An emulator may not support BLE advertising.
+- Location and Bluetooth permissions enabled while using the app.
 
-- **Map is blank:** confirm `MAPTILER_API_KEY` is in `local.properties`, the key allows `CrowdSense-Android`, then sync and rebuild.
-- **Firebase upload fails:** check that `google-services.json`, the database URL, Anonymous Authentication, and the database rules match the steps above.
-- **No nearby devices:** use a physical BLE-capable device, enable Bluetooth and location, and grant the requested permissions. BLE results vary by phone and nearby devices.
+### Run locally
+
+1. Clone this repository and open it in Android Studio.
+2. Let Gradle sync.
+3. Run the app on a physical device and grant the requested Bluetooth and location permissions.
+4. To use local only mode, run without Firebase configuration. Readings will be saved on that phone.
+
+### Optional: configure Firebase
+
+Firebase is used when the app has a valid Firebase app configuration and database URL. To enable shared data:
+
+1. In Firebase Console, add an Android app with package name `com.crowdsense.app`.
+2. Enable Anonymous Authentication and Realtime Database.
+3. Download that Android app's `google-services.json` into `app/google-services.json`.
+4. Add your database URL to the root `local.properties` file:
+
+   ```properties
+   FIREBASE_DB_URL=https://YOUR_PROJECT_ID-default-rtdb.REGION.firebasedatabase.app
+   ```
+
+Use database rules appropriate for your deployment. Do not publish credentials or permissive production rules in this repository.
+
+### Optional: configure map tiles
+
+The map uses MapTiler tiles and needs an API key to display the basemap. Add the key to root `local.properties`:
+
+```properties
+MAPTILER_API_KEY=your_key_here
+```
+
+The key is included in the app build and can be extracted from an APK. Restrict it to the app as supported by MapTiler and set suitable usage limits before distributing a release. Without a key, map tiles may not load.
+
+## Technical overview
+
+- **Android app:** Kotlin, Jetpack Compose, Material 3
+- **Sensing:** Android BLE scan and advertise APIs; cellular signal measurements where available
+- **Data access:** shared repository used by app screens
+- **Shared storage:** Firebase Authentication and Realtime Database
+- **Local storage:** Room database on the device, bounded by the app's retention and record limits
+- **Map:** osmdroid with MapTiler tiles
+- **Location:** Google Play Services Location
+
+## Project layout
+
+```text
+app/src/main/java/com/crowdsense/app/
+├── bluetooth/       BLE scanning, advertising, and nearby device models
+├── localdb/         Room database and local reading store
+├── stations/        Station catalog and crowd matching
+├── userinterface/   Compose screens
+├── navigation/      App navigation
+└── util/            Location, signal, and geohash helpers
+```
+
+## License
+
+CrowdSense is intended to be released under the **Apache License 2.0**. The repository should include the full license text in a `LICENSE` file before public release.
+
+## Acknowledgements
+
+CrowdSense uses open source libraries and map data/services. See the project dependencies and in-app map attribution for their respective licenses and attribution requirements.
