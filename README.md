@@ -48,7 +48,7 @@ Open the folder in Android Studio, allow the Gradle sync to finish, then run the
 ## Firebase setup
 
 1. Create a project in the [Firebase console](https://console.firebase.google.com/).
-2. Add an Android app with package name `com.example.ble`.
+2. Add an Android app with package name `com.crowdsense.app`.
 3. Download `google-services.json` and place it at `app/google-services.json`. It is intentionally ignored by Git.
 4. In **Build > Authentication > Sign-in method**, enable **Anonymous**.
 5. In **Build > Realtime Database**, create a Realtime Database. Choose a location, then open the **Rules** tab and publish these prototype rules:

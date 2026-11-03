@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BLE"
+rootProject.name = "CrowdSense"
 include(":app")
  
