@@ -58,15 +58,13 @@ For older cellular technologies, the app uses a simpler signal-strength fallback
 These bands are prototype estimates, not validated crowd counts.
 ## Screenshots
 
-| Home | Map | Station search |
+| Home (light) | Home (dark) | Station search |
 |:---:|:---:|:---:|
-| ![CrowdSense home screen](image/Img1.jpg) | ![CrowdSense map screen](image/Img2.jpg) | ![CrowdSense station search](image/Img3.jpg) |
+| <img src="image/Img1.jpg" alt="Home screen in light theme" width="190" /> | <img src="image/Img2.jpg" alt="Home screen in dark theme" width="190" /> | <img src="image/Img3.jpg" alt="Station search screen" width="190" /> |
 
-| Crowd insights | Crowd trends | More insights |
+| Developer scan (light) | Developer scan (dark) | Station insights |
 |:---:|:---:|:---:|
-| ![CrowdSense insights screen](image/Img4.jpg) | ![CrowdSense insights chart](image/Img5.jpg) | ![CrowdSense app screen](image/Img6.jpeg) |
-
-
+| <img src="image/Img4.jpg" alt="Developer scan screen in light theme" width="190" /> | <img src="image/Img5.jpg" alt="Developer scan screen in dark theme" width="190" /> | <img src="image/Img6.jpeg" alt="Kurla station crowd insights screen" width="190" /> |
 ## What you can do
 
 - See crowd pressure estimates on a map.
