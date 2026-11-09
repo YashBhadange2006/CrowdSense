@@ -26,6 +26,16 @@ A score is an estimate, not an exact count of people. BLE participation, phone h
 
 ![CrowdSense system overview: sensing, estimating crowd pressure, storing readings, and viewing insights](image/crowdsense-system-overview.png)
 
+## Screenshots
+
+| Home (light) | Home (dark) | Station search |
+|:---:|:---:|:---:|
+| <img src="image/Img1.jpg" alt="Home screen in light theme" width="190" /> | <img src="image/Img2.jpg" alt="Home screen in dark theme" width="190" /> | <img src="image/Img3.jpg" alt="Station search screen" width="190" /> |
+
+| Developer scan (light) | Developer scan (dark) | Station insights |
+|:---:|:---:|:---:|
+| <img src="image/Img4.jpg" alt="Developer scan screen in light theme" width="190" /> | <img src="image/Img5.jpg" alt="Developer scan screen in dark theme" width="190" /> | <img src="image/Img6.jpeg" alt="Kurla station crowd insights screen" width="190" /> |
+
 1. **Sense and broadcast:** The phone scans for nearby BLE devices and advertises a small CrowdSense beacon so other participating phones can detect it.
 2. **Estimate crowd pressure:** CrowdSense combines nearby detected CrowdSense devices and other BLE devices, signal strength, and a cellular signal pressure estimate. The result is an estimate, not a headcount.
 3. **Save a reading:** At intervals, the app records a score with location coordinates/geohash and timestamp. When a location is available, readings are saved about once per minute.
@@ -56,15 +66,7 @@ For older cellular technologies, the app uses a simpler signal-strength fallback
 | Danger | ≥ 38 |
 
 These bands are prototype estimates, not validated crowd counts.
-## Screenshots
 
-| Home (light) | Home (dark) | Station search |
-|:---:|:---:|:---:|
-| <img src="image/Img1.jpg" alt="Home screen in light theme" width="190" /> | <img src="image/Img2.jpg" alt="Home screen in dark theme" width="190" /> | <img src="image/Img3.jpg" alt="Station search screen" width="190" /> |
-
-| Developer scan (light) | Developer scan (dark) | Station insights |
-|:---:|:---:|:---:|
-| <img src="image/Img4.jpg" alt="Developer scan screen in light theme" width="190" /> | <img src="image/Img5.jpg" alt="Developer scan screen in dark theme" width="190" /> | <img src="image/Img6.jpeg" alt="Kurla station crowd insights screen" width="190" /> |
 ## What you can do
 
 - See crowd pressure estimates on a map.
