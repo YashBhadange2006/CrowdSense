@@ -14,6 +14,7 @@
   <a href="#how-it-works">How it works</a> ·
   <a href="#screenshots">Screenshots</a> ·
   <a href="#getting-started">Getting started</a>
+  <a href="https://github.com/YashBhadange2006/CrowdSense/releases/download/v1.0.0/app-release.apk"> Click to download APK</a>
 </p>
 
 ## Why CrowdSense
